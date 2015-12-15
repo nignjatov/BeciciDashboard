@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     minifyCss = require('gulp-minify-css'),
     minifyJs = require('gulp-uglify'),
+    util = require('gulp-util'),
     concat = require('gulp-concat'),
     less = require('gulp-less'),
     rename = require('gulp-rename'),
@@ -12,7 +13,7 @@ var gulp = require('gulp'),
 
 var paths = {
     scripts: 'src/js/**/*.*',
-    styles: 'src/less/**/*.*',
+    styles: 'src/less/*.less',
     images: 'src/img/**/*.*',
     templates: 'src/templates/**/*.html',
     index: 'src/index.html',
@@ -56,14 +57,21 @@ gulp.task('custom-images', function() {
 
 gulp.task('custom-js', function() {
     return gulp.src(paths.scripts)
-        .pipe(minifyJs())
+        //.pipe(minifyJs())
         .pipe(concat('dashboard.min.js'))
         .pipe(gulp.dest('dist/js'));
 });
-
+gulp.task('custom-js-dev', function() {
+  return gulp.src(paths.scripts)
+    .pipe(concat('dashboard.min.js'))
+    .pipe(gulp.dest('dist/js'));
+});
 gulp.task('custom-less', function() {
     return gulp.src(paths.styles)
-        .pipe(less())
+        .pipe(less({
+          paths: paths.styles, // Search paths for imports
+          filename: 'custom.less'
+        }))
         .pipe(gulp.dest('dist/css'));
 });
 
@@ -83,7 +91,13 @@ gulp.task('watch', function() {
     gulp.watch([paths.templates], ['custom-templates']);
     gulp.watch([paths.index], ['usemin']);
 });
-
+gulp.task('watch-dev', function() {
+  gulp.watch([paths.images], ['custom-images']);
+  gulp.watch([paths.styles], ['custom-less']);
+  gulp.watch([paths.scripts], ['custom-js-dev']);
+  gulp.watch([paths.templates], ['custom-templates']);
+  gulp.watch([paths.index], ['usemin']);
+});
 /**
  * Live reload server
  */
@@ -105,4 +119,5 @@ gulp.task('livereload', function() {
  * Gulp tasks
  */
 gulp.task('build', ['usemin', 'build-assets', 'build-custom']);
+gulp.task('dev', ['build', 'webserver', 'livereload', 'watch-dev']);
 gulp.task('default', ['build', 'webserver', 'livereload', 'watch']);
