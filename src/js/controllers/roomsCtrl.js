@@ -1,8 +1,8 @@
 
 angular.module('RDash')
-  .controller('roomsCtrl', ['$scope', '$cookieStore', roomsCtrl]);
+  .controller('roomsCtrl', ['$scope','roomsService', roomsCtrl]);
 
-function roomsCtrl($scope,roomsService) {
+function roomsCtrl($scope, roomsService) {
 
   roomsService.test();
 }
