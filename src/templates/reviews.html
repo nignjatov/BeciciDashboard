@@ -1,2 +1,58 @@
 <div class="row">
+  <div class="col-sm-7">
+    <table class="table table-resposive">
+      <thead>
+      <th>Stars</th>
+      <th>Language</th>
+      <th>Created at</th>
+      <th>Status</th>
+      </thead>
+      <tbody>
+      <tr ng-repeat="review in reviews" ng-click="selectReview(review)">
+        <td>
+          <div class="col-sm-12">
+            <p class="fa fa-star" ng-repeat="star in range(1,review.stars)"></p>
+          </div>
+        </td>
+        <td>{{review.language | language}}</td>
+        <td>{{review.created_at | date : dateFormat}}</td>
+        <td>{{review.status}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div ng-if="selectedReview" class="col-sm-5">
+    <div class="col-sm-12 edit-header">
+      <h4>Review</h4>
+    </div>
+    <div class="col-sm-12 edit-body">
+      <div class="edit-body-row">
+        <div class="col-sm-3">Stars:</div>
+        <div class="col-sm-9">
+          <p class="fa fa-star" ng-repeat="star in range(1,selectedReview.stars)"></p>
+        </div>
+      </div>
+      <div class="edit-body-row">
+        <div class="col-sm-3">Language:</div>
+        <p class="col-sm-9">{{selectedReview.language | language}}</p>
+      </div>
+      <div class="edit-body-row">
+        <div class="col-sm-3">Text:</div>
+        <p class="col-sm-9">{{selectedReview.description}}</p>
+      </div>
+      <div class="edit-body-row">
+        <div class="col-sm-3">Created:</div>
+        <p class="col-sm-9">{{selectedReview.created_at | date : dateFormat}}</p>
+      </div>
+      <div class="edit-body-row">
+        <div class="col-sm-3">Status:</div>
+        <p class="col-sm-9">{{selectedReview.status}}</p>
+      </div>
+      <div class="edit-body-row">
+        <button ng-if="selectedReview.status == 'approved' || selectedReview.status == 'waiting' "class="btn btn-primary col-sm-3 text-right" ng-click="deleteReview()">Delete</button>
+        <button ng-if="selectedReview.status == 'waiting'" class="btn btn-primary col-sm-3" ng-click="approveReview()">Approve</button>
+        <button ng-if="selectedReview.status == 'waiting'" class="btn btn-primary col-sm-3" ng-click="rejectReview()">Reject</button>
+      </div>
+    </div>
+  </div>
 </div>

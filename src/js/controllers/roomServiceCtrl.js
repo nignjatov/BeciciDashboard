@@ -4,4 +4,8 @@ angular.module('RDash')
 
 function roomServiceCtrl($scope) {
 
+  $scope.addRoomService = function () {
+    console.log("ADD");
+  }
+
 }
