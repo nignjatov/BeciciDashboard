@@ -12,20 +12,20 @@
   </div>
   <div class="col-sm-11" ng-repeat="social in socials">
     <div class="col-sm-2">
-      <h5>{{social.name}}</h5>
+      <p><strong>{{social.name}}</strong></p>
     </div>
     <div class="col-sm-2">
       <label class="checkbox-inline"><input type="checkbox" value="" ng-model="social.active">Active</label>
     </div>
-    <hr class="blackhr"/>
     <div class="col-sm-12">
       <div class="col-sm-2">Link</div>
       <div class="col-sm-6"><input type="text" class="form-control" ng-model="social.link"
                                    placeholder="{{social.link}}">
       </div>
     </div>
+    <hr class="blackhr"/>
   </div>
   <div class="col-sm-6">
-    <button class="btn btn-primary col-sm-offset-1 col-sm-2" ng-click="saveSocialData()">SAVE</button>
+    <button class="btn btn-primary col-sm-offset-1 col-sm-2" ng-click="saveSocialData()">Save</button>
   </div>
 </div>

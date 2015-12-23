@@ -55,6 +55,10 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         url: '/contact',
         templateUrl: 'templates/contact.html',
         controller: 'contactCtrl'
+      }).state('editRoom', {
+        url: '/editRoom',
+        templateUrl: 'templates/editRoom.html',
+        controller: 'editRoomCtrl'
       });
   }
 ]);

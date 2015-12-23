@@ -10,7 +10,7 @@
       <th>Created</th>
       </thead>
       <tbody>
-      <tr ng-repeat="roomService in roomServices" ng-click="selectRoomService(roomService)">
+      <tr class="cursor" ng-repeat="roomService in roomServices" ng-click="selectRoomService(roomService)">
         <td>{{getServiceTitleByLang(roomService,defaultLang)}}</td>
         <td>{{roomService.created_at | date : dateFormat }}</td>
       </tr>

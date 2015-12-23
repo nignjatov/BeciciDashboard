@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="edit-body-row col-sm-7">
+    <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">Save</button>
+    <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
+  </div>
+  <div class="edit-body-row col-sm-offset-1 col-sm-4 text-right">
+    <p class="col-sm-5">Language:</p>
+    <select class="col-sm-3" ng-model="usedLang" ng-change="changeLang(usedLang)"
+            ng-options="lang as lang for lang in languages">
+    </select>
+  </div>
+  <div class="col-sm-6">
+    <h5>Edit room:</h5>
+
+    <div class="col-sm-12 edit-room-wrapper">
+      <p>Room type:</p>
+      <input type="text" class="form-control" ng-model="typeEdit"
+             placeholder="{{typeEdit}}"  ng-change="editRoomType(typeEdit)">
+    </div>
+    <div class="col-sm-6 edit-room-wrapper">
+      <p>Price per night({{currency}}):</p>
+      <input type="text" class="form-control" ng-model="room.price"
+             placeholder="{{room.price}}">
+    </div>
+    <div class="col-sm-6 edit-room-wrapper">
+      <p>Number of beds:</p>
+      <input type="text" class="form-control" ng-model="room.bed_number"
+             placeholder="{{room.bed_number}}">
+    </div>
+    <div class="col-sm-12 edit-room-wrapper">
+      <p>Title:</p>
+      <input type="text" class="form-control" ng-model="titleEdit"
+             placeholder="{{titleEdit}}" ng-change="editRoomTitle(titleEdit)">
+    </div>
+    <div class="col-sm-12 edit-room-wrapper">
+      <p>Description:</p>
+      <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="descEdit"
+                ng-change="editRoomDescription(descEdit)">
+      </textarea>
+    </div>
+    <div class="col-sm-12 edit-room-wrappers">
+      <p>Image:</p>
+      <!-- TODO insert image upload form-->
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <h5>Additional information:</h5>
+
+    <div class="col-sm-12 edit-room-wrapper">
+      <p>Room availability:</p>
+      <button class="btn btn-primary col-sm-2" ng-click="addNewTermin()">Add</button>
+      <div class=col-sm-12 ng-if="newTermin">
+        <div class="col-sm-6 edit-room-wrapper">
+          <p>From:</p>
+          <input type="text" class="form-control" ng-model="newTermin.from"
+                 placeholder="{{newTermin.from}}">
+        </div>
+        <div class="col-sm-6 edit-room-wrapper">
+          <p>To:</p>
+          <input type="text" class="form-control" ng-model="newTermin.to"
+                 placeholder="{{newTermin.to}}">
+        </div>
+        <div class="col-sm-12 edit-room-wrapper">
+          <p>Number of rooms:</p>
+          <input type="text" class="form-control" ng-model="newTermin.amount"
+                 placeholder="{{newTermin.amount}}">
+        </div>
+        <div class="col-sm-12 edit-room-wrapper">
+         <button class="btn btn-primary col-sm-2" ng-click="saveNewTermin()">Save</button>
+        </div>
+      </div>
+      <table class="col-sm-12 edit-room-wrapper">
+        <thead>
+        <th>Number of rooms</th>
+        <th>From</th>
+        <th>To</th>
+        </thead>
+        <tbody>
+        <tr ng-repeat="termin in room.available">
+          <td>{{termin.amount}}</td>
+          <td>{{termin.from | date : dateFormat}}</td>
+          <td>{{termin.to | date : dateFormat}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-12 edit-room-wrapper">
+      <p>Room services:</p>
+      <label class="col-sm-12" ng-repeat="service in room.free_services"><input type="checkbox" value="service.active" ng-model="service.active">{{getRoomServiceByLang(service,usedLang)}}</label>
+    </div>
+  </div>
+</div>

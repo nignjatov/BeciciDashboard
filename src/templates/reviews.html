@@ -8,7 +8,7 @@
       <th>Status</th>
       </thead>
       <tbody>
-      <tr ng-repeat="review in reviews" ng-click="selectReview(review)">
+      <tr class="cursor" ng-repeat="review in reviews" ng-click="selectReview(review)">
         <td>
           <div class="col-sm-12">
             <p class="fa fa-star" ng-repeat="star in range(1,review.stars)"></p>

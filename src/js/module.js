@@ -31,6 +31,7 @@ var RDashApp = angular.module('RDash', ['ui.bootstrap', 'ui.router', 'ngCookies'
 
 RDashApp.run(function ($rootScope){
 
+  $rootScope.currency = "RSD";
   $rootScope.dateFormat = 'medium';
   $rootScope.defaultLang = 'en';
   $rootScope.languages = [

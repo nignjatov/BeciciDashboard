@@ -11,7 +11,7 @@
       <th>Last modified</th>
       </thead>
       <tbody>
-      <tr ng-repeat="freeService in freeServices" ng-click="selectFreeService(freeService)">
+      <tr class="cursor" ng-repeat="freeService in freeServices" ng-click="selectFreeService(freeService)">
         <td>{{getServiceTitleByLang(freeService,defaultLang)}}</td>
         <td>{{freeService.created_at | date : dateFormat }}</td>
         <td>{{freeService.last_modified | date : dateFormat}}</td>
