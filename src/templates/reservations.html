@@ -1,2 +1,72 @@
 <div class="row">
+  <div class="col-sm-7">
+    <table class="table table-responsive">
+      <thead>
+      <th>User</th>
+      <th>Room</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Status</th>
+      <th>Created at</th>
+      </thead>
+      <tbody>
+      <tr ng-repeat="reservation in reservations" ng-click="selectReservation(reservation)">
+        <td>{{reservation.user.email}}</td>
+        <td>{{reservation.room.type}}</td>
+        <td>{{reservation.start_date | date : dateFormat}}</td>
+        <td>{{reservation.end_date | date : dateFormat}}</td>
+        <td>{{reservation.status}}</td>
+        <td>{{reservation.created_at | date : dateFormat}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div ng-if="selectedReservation" class="col-sm-5">
+    <div class="col-sm-12 edit-header">
+      <h4>Reservation</h4>
+    </div>
+    <div class="col-sm-12 edit-body">
+      <div class="edit-body-row">
+        <p class="col-sm-4">First name:</p>
+        <p class="col-sm-8">{{selectedReservation.user.firstName}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">Last name:</p>
+        <p class="col-sm-8">{{selectedReservation.user.lastName}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">E-Mail:</p>
+        <p class="col-sm-8">{{selectedReservation.user.email}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">Room type:</p>
+        <p class="col-sm-8">{{selectedReservation.room.type}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">Start date:</p>
+        <p class="col-sm-8">{{selectedReservation.start_date | date : dateFormat}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">End date:</p>
+        <p class="col-sm-8">{{selectedReservation.end_date | date : dateFormat}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">Created at:</p>
+        <p class="col-sm-8">{{selectedReservation.created_at | date : dateFormat}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">Transaction:</p>
+        <p class="col-sm-8">{{selectedReservation.transaction.id}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-4">Status:</p>
+        <p class="col-sm-8">{{selectedReservation.status}}</p>
+      </div>
+      <div class="edit-body-row">
+        <button ng-if="selectedReservation.status == 'approved' || selectedReservation.status == 'waiting' "class="btn btn-primary col-sm-3 text-right" ng-click="archiveReservation()">Archive</button>
+        <button ng-if="selectedReservation.status == 'waiting'" class="btn btn-primary col-sm-3" ng-click="approveReservation()">Approve</button>
+        <button ng-if="selectedReservation.status == 'waiting'" class="btn btn-primary col-sm-3" ng-click="rejectReservation()">Reject</button>
+      </div>
+    </div>
+  </div>
 </div>
