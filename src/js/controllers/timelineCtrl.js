@@ -11,6 +11,17 @@ function timelineCtrl($scope, $rootScope) {
 
   $scope.descLang = $rootScope.defaultLang;
 
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+  $scope.format = 'shortDate';
+
+  $scope.status = {
+    opened: false
+  };
+
   $scope.timelineEvents = [{
     title: [
       {
@@ -39,10 +50,10 @@ function timelineCtrl($scope, $rootScope) {
     $scope.editTimelineEvent = angular.extend({}, timelineEvent);
 
     $scope.descLang = $rootScope.defaultLang;
-    $scope.editDesc = $scope.getDescriptionByLang($scope.editTimelineEvent, $scope.descLang);
+    $scope.reloadDescriptionByLang($scope.editTimelineEvent, $scope.descLang);
 
     $scope.titleLang = $rootScope.defaultLang;
-    $scope.editTitle = $scope.getTitleByLang($scope.editTimelineEvent, $scope.titleLang);
+    $scope.reloadTitleByLang($scope.editTimelineEvent, $scope.titleLang);
   }
 
   $scope.getTitleByLang = function (timelineEvent, lang) {
@@ -54,9 +65,19 @@ function timelineCtrl($scope, $rootScope) {
     return '';
   }
 
-  $scope.getDescriptionByLang = function (timelineEvent, lang) {
+  $scope.reloadTitleByLang = function (timelineEvent, lang) {
+    for (var i = 0; i < timelineEvent.title.length; i++) {
+      if (timelineEvent.title[i].lang == lang) {
+        $scope.editTitle = timelineEvent.title[i].text;
+        return timelineEvent.title[i].text;
+      }
+    }
+    return '';
+  }
+  $scope.reloadDescriptionByLang = function (timelineEvent, lang) {
     for (var i = 0; i < timelineEvent.description.length; i++) {
       if (timelineEvent.description[i].lang == lang) {
+        $scope.editDesc = timelineEvent.description[i].text;
         return timelineEvent.description[i].text;
       }
     }
@@ -118,7 +139,7 @@ function timelineCtrl($scope, $rootScope) {
 
   $scope.changeDescLang = function (lang) {
     $scope.descLang = lang;
-    $scope.editDesc = $scope.getDescriptionByLang($scope.editTimelineEvent, $scope.descLang);
+    $scope.reloadDescriptionByLang($scope.editTimelineEvent, $scope.descLang);
     console.log("Changed desc lang,text: " + $scope.editDesc);
   }
 
@@ -132,7 +153,11 @@ function timelineCtrl($scope, $rootScope) {
 
   $scope.changeTitleLang = function (lang) {
     $scope.titleLang = lang;
-    $scope.editTitle = $scope.getTitleByLang($scope.editTimelineEvent, $scope.titleLang);
+    $scope.reloadTitleByLang($scope.editTimelineEvent, $scope.titleLang);
     console.log("Changed title lang,text: " + $scope.editTitle);
   }
+
+  $scope.open = function($event) {
+    $scope.status.opened = true;
+  };
 }

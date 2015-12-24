@@ -21,6 +21,15 @@ function editRoomCtrl($scope,$rootScope,$window, roomsService) {
   $scope.typeEdit = "";
   $scope.descEdit = "";
 
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+  $scope.format = 'shortDate';
+
+  $scope.status = {
+    opened: false
+  };
   $scope.room = {
     title : [
       {
@@ -166,6 +175,10 @@ function editRoomCtrl($scope,$rootScope,$window, roomsService) {
     $scope.getRoomTypeByLang($scope.usedLang);
     $scope.getRoomDescriptionByLang($scope.usedLang);
   }
+
+  $scope.open = function($event) {
+    $scope.status.opened = true;
+  };
 
   $scope.getRoomTitleByLang($scope.usedLang);
   $scope.getRoomTypeByLang($scope.usedLang);

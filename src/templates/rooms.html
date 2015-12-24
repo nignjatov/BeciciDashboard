@@ -1,4 +1,4 @@
-<div class="background">
+<div class="row">
   <div class="col-sm-12">
     <button class="btn btn-primary  col-sm-2" ng-click="addRoom()"><i class="fa fa-plus"></i> Add
     </button>
@@ -7,10 +7,11 @@
     <div class="col-sm-4" ng-repeat="room in rooms" ng-click="selectRoom(room)">
       <div class="box-wrapper text-center cursor">
         <div class="img-container">
-          <img class="text-center "src="{{room.image}}" class=" img-thumbnail">
+          <img class="text-center " src="{{room.image}}" class=" img-thumbnail">
         </div>
 
         <p>{{room.title}}</p>
+
         <p><strong>{{room.price}} {{currency}}</strong> per night</p>
       </div>
     </div>
@@ -22,28 +23,33 @@
     <div class="col-sm-12 edit-body">
       <div class="edit-body-row">
         <p class="col-sm-3">Title:</p>
+
         <p class="col-sm-9">{{selectedRoom.title}}</p>
       </div>
       <div class="edit-body-row">
         <p class="col-sm-3">Type:</p>
+
         <p class="col-sm-9">{{selectedRoom.type}}</p>
       </div>
       <div class="edit-body-row">
         <p class="col-sm-3">Price:</p>
+
         <p class="col-sm-9"><strong>{{selectedRoom.price}} {{currency}}</strong> per night</p>
       </div>
-    </div>
-    <div class="edit-body-row">
-      <p class="col-sm-3">Created:</p>
-      <p class="col-sm-9">{{selectedRoom.created_at | date : dateFormat}}</p>
-    </div>
-    <div class="edit-body-row">
-      <p class="col-sm-3">Modified:</p>
-      <p class="col-sm-9">{{selectedRoom.last_modified | date : dateFormat}}</p>
-    </div>
-    <div class="edit-body-row">
-      <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteRoom()">Delete</button>
-      <button class="btn btn-primary col-sm-3" ng-click="updateRoom()">Update</button>
+      <div class="edit-body-row">
+        <p class="col-sm-3">Created:</p>
+
+        <p class="col-sm-9">{{selectedRoom.created_at | date : dateFormat}}</p>
+      </div>
+      <div class="edit-body-row">
+        <p class="col-sm-3">Modified:</p>
+
+        <p class="col-sm-9">{{selectedRoom.last_modified | date : dateFormat}}</p>
+      </div>
+      <div class="edit-body-row">
+        <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteRoom()">Delete</button>
+        <button class="btn btn-primary col-sm-3" ng-click="updateRoom()">Update</button>
+      </div>
     </div>
   </div>
 </div>

@@ -46,7 +46,14 @@
       </div>
       <div class="edit-body-row">
         <div class="col-sm-3">Happened:</div>
-        <p class="col-sm-9">{{editTimelineEvent.moment | date : dateFormat}}</p>
+        <div class="col-md-12">
+          <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="editTimelineEvent.moment" is-open="status.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+          </p>
+        </div>
       </div>
       <div class="edit-body-row">
         <div class="col-sm-3">Created:</div>
