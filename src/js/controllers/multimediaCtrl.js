@@ -39,7 +39,7 @@ function multimediaCtrl($scope,$rootScope) {
       ],
       created_at : Date.now(),
       last_modified : Date.now()
-    },
+    }
   ];
 
   $scope.selectAlbum = function(album){

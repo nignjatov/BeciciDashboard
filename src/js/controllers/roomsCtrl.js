@@ -4,6 +4,7 @@ angular.module('RDash')
 
 function roomsCtrl($scope, roomsService) {
 
+  roomsService.test();
   $scope.selectedRoom = null;
 
   $scope.rooms = [

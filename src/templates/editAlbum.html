@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="edit-body-row col-sm-7">
+    <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">Save</button>
+    <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
+  </div>
+  <div class="col-sm-12">
+    <div class="col-sm-5">
+      <div class="col-sm-3">Title:</div>
+      <div class="text-right">
+        <select ng-model="titleLang" ng-change="changeLang(titleLang)"
+                ng-options="lang as lang for lang in languages">
+        </select>
+      </div>
+      <input type="text" class="form-control col-sm-12 text-left" ng-model="titleEdit"
+             ng-change="editAlbumTitle(titleEdit)">
+      </input>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="col-sm-8">
+      <div class="col-sm-4" ng-repeat="image in album.images">
+        <div class="col-sm-12 box-wrapper text-center cursor">
+          <div class="img-container">
+            <img class="text-center " src="{{image}}" class=" img-thumbnail">
+          </div>
+          <div class="col-sm-10 col-sm-offset-1">
+            <button class="btn btn-primary" ng-click="deleteImage(image)">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="col-sm-8">
+        <h5>Images:</h5>
+      </div>
+
+      <div class="col-sm-12 edit-room-wrappers">
+        <div flow-init class="col-sm-12 album_img_preview_container ">
+          <div ng-show="!$flow.files.length">
+            <img src="{{room.img}}"/>
+          </div>
+          <div ng-show="$flow.files.length">
+            <img flow-img="$flow.files[0]"/>
+          </div>
+          <div>
+          <span class="btn btn-primary" ng-show="!$flow.files.length"
+                flow-btn>Add new image<input
+              type="file"
+              style="visibility: hidden; position: absolute;"></span>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>Change image<input type="file"
+                                            style="visibility: hidden; position: absolute;"></span>
+            <a class="btn btn-primary" ng-show="$flow.files.length"
+               ng-click="$flow.cancel()">
+              Delete
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

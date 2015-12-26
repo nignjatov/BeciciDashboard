@@ -4,13 +4,15 @@ angular.module('RDash')
 
 function freeServicesCtrl($scope,$rootScope) {
 
-  $scope.editFreeService = null;
 
-  $scope.editDesc  = "";
-  $scope.editTitle = "";
-  $scope.titleLang = $rootScope.defaultLang;
 
-  $scope.descLang = $rootScope.defaultLang;
+  $scope.editDesc  = {
+    text : ""
+  };
+  $scope.editTitle = {
+    text : ""
+  };
+  $scope.usedLang = $rootScope.defaultLang;
 
   $scope.freeServices = [{
     title: [
@@ -34,16 +36,39 @@ function freeServicesCtrl($scope,$rootScope) {
     img: "",
     created_at: Date.now(),
     last_modified: Date.now()
-  }];
+  },
+    {
+      title: [
+        {
+          text: 'Pool',
+          lang: 'en'
+        },
+        {
+          text: 'Bazen',
+          lang: 'rs'
+        }],
+      description: [
+        {
+          text: 'Swim for free',
+          lang: 'en'
+        },
+        {
+          text: 'Plivajte besplatno',
+          lang: 'rs'
+        }],
+      img: "http://www.arrowwoodresort.com/images/sized/up/gallery/Family_Room_3-140x140.jpg",
+      created_at: Date.now(),
+      last_modified: Date.now()
+    }];
+
+  $scope.editFreeService = null;
 
   $scope.selectFreeService = function (freeService) {
-    $scope.editFreeService = angular.extend({}, freeService);
+    $scope.editFreeService = freeService;
 
-    $scope.descLang = $rootScope.defaultLang;
-    $scope.editDesc = $scope.getServiceDescriptionByLang($scope.editFreeService, $scope.descLang);
-
-    $scope.titleLang = $rootScope.defaultLang;
-    $scope.editTitle = $scope.getServiceTitleByLang($scope.editFreeService, $scope.titleLang);
+    $scope.usedLang = $rootScope.defaultLang;
+    $scope.getServiceDescriptionByLang($scope.usedLang);
+    $scope.reloadServiceTitleByLang($scope.usedLang);
   }
 
   $scope.getServiceTitleByLang = function (freeService, lang) {
@@ -55,10 +80,21 @@ function freeServicesCtrl($scope,$rootScope) {
     return '';
   }
 
-  $scope.getServiceDescriptionByLang = function (freeService, lang) {
-    for (var i = 0; i < freeService.description.length; i++) {
-      if (freeService.description[i].lang == lang) {
-        return freeService.description[i].text;
+  $scope.reloadServiceTitleByLang = function (lang) {
+    for (var i = 0; i < $scope.editFreeService.title.length; i++) {
+      if ($scope.editFreeService.title[i].lang == lang) {
+        $scope.editTitle.text = $scope.editFreeService.title[i].text;
+        return $scope.editFreeService.title[i].text;
+      }
+    }
+    return '';
+  }
+
+  $scope.getServiceDescriptionByLang = function (lang) {
+    for (var i = 0; i < $scope.editFreeService.description.length; i++) {
+      if ($scope.editFreeService.description[i].lang == lang) {
+        $scope.editDesc.text = $scope.editFreeService.description[i].text;
+        return $scope.editFreeService.description[i].text;
       }
     }
     return '';
@@ -90,11 +126,9 @@ function freeServicesCtrl($scope,$rootScope) {
     };
 
 
-    $scope.descLang = $rootScope.defaultLang;
-    $scope.editDesc = $scope.getServiceDescriptionByLang($scope.editFreeService, $scope.descLang);
-
-    $scope.titleLang = $rootScope.defaultLang;
-    $scope.editTitle = $scope.getServiceTitleByLang($scope.editFreeService, $scope.titleLang);
+    $scope.usedLang = $rootScope.defaultLang;
+    $scope.getServiceDescriptionByLang($scope.usedLang);
+    $scope.reloadServiceTitleByLang($scope.titleLang);
 
     $scope.freeServices.push($scope.editFreeService);
 
@@ -103,6 +137,7 @@ function freeServicesCtrl($scope,$rootScope) {
   $scope.saveFreeService   = function () {
     console.log($scope.editFreeService);
   }
+
   $scope.deleteFreeService = function () {
     $scope.freeServices.splice($scope.freeServices.indexOf($scope.editFreeService), 1);
     $scope.editFreeService = null;
@@ -110,29 +145,23 @@ function freeServicesCtrl($scope,$rootScope) {
 
   $scope.editFreeServiceDescription = function (desc) {
     for (var i = 0; i < $scope.editFreeService.description.length; i++) {
-      if ($scope.editFreeService.description[i].lang == $scope.descLang) {
+      if ($scope.editFreeService.description[i].lang == $scope.usedLang) {
         $scope.editFreeService.description[i].text = desc;
       }
     }
   }
 
-  $scope.changeDescLang = function (lang) {
-    $scope.descLang = lang;
-    $scope.editDesc = $scope.getServiceDescriptionByLang($scope.editFreeService, $scope.descLang);
-    console.log("Changed desc lang,text: " + $scope.editDesc);
-  }
-
   $scope.editFreeServiceTitle = function (title) {
     for (var i = 0; i < $scope.editFreeService.title.length; i++) {
-      if ($scope.editFreeService.title[i].lang == $scope.titleLang) {
+      if ($scope.editFreeService.title[i].lang == $scope.usedLang) {
         $scope.editFreeService.title[i].text = title;
       }
     }
   }
 
-  $scope.changeTitleLang = function (lang) {
-    $scope.titleLang = lang;
-    $scope.editTitle = $scope.getServiceTitleByLang($scope.editFreeService, $scope.titleLang);
-    console.log("Changed title lang,text: " + $scope.editTitle);
+  $scope.changeLang = function (lang) {
+    $scope.usedLang = lang;
+    $scope.reloadServiceTitleByLang($scope.usedLang);
+    $scope.getServiceDescriptionByLang($scope.usedLang);
   }
 }

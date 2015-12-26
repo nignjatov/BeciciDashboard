@@ -13,7 +13,8 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
     $stateProvider
       .state('index', {
         url: '/',
-        templateUrl: 'templates/dashboard.html'
+        templateUrl: 'templates/dashboard.html',
+        controller: 'dashboardCtrl'
       })
       .state('rooms', {
         url: '/rooms',
@@ -59,6 +60,10 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         url: '/editRoom',
         templateUrl: 'templates/editRoom.html',
         controller: 'editRoomCtrl'
+      }).state('editAlbum', {
+        url: '/editAlbum',
+        templateUrl: 'templates/editAlbum.html',
+        controller: 'editAlbumCtrl'
       });
   }
 ]);

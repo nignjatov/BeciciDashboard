@@ -21,29 +21,24 @@
   </div>
   <div ng-if="editFreeService" class="col-sm-5">
     <div class="col-sm-12 edit-header">
-      <h4>Free Service</h4>
+      <h4 class="col-sm-6" >Free Service</h4>
+      <div class="col-sm-3 col-sm-offset-3 text-right select_join">
+        <select ng-model="usedLang" ng-change="changeLang(usedLang)"
+                ng-options="lang as lang for lang in languages">
+        </select>
+      </div>
     </div>
     <div class="col-sm-12 edit-body">
       <div class="col-sm-12">
         <div class="col-sm-3">Title:</div>
-        <div class="text-right">
-          <select ng-model="titleLang" ng-change="changeTitleLang(titleLang)"
-                  ng-options="lang as lang for lang in languages">
-          </select>
-        </div>
-        <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle"
-               ng-change="editFreeServiceTitle(editTitle)">
+        <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle.text"
+               ng-change="editFreeServiceTitle(editTitle.text)">
         </input>
       </div>
       <div class=" col-sm-12 ">
         <div class="col-sm-3">Description:</div>
-        <div class="text-right">
-          <select ng-model="descLang" ng-change="changeDescLang(descLang)"
-                  ng-options="lang as lang for lang in languages">
-          </select>
-        </div>
-        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editDesc"
-                  ng-change="editFreeServiceDescription(editDesc)">
+        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editDesc.text"
+                  ng-change="editFreeServiceDescription(editDesc.text)">
         </textarea>
       </div>
       <div class="col-sm-12 text-center "height="200px" width="128px">
