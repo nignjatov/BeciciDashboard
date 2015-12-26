@@ -15,6 +15,7 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-noti
   })
   .config(['flowFactoryProvider','$httpProvider', function (flowFactoryProvider,$httpProvider) {
 
+
     $httpProvider.interceptors.push('myHttpInterceptor');
 
     flowFactoryProvider.defaults = {

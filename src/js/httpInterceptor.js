@@ -5,7 +5,7 @@ angular.module('RDash').factory('myHttpInterceptor', function($q) {
       // do something on success
       console.log(config);
       if(!/.html/.test(config.url)){
-        config.url = "http://194.106.182.81:3000/api"+ config.url;
+        config.url = "http://192.168.1.3:3000/api"+ config.url;
         console.log("NEW URL "+ config.url);
       }
       return config;

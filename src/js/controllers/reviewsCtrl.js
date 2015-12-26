@@ -1,27 +1,18 @@
 
 angular.module('RDash')
-  .controller('reviewsCtrl', ['$scope', '$rootScope','$cookieStore', reviewsCtrl]);
+  .controller('reviewsCtrl', ['$scope', '$rootScope','$cookieStore','ReviewsService', reviewsCtrl]);
 
-function reviewsCtrl($scope,$rootScope) {
+function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService) {
+
+  ReviewsService.getAllReviews()
+    .then(function (data) {
+      $scope.reviews =  data.data;
+    });
 
   $scope.selectedReview = null;
 
-  $scope.reviews = [{
-    stars: 1,
-    description : "VEEEEEEEEEEEEEERY LONG DESCRIPTION",
-    language : 'en',
-    status : 'waiting',
-    created_at : Date.now()
-  },{
-    stars: 5,
-    description : "Vasdasdasdadsadsadasdasdq rgbwserfgfbvxcbsefb",
-    language : 'rs',
-    status : 'approved',
-    created_at : Date.now()
-  }];
-
   $scope.selectReview = function(review){
-    console.log(review);
+
     $scope.selectedReview = review;
   }
 
@@ -33,13 +24,24 @@ function reviewsCtrl($scope,$rootScope) {
   };
 
   $scope.deleteReview = function(){
-    $scope.reviews.splice($scope.reviews.indexOf($scope.selectedReview),1);
-    $scope.selectedReview = null;
+    ReviewsService.deleteReview($scope.selectedReview._id)
+      .then(function () {
+        $scope.reviews.splice($scope.reviews.indexOf($scope.selectedReview), 1);
+        $scope.selectedReview = null;
+      });
   }
   $scope.rejectReview = function(){
-    $scope.selectedReview.status = 'rejected';
+    ReviewsService.changeReviewStatus($scope.selectedReview._id,'rejected')
+      .then(function () {
+        $scope.selectedReview.status = 'rejected';
+      });
+
   }
   $scope.approveReview = function(){
-    $scope.selectedReview.status = 'approved';
+    ReviewsService.changeReviewStatus($scope.selectedReview._id,'approved')
+      .then(function () {
+        $scope.selectedReview.status = 'approved';
+      });
+
   }
 }

@@ -45,6 +45,15 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'templates/timeline.html',
         controller: 'timelineCtrl'
       }).state('reviews', {
+        //resolve: {
+        //  reviewsObj: function (ReviewsService) {
+        //    return ReviewsService.getAllReviews()
+        //      .then(function (data) {
+        //        console.log(data.data[0]);
+        //        return data.data;
+        //      });
+        //  }
+        //},
         url: '/reviews',
         templateUrl: 'templates/reviews.html',
         controller: 'reviewsCtrl'

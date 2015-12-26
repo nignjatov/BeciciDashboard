@@ -1,7 +1,15 @@
 angular.module('RDash')
-  .controller('socialCtrl', ['$scope', '$cookieStore', socialCtrl]);
+  .controller('socialCtrl', ['$scope', 'SocialService', socialCtrl]);
 
-function socialCtrl($scope) {
+function socialCtrl($scope, SocialService) {
+
+  $scope.socials = [];
+
+  SocialService.getAllNetworks()
+    .then(function (data) {
+      $scope.socials = data.data;
+      filterNetworks();
+    });
 
   $scope.addNetworkName  = "";
   $scope.defaultNetworks = [
@@ -9,30 +17,40 @@ function socialCtrl($scope) {
     "Twitter",
     "YouTube"
   ];
-  $scope.socials = [
-    {
-      name: "Facebook",
-      active: false,
-      link: ""
-    }
-  ];
 
   $scope.addNetwork = function () {
     if ($scope.addNetworkName != "") {
-      $scope.socials.push({
-        name: $scope.addNetworkName,
-        active: false,
-        link: ""
-      });
-      filterNetworks();
-      console.log($scope.socials);
-      $scope.addNetworkName  = ""
+      SocialService.createNetwork({
+        network: $scope.addNetworkName
+      })
+        .then(function (data) {
+          $scope.socials.push({
+            network: $scope.addNetworkName,
+            active: false,
+            link: ""
+          });
+          filterNetworks();
+          console.log($scope.socials);
+          $scope.addNetworkName = ""
+        });
     }
   }
 
-  $scope.saveSocialData = function(){
-    console.log($scope.socials);
+  $scope.saveSocialData   = function (social) {
+    SocialService.updateNetwork(social._id, {
+      active: social.active,
+      link: social.link
+    }).then(function (data) {
+      console.log(social);
+    });
+
   }
+  $scope.deleteSocialData = function (social) {
+    SocialService.deleteNetwork(social._id).then(function (data) {
+      console.log(social);
+    });
+  }
+
   function filterNetworks() {
     for (var i = 0; i < $scope.defaultNetworks.length; i++) {
       for (var j = 0; j < $scope.socials.length; j++) {
@@ -43,5 +61,4 @@ function socialCtrl($scope) {
     }
   }
 
-  filterNetworks();
 }

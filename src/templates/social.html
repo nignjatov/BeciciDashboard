@@ -10,22 +10,29 @@
   </div>
   <div class="col-sm-12"><h4>Added Networks:</h4>
   </div>
-  <div class="col-sm-11" ng-repeat="social in socials">
-    <div class="col-sm-2">
-      <p><strong>{{social.name}}</strong></p>
+  <div class="col-sm-10" ng-repeat="social in socials">
+    <div class="col-sm-9" >
+      <div class="col-sm-2">
+        <p><strong>{{social.network}}</strong></p>
+      </div>
+      <div class="col-sm-2">
+        <label class="checkbox-inline"><input type="checkbox" value="" ng-model="social.active">Active</label>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-2">Link</div>
+        <div class="col-sm-8"><input type="text" class="form-control" ng-model="social.link"
+                                     placeholder="{{social.link}}">
+        </div>
+      </div>
     </div>
-    <div class="col-sm-2">
-      <label class="checkbox-inline"><input type="checkbox" value="" ng-model="social.active">Active</label>
-    </div>
-    <div class="col-sm-12">
-      <div class="col-sm-2">Link</div>
-      <div class="col-sm-6"><input type="text" class="form-control" ng-model="social.link"
-                                   placeholder="{{social.link}}">
+    <div class="col-sm-3">
+      <div class="col-sm-12">
+        <button class="btn btn-primary col-sm-8 social-button" ng-click="saveSocialData(social)">Save</button>
+      </div>
+      <div class="col-sm-12">
+        <button class="btn btn-primary col-sm-8 social-button" ng-click="deleteSocialData(social)">Delete</button>
       </div>
     </div>
     <hr class="blackhr"/>
-  </div>
-  <div class="col-sm-6">
-    <button class="btn btn-primary col-sm-offset-1 col-sm-2" ng-click="saveSocialData()">Save</button>
   </div>
 </div>
