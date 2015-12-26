@@ -47,7 +47,7 @@ function socialCtrl($scope, SocialService) {
   }
   $scope.deleteSocialData = function (social) {
     SocialService.deleteNetwork(social._id).then(function (data) {
-      console.log(social);
+      $scope.socials.splice($scope.socials.indexOf(social), 1);
     });
   }
 
