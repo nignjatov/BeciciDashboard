@@ -1,10 +1,8 @@
 
 angular.module('RDash')
-  .controller('freeServicesCtrl', ['$scope', '$rootScope','$cookieStore', freeServicesCtrl]);
+  .controller('freeServicesCtrl', ['$scope', '$rootScope','HotelServicesService', freeServicesCtrl]);
 
-function freeServicesCtrl($scope,$rootScope) {
-
-
+function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
 
   $scope.editDesc  = {
     text : ""
@@ -12,61 +10,19 @@ function freeServicesCtrl($scope,$rootScope) {
   $scope.editTitle = {
     text : ""
   };
-  $scope.usedLang = $rootScope.defaultLang;
 
-  $scope.freeServices = [{
-    title: [
-      {
-        text: 'Children animation',
-        lang: 'en'
-      },
-      {
-        text: 'Animacija za decu',
-        lang: 'rs'
-      }],
-    description: [
-      {
-        text: 'Animate your child',
-        lang: 'en'
-      },
-      {
-        text: 'Zabavite vase dete',
-        lang: 'rs'
-      }],
-    img: "",
-    created_at: Date.now(),
-    last_modified: Date.now()
-  },
-    {
-      title: [
-        {
-          text: 'Pool',
-          lang: 'en'
-        },
-        {
-          text: 'Bazen',
-          lang: 'rs'
-        }],
-      description: [
-        {
-          text: 'Swim for free',
-          lang: 'en'
-        },
-        {
-          text: 'Plivajte besplatno',
-          lang: 'rs'
-        }],
-      img: "http://www.arrowwoodresort.com/images/sized/up/gallery/Family_Room_3-140x140.jpg",
-      created_at: Date.now(),
-      last_modified: Date.now()
-    }];
+  $scope.usedLang = $rootScope.defaultLang;
 
   $scope.editFreeService = null;
 
+  HotelServicesService.getFreeServices().then (function (data) {
+    $scope.freeServices = data.data;
+  });
+
   $scope.selectFreeService = function (freeService) {
     $scope.editFreeService = freeService;
-
     $scope.usedLang = $rootScope.defaultLang;
+
     $scope.getServiceDescriptionByLang($scope.usedLang);
     $scope.reloadServiceTitleByLang($scope.usedLang);
   }
@@ -102,6 +58,7 @@ function freeServicesCtrl($scope,$rootScope) {
 
   $scope.addFreeService = function () {
     $scope.editFreeService = {
+      serviceType: "freeService",
       title: [
         {
           text: '',
@@ -121,26 +78,34 @@ function freeServicesCtrl($scope,$rootScope) {
           lang: 'rs'
         }],
       img: "",
-      created_at: Date.now(),
-      last_modified: Date.now()
     };
 
 
     $scope.usedLang = $rootScope.defaultLang;
     $scope.getServiceDescriptionByLang($scope.usedLang);
     $scope.reloadServiceTitleByLang($scope.titleLang);
-
-    $scope.freeServices.push($scope.editFreeService);
-
   }
 
   $scope.saveFreeService   = function () {
-    console.log($scope.editFreeService);
+    if (typeof $scope.editFreeService._id  === 'undefined') {
+      //new service
+      console.log("Creating free service ");
+      HotelServicesService.createService($scope.editFreeService).then(function(data){
+        $scope.freeServices.push(data.data);
+        $scope.editFreeService = null;
+      });
+    } else {
+      HotelServicesService.updateService($scope.editFreeService._id,$scope.editFreeService).then(function (data) {
+        $scope.editFreeService = null;
+      });
+    }
   }
 
   $scope.deleteFreeService = function () {
-    $scope.freeServices.splice($scope.freeServices.indexOf($scope.editFreeService), 1);
-    $scope.editFreeService = null;
+    HotelServicesService.deleteHotelService($scope.editFreeService._id).then(function (data) {
+      $scope.freeServices.splice($scope.freeServices.indexOf($scope.editFreeService), 1);
+      $scope.editFreeService = null;
+    });
   }
 
   $scope.editFreeServiceDescription = function (desc) {

@@ -24,11 +24,7 @@ function socialCtrl($scope, SocialService) {
         network: $scope.addNetworkName
       })
         .then(function (data) {
-          $scope.socials.push({
-            network: $scope.addNetworkName,
-            active: false,
-            link: ""
-          });
+          $scope.socials.push(data.data);
           filterNetworks();
           console.log($scope.socials);
           $scope.addNetworkName = ""
@@ -48,17 +44,17 @@ function socialCtrl($scope, SocialService) {
   $scope.deleteSocialData = function (social) {
     SocialService.deleteNetwork(social._id).then(function (data) {
       $scope.socials.splice($scope.socials.indexOf(social), 1);
+      filterNetworks();
     });
   }
 
   function filterNetworks() {
     for (var i = 0; i < $scope.defaultNetworks.length; i++) {
       for (var j = 0; j < $scope.socials.length; j++) {
-        if ($scope.defaultNetworks[i] == $scope.socials[j].name) {
+        if ($scope.defaultNetworks[i] == $scope.socials[j].network) {
           $scope.defaultNetworks.splice(i, 1);
         }
       }
     }
   }
-
 }

@@ -1,33 +1,23 @@
-
 angular.module('RDash')
-  .controller('roomServiceCtrl', ['$scope', '$rootScope','$cookieStore', roomServiceCtrl]);
+  .controller('roomServiceCtrl', ['$scope', '$rootScope', 'HotelServicesService', roomServiceCtrl]);
 
-function roomServiceCtrl($scope,$rootScope) {
+function roomServiceCtrl($scope, $rootScope, HotelServicesService) {
 
   $scope.editRoomService = null;
 
-  $scope.editTitle = "";
+  $scope.editTitle = {};
   $scope.titleLang = $rootScope.defaultLang;
 
-
-  $scope.roomServices = [{
-    title: [
-      {
-        text: 'Free cable',
-        lang: 'en'
-      },
-      {
-        text: 'Besplatna televizija',
-        lang: 'rs'
-      }],
-    created_at: Date.now()
-  }];
+  $scope.roomServices = [];
+  HotelServicesService.getRoomServices().then (function (data) {
+    $scope.roomServices = data.data;
+  });
 
   $scope.selectRoomService = function (roomService) {
     $scope.editRoomService = angular.extend({}, roomService);
 
     $scope.titleLang = $rootScope.defaultLang;
-    $scope.editTitle = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
+    $scope.editTitle.text = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
   }
 
   $scope.getServiceTitleByLang = function (roomService, lang) {
@@ -41,6 +31,7 @@ function roomServiceCtrl($scope,$rootScope) {
 
   $scope.addRoomService = function () {
     $scope.editRoomService = {
+      serviceType: "roomService",
       title: [
         {
           text: '',
@@ -54,18 +45,30 @@ function roomServiceCtrl($scope,$rootScope) {
     };
 
     $scope.titleLang = $rootScope.defaultLang;
-    $scope.editTitle = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
-
-    $scope.roomServices.push($scope.editRoomService);
+    $scope.editTitle.text = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
 
   }
 
   $scope.saveRoomService   = function () {
-    console.log($scope.editRoomService);
+    if (typeof $scope.editRoomService._id  === 'undefined') {
+      //new service
+      console.log("Creating room service ");
+      HotelServicesService.createService($scope.editRoomService).then(function(data){
+        $scope.roomServices.push(data.data);
+        $scope.editRoomService = null;
+      });
+    } else {
+      HotelServicesService.updateService($scope.editRoomService._id,$scope.editRoomService).then(function (data) {
+        $scope.editRoomService = null;
+      });
+    }
+
   }
   $scope.deleteRoomService = function () {
-    $scope.roomServices.splice($scope.roomServices.indexOf($scope.editRoomService), 1);
-    $scope.editRoomService = null;
+    HotelServicesService.deleteHotelService($scope.editRoomService._id).then(function (data) {
+      $scope.roomServices.splice($scope.roomServices.indexOf($scope.editRoomService), 1);
+      $scope.editRoomService = null;
+    });
   }
 
   $scope.editRoomServiceTitle = function (title) {
@@ -78,7 +81,7 @@ function roomServiceCtrl($scope,$rootScope) {
 
   $scope.changeTitleLang = function (lang) {
     $scope.titleLang = lang;
-    $scope.editTitle = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
-    console.log("Changed title lang,text: " + $scope.editTitle);
+    $scope.editTitle.text = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
+    console.log("Changed title lang,text: " + $scope.editTitle.text);
   }
 }
