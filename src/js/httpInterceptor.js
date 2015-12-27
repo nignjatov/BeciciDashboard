@@ -1,11 +1,11 @@
-angular.module('RDash').factory('myHttpInterceptor', function($q) {
+angular.module('RDash').factory('myHttpInterceptor', function($q,$rootScope) {
   return {
     // optional method
     'request': function(config) {
       // do something on success
       console.log(config);
       if(!/.html/.test(config.url)){
-        config.url = "http://192.168.1.3:3000/api"+ config.url;
+        config.url = $rootScope.serverUrl+ config.url;
         console.log("NEW URL "+ config.url);
       }
       return config;

@@ -21,7 +21,8 @@
   </div>
   <div ng-if="editAdvertising" class="col-sm-5">
     <div class="col-sm-12 edit-header">
-      <h4 class="col-sm-4" >Advert</h4>
+      <h4 class="col-sm-4">Advert</h4>
+
       <div class="col-sm-3 col-sm-offset-5 text-right select_join">
         <select ng-model="usedLang" ng-change="changeLang(usedLang)"
                 ng-options="lang as lang for lang in languages">
@@ -41,11 +42,11 @@
                   ng-change="editAdvertDescription(editDesc.text)">
         </textarea>
       </div>
-      <div class="col-sm-12 text-center "height="200px" width="128px">
+      <div class="col-sm-12 text-center ">
         <div class="col-sm-12 text-center">Image:</div>
-        <div flow-init class="col-sm-12 img_preview_container ">
+        <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container " height="250px">
           <div ng-show="!$flow.files.length">
-            <img src="{{editAdvertising.img}}"/>
+            <img src="{{multimedia}}" alt="No image provided"/>
           </div>
           <div ng-show="$flow.files.length">
             <img flow-img="$flow.files[0]"/>
@@ -61,22 +62,24 @@
                                             style="visibility: hidden; position: absolute;"></span>
             <a class="btn btn-primary" ng-show="$flow.files.length"
                ng-click="$flow.cancel()">
-              Delete
+              Discard
             </a>
           </div>
         </div>
-        <div class="col-sm-12">
-          <div class="col-sm-3">Created:</div>
-          <p class="col-sm-9">{{editAdvertising.created_at | date : dateFormat}}</p>
-        </div>
-        <div class="col-sm-12 ">
-          <div class="col-sm-3">Modified:</div>
-          <p class="col-sm-9">{{editAdvertising.last_modified | date : dateFormat}}</p>
-        </div>
-        <div class="col-sm-12">
-          <button ng-if="editAdvertising._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteAdvert()">Delete</button>
-          <button class="btn btn-primary col-sm-3" ng-click="saveAdvert()">Save</button>
-        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-3">Created:</div>
+        <p class="col-sm-9">{{editAdvertising.created_at | date : dateFormat}}</p>
+      </div>
+      <div class="col-sm-12 ">
+        <div class="col-sm-3">Modified:</div>
+        <p class="col-sm-9">{{editAdvertising.last_modified | date : dateFormat}}</p>
+      </div>
+      <div class="col-sm-12">
+        <button ng-if="editAdvertising._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteAdvert()">
+          Delete
+        </button>
+        <button class="btn btn-primary col-sm-3" ng-click="saveAdvert()">Save</button>
       </div>
     </div>
   </div>
