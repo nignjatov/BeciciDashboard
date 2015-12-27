@@ -11,6 +11,10 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
     text : ""
   };
 
+  $scope.obj = {
+    flow: null
+  };
+  $scope.multimedia = "";
   $scope.usedLang = $rootScope.defaultLang;
 
   $scope.editFreeService = null;
@@ -23,6 +27,7 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
     $scope.editFreeService = freeService;
     $scope.usedLang = $rootScope.defaultLang;
 
+    $scope.multimedia = $rootScope.getImageUrl($scope.editFreeService.image);
     $scope.getServiceDescriptionByLang($scope.usedLang);
     $scope.reloadServiceTitleByLang($scope.usedLang);
   }
@@ -57,6 +62,7 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
   }
 
   $scope.addFreeService = function () {
+
     $scope.editFreeService = {
       serviceType: "freeService",
       title: [
@@ -80,7 +86,7 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
       img: "",
     };
 
-
+    $scope.multimedia = "";
     $scope.usedLang = $rootScope.defaultLang;
     $scope.getServiceDescriptionByLang($scope.usedLang);
     $scope.reloadServiceTitleByLang($scope.titleLang);
@@ -92,10 +98,14 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
       console.log("Creating free service ");
       HotelServicesService.createService($scope.editFreeService).then(function(data){
         $scope.freeServices.push(data.data);
+        $scope.editFreeService = data.data;
+        $scope.uploadPicture();
         $scope.editFreeService = null;
       });
     } else {
       HotelServicesService.updateService($scope.editFreeService._id,$scope.editFreeService).then(function (data) {
+        $scope.editFreeService = data.data;
+        $scope.uploadPicture();
         $scope.editFreeService = null;
       });
     }
@@ -128,5 +138,20 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
     $scope.usedLang = lang;
     $scope.reloadServiceTitleByLang($scope.usedLang);
     $scope.getServiceDescriptionByLang($scope.usedLang);
+  }
+
+  $scope.uploadPicture = function () {
+    if (typeof $scope.obj.flow.files !== 'undefined') {
+      HotelServicesService.uploadImage($scope.editFreeService._id, $scope.obj.flow).then(function (data) {
+        for( var i = 0; i<$scope.freeServices.length; i++){
+          if ((typeof $scope.freeServices[i]._id !== 'undefined') && ($scope.freeServices[i]._id == data._id)){
+            $scope.freeServices[i].image = data.filename;
+          }
+        }
+      }).catch( function (err){
+        console.log("FAILURE");
+      });
+
+    }
   }
 }

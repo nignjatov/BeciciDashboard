@@ -42,11 +42,11 @@
                   ng-change="editFreeServiceDescription(editDesc.text)">
         </textarea>
       </div>
-      <div class="col-sm-12 text-center " height="200px" width="128px">
+      <div class="col-sm-12 text-center">
         <div class="col-sm-12 text-center">Image:</div>
-        <div flow-init class="col-sm-12 img_preview_container ">
+        <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container " height="250px">
           <div ng-show="!$flow.files.length">
-            <img src="{{editFreeService.img}}"/>
+            <img src="{{multimedia}}" alt="No image provided"/>
           </div>
           <div ng-show="$flow.files.length">
             <img flow-img="$flow.files[0]"/>
@@ -62,7 +62,7 @@
                                             style="visibility: hidden; position: absolute;"></span>
             <a class="btn btn-primary" ng-show="$flow.files.length"
                ng-click="$flow.cancel()">
-              Delete
+              Discard
             </a>
           </div>
         </div>

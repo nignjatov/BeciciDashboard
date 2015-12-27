@@ -143,8 +143,6 @@ function advertisingCtrl($scope, $rootScope, BlogService) {
   $scope.uploadPicture = function () {
     if (typeof $scope.obj.flow.files !== 'undefined') {
       BlogService.uploadImage($scope.editAdvertising._id, $scope.obj.flow).then(function (data) {
-        console.log("DATA " + data._id);
-        console.log(data);
         for( var i = 0; i<$scope.advertising.length; i++){
           if ((typeof $scope.advertising[i]._id !== 'undefined') && ($scope.advertising[i]._id == data._id)){
             $scope.advertising[i].multimedia = data.filename;

@@ -1,44 +1,44 @@
 
 angular.module('RDash')
-  .service('HotelServicesService', function ($http,$rootScope,$q) {
+  .service('AlbumsService', function ($http,$rootScope,$q) {
 
-    var servicePrefix = '/services/';
+    var servicePrefix = '/albums/';
     return {
-      getRoomServices: function () {
+      getAlbums: function () {
         return $http({
           method: 'GET',
-          url: servicePrefix+'list/roomService/all'
+          url: servicePrefix+'list/all'
         });
       },
-      getFreeServices: function () {
+      getAlbumById: function (albumId) {
         return $http({
           method: 'GET',
-          url: servicePrefix+'list/freeService/all'
+          url: servicePrefix+'list/'+albumId
         });
       },
-      createService: function (serviceData) {
+      createAlbum: function (albumData) {
         return $http({
           method: 'POST',
           url:  servicePrefix,
-          data: serviceData
+          data: albumData
         });
       },
-      deleteHotelService: function (serviceId) {
+      deleteAlbum: function (albumId) {
         return $http({
           method: 'DELETE',
-          url:  servicePrefix+''+serviceId
+          url:  servicePrefix+albumId
         });
       },
-      updateService: function (serviceId,serviceData) {
+      updateAlbum: function (albumId,albumData) {
         return $http({
           method: 'PATCH',
-          url:  servicePrefix+''+serviceId,
-          data: serviceData
+          url:  servicePrefix+albumId,
+          data: albumData
         });
       },
-      uploadImage: function (serviceId, flowObj) {
+      uploadImage: function (albumId, flowObj) {
         var deferred = $q.defer();
-        flowObj.opts.target = $rootScope.serverUrl +servicePrefix +serviceId;
+        flowObj.opts.target = $rootScope.serverUrl +servicePrefix +albumId;
         flowObj.opts.testChunks=false;
         flowObj.opts.fileParameterName = "image";
         flowObj.on('fileSuccess', function (event,resp) {
@@ -47,10 +47,17 @@ angular.module('RDash')
         });
         flowObj.on('fileError', function (event,err) {
           console.log('fileError ', err);
-          deferred.reject(JSON.parse(err));
+          deferred.reject(err);
         });
         flowObj.upload();
         return deferred.promise;
+      },
+
+      deleteImage : function(albumId, image){
+        return $http({
+          method: 'DELETE',
+          url:  servicePrefix+albumId+'/'+image
+        });
       }
     }
   });

@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-sm-12">
-    <button class="btn btn-primary  col-sm-2" ng-click="addAlbum()"><i class="fa fa-plus"></i> Add album
+    <button class="btn btn-primary  col-sm-2" ui-sref="editAlbum()"><i class="fa fa-plus"></i> Add album
     </button>
   </div>
   <div class="col-sm-7">
     <div class="col-sm-4" ng-repeat="album in albums" ng-click="selectAlbum(album)">
       <div class="box-wrapper text-center cursor">
         <div class="img-container">
-          <img class="text-center " src="{{album.images[0]}}" class=" img-thumbnail">
+          <img class="text-center " src="{{album.images[0]}}" alt="No images provided" class=" img-thumbnail">
         </div>
-        <p>{{album.title}}</p>
+        <p>{{getAlbumNameByLang(album)}}</p>
       </div>
     </div>
   </div>
@@ -21,26 +21,26 @@
       <div class="edit-body-row">
         <p class="col-sm-3">Title:</p>
 
-        <p class="col-sm-9">{{selectedAlbum.title}}</p>
+        <p class="col-sm-9">{{getAlbumNameByLang(selectedAlbum)}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Images:</p>
 
         <p class="col-sm-9">{{selectedAlbum.images.length}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Created:</p>
 
         <p class="col-sm-9">{{selectedAlbum.created_at | date : dateFormat}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Modified:</p>
 
         <p class="col-sm-9">{{selectedAlbum.last_modified | date : dateFormat}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteAlbum()">Delete</button>
-        <button class="btn btn-primary col-sm-3" ng-click="updateAlbum()">Update</button>
+        <button class="btn btn-primary col-sm-3" ui-sref="editAlbum({ albumId: selectedAlbum._id})">Update</button>
       </div>
     </div>
   </div>

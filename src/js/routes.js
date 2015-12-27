@@ -70,9 +70,14 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'templates/editRoom.html',
         controller: 'editRoomCtrl'
       }).state('editAlbum', {
-        url: '/editAlbum',
+        url: '/editAlbum/:albumId',
         templateUrl: 'templates/editAlbum.html',
-        controller: 'editAlbumCtrl'
+        controller: 'editAlbumCtrl',
+        resolve: {
+          albumId:  function(){
+            return 5;
+          },
+        }
       });
   }
 ]);
