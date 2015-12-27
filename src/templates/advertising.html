@@ -32,13 +32,13 @@
       <div class="col-sm-12">
         <div class="col-sm-3">Title:</div>
         <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle.text"
-               ng-change="editFreeServiceTitle(editTitle.text)">
+               ng-change="editAdvertTitle(editTitle.text)">
         </input>
       </div>
       <div class=" col-sm-12 ">
         <div class="col-sm-3">Description:</div>
         <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editDesc.text"
-                  ng-change="editFreeServiceDescription(editDesc.text)">
+                  ng-change="editAdvertDescription(editDesc.text)">
         </textarea>
       </div>
       <div class="col-sm-12 text-center "height="200px" width="128px">
@@ -65,7 +65,7 @@
             </a>
           </div>
         </div>
-        <div class="col-sm-12 ">
+        <div class="col-sm-12">
           <div class="col-sm-3">Created:</div>
           <p class="col-sm-9">{{editAdvertising.created_at | date : dateFormat}}</p>
         </div>
@@ -74,7 +74,7 @@
           <p class="col-sm-9">{{editAdvertising.last_modified | date : dateFormat}}</p>
         </div>
         <div class="col-sm-12">
-          <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteAdvert()">Delete</button>
+          <button ng-if="editAdvertising._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteAdvert()">Delete</button>
           <button class="btn btn-primary col-sm-3" ng-click="saveAdvert()">Save</button>
         </div>
       </div>

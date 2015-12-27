@@ -52,16 +52,16 @@
           </p>
         </div>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12 edit-body-row">
         <div class="col-sm-3">Created:</div>
         <p class="col-sm-9">{{editTimelineEvent.created_at | date : dateFormat}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12 edit-body-row">
         <div class="col-sm-3">Modified:</div>
         <p class="col-sm-9">{{editTimelineEvent.last_modified | date : dateFormat}}</p>
       </div>
       <div class="edit-body-row">
-        <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteEvent()">Delete</button>
+        <button ng-if="editTimelineEvent._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteEvent()">Delete</button>
         <button class="btn btn-primary col-sm-3" ng-click="saveEvent()">Save</button>
       </div>
     </div>

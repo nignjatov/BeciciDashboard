@@ -1,10 +1,11 @@
 angular.module('RDash')
-  .controller('timelineCtrl', ['$scope', '$rootScope', '$cookieStore', timelineCtrl]);
+  .controller('timelineCtrl', ['$scope', '$rootScope', 'BlogService', timelineCtrl]);
 
-function timelineCtrl($scope, $rootScope) {
+function timelineCtrl($scope, $rootScope,BlogService) {
 
   $scope.editTimelineEvent = null;
 
+  $scope.timelineEvents = [];
   $scope.editDesc = {
     text : ""
   };
@@ -18,29 +19,9 @@ function timelineCtrl($scope, $rootScope) {
     opened: false
   };
 
-  $scope.timelineEvents = [{
-    title: [
-      {
-        text: 'Hotel opening',
-        lang: 'en'
-      },
-      {
-        text: 'Otvaranje hotela',
-        lang: 'rs'
-      }],
-    description: [
-      {
-        text: 'opened hotel',
-        lang: 'en'
-      },
-      {
-        text: 'otvoren hotel',
-        lang: 'rs'
-      }],
-    created_at: Date.now(),
-    moment: Date.now(),
-    last_modified: Date.now()
-  }];
+  BlogService.getTimelineItems().then(function (data){
+    $scope.timelineEvents = data.data;
+  });
 
   $scope.selectEvent = function (timelineEvent) {
     $scope.editTimelineEvent = angular.extend({}, timelineEvent);
@@ -80,6 +61,7 @@ function timelineCtrl($scope, $rootScope) {
 
   $scope.addTimelineEvent = function () {
     $scope.editTimelineEvent = {
+      blogType : 'timeline',
       title: [
         {
           text: '',
@@ -98,27 +80,34 @@ function timelineCtrl($scope, $rootScope) {
           text: '',
           lang: 'rs'
         }],
-      created_at: Date.now(),
-      moment: Date.now(),
-      last_modified: Date.now()
-
+      moment: Date.now()
     };
-
 
     $scope.usedLang = $rootScope.defaultLang;
     $scope.editDesc = $scope.getDescriptionByLang($scope.editTimelineEvent, $scope.usedLang);
     $scope.editTitle = $scope.getTitleByLang($scope.editTimelineEvent, $scope.usedLang);
 
-    $scope.timelineEvents.push($scope.editTimelineEvent);
-
   }
 
   $scope.saveEvent   = function () {
-    console.log($scope.editTimelineEvent);
+    if (typeof $scope.editTimelineEvent._id  === 'undefined') {
+      //new service
+      console.log("Creating timeline event");
+      BlogService.createBlogItem($scope.editTimelineEvent).then(function(data){
+        $scope.timelineEvents.push(data.data);
+        $scope.editTimelineEvent = null;
+      });
+    } else {
+      BlogService.updateBlogItem($scope.editTimelineEvent._id,$scope.editTimelineEvent).then(function (data) {
+        $scope.editTimelineEvent = null;
+      });
+    }
   }
   $scope.deleteEvent = function () {
-    $scope.timelineEvents.splice($scope.timelineEvents.indexOf($scope.editTimelineEvent), 1);
-    $scope.editTimelineEvent = null;
+    BlogService.deleteBlogItem($scope.editTimelineEvent._id).then(function (data) {
+      $scope.timelineEvents.splice($scope.timelineEvents.indexOf($scope.editTimelineEvent), 1);
+      $scope.editTimelineEvent = null;
+    });
   }
 
   $scope.editDescription = function (desc) {

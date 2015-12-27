@@ -35,6 +35,9 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-noti
 
 RDashApp.run(function ($rootScope){
 
+  $rootScope.latitude = 42.28295;
+  $rootScope.longitude = 18.87260;
+
   $rootScope.currency = "RSD";
   $rootScope.dateFormat = 'medium';
   $rootScope.defaultLang = 'en';

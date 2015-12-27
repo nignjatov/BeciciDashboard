@@ -1,8 +1,10 @@
 angular.module('RDash')
-  .controller('advertisingCtrl', ['$scope', '$rootScope','$cookieStore', advertisingCtrl]);
+  .controller('advertisingCtrl', ['$scope', '$rootScope','BlogService', advertisingCtrl]);
 
-function advertisingCtrl($scope,$rootScope) {
+function advertisingCtrl($scope,$rootScope,BlogService) {
 
+  $scope.advertising = [];
+  $scope.editAdvertising = null;
   $scope.editDesc  = {
     text : ""
   };
@@ -11,31 +13,9 @@ function advertisingCtrl($scope,$rootScope) {
   };
   $scope.usedLang = $rootScope.defaultLang;
 
-  $scope.advertising = [{
-    title: [
-      {
-        text: 'Summer fun',
-        lang: 'en'
-      },
-      {
-        text: 'Zabava leti',
-        lang: 'rs'
-      }],
-    description: [
-      {
-        text: 'Party every night',
-        lang: 'en'
-      },
-      {
-        text: 'Zurka svake veceri',
-        lang: 'rs'
-      }],
-    img: "",
-    created_at: Date.now(),
-    last_modified: Date.now()
-  }];
-
-  $scope.editAdvertising = null;
+  BlogService.getNewsItems().then(function (data){
+    $scope.advertising = data.data;
+  });
 
   $scope.selectAdvert = function (advert) {
     $scope.editAdvertising = advert;
@@ -76,6 +56,7 @@ function advertisingCtrl($scope,$rootScope) {
 
   $scope.addAdvert = function () {
     $scope.editAdvertising = {
+      blogType : 'news',
       title: [
         {
           text: '',
@@ -94,27 +75,37 @@ function advertisingCtrl($scope,$rootScope) {
           text: '',
           lang: 'rs'
         }],
-      img: "",
-      created_at: Date.now(),
-      last_modified: Date.now()
+      img: ""
     };
 
 
     $scope.usedLang = $rootScope.defaultLang;
     $scope.getAdvertDescriptionByLang($scope.usedLang);
-    $scope.reloadAdvertTitleByLang($scope.titleLang);
-
-    $scope.freeServices.push($scope.editAdvertising);
+    $scope.reloadAdvertTitleByLang($scope.usedLang);
 
   }
 
   $scope.saveAdvert = function () {
-    console.log($scope.editAdvertising);
+    if (typeof $scope.editAdvertising._id  === 'undefined') {
+      //new service
+      console.log("Creating advert");
+      BlogService.createBlogItem($scope.editAdvertising).then(function(data){
+        $scope.advertising.push(data.data);
+        $scope.editAdvertising = null;
+      });
+    } else {
+      console.log($scope.editAdvertising);
+      BlogService.updateBlogItem($scope.editAdvertising._id,$scope.editAdvertising).then(function (data) {
+        $scope.editAdvertising = null;
+      });
+    }
   }
 
   $scope.deleteAdvert = function () {
-    $scope.advertising.splice($scope.advertising.indexOf($scope.editAdvertising), 1);
-    $scope.editAdvertising = null;
+    BlogService.deleteBlogItem($scope.editAdvertising._id).then(function (data) {
+      $scope.advertising.splice($scope.advertising.indexOf($scope.editAdvertising), 1);
+      $scope.editAdvertising = null;
+    });
   }
 
   $scope.editAdvertDescription = function (desc) {
