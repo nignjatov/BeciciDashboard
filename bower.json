@@ -29,8 +29,7 @@
     "font-awesome": "~4.1.0",
     "ng-flow": "~2.6.1",
     "angular-ui-notification": "~0.1.0",
-    "bootstrap-ui-datetime-picker": "~2.0.4",
-    "angular-charts": "~0.2.7"
+    "bootstrap-ui-datetime-picker": "~2.0.4"
   },
   "repository": {
     "type": "git",

@@ -4,6 +4,8 @@ angular.module('RDash')
 
 function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService) {
 
+  $rootScope.currentPage = "Reviews";
+
   ReviewsService.getAllReviews()
     .then(function (data) {
       $scope.reviews =  data.data;

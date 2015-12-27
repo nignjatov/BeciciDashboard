@@ -45,15 +45,6 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'templates/timeline.html',
         controller: 'timelineCtrl'
       }).state('reviews', {
-        //resolve: {
-        //  reviewsObj: function (ReviewsService) {
-        //    return ReviewsService.getAllReviews()
-        //      .then(function (data) {
-        //        console.log(data.data[0]);
-        //        return data.data;
-        //      });
-        //  }
-        //},
         url: '/reviews',
         templateUrl: 'templates/reviews.html',
         controller: 'reviewsCtrl'
@@ -66,7 +57,7 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         templateUrl: 'templates/contact.html',
         controller: 'contactCtrl'
       }).state('editRoom', {
-        url: '/editRoom',
+        url: '/editRoom/:roomId',
         templateUrl: 'templates/editRoom.html',
         controller: 'editRoomCtrl'
       }).state('editAlbum', {

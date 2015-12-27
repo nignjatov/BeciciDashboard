@@ -3,6 +3,8 @@ angular.module('RDash')
 
 function multimediaCtrl($scope, $rootScope, AlbumsService) {
 
+  $rootScope.currentPage = "Multimedia";
+
   $scope.selectedAlbum = null;
 
   $scope.albums = [];

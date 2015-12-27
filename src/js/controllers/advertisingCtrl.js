@@ -3,6 +3,8 @@ angular.module('RDash')
 
 function advertisingCtrl($scope, $rootScope, BlogService) {
 
+  $rootScope.currentPage = "Advertising";
+
   $scope.advertising     = [];
   $scope.editAdvertising = null;
   $scope.editDesc        = {

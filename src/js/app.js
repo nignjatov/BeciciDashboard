@@ -35,6 +35,7 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-noti
 
 RDashApp.run(function ($rootScope){
 
+  $rootScope.currentPage = "Dashboard";
   $rootScope.latitude = 42.28295;
   $rootScope.longitude = 18.87260;
 

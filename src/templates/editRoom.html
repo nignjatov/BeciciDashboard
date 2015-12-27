@@ -41,9 +41,9 @@
     <div class="col-sm-12 edit-room-wrappers">
       <p>Image:</p>
 
-      <div flow-init class="col-sm-12 img_preview_container ">
+      <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container ">
         <div ng-show="!$flow.files.length">
-          <img src="{{room.img}}"/>
+          <img src="{{imageURL}}"/>
         </div>
         <div ng-show="$flow.files.length">
           <img flow-img="$flow.files[0]"/>
@@ -78,10 +78,10 @@
           <div class="col-md-12">
             <p class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newTermin.from"
-                     is-open="status.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true"
+                     is-open="statusFrom.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true"
                      close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i
                     class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
@@ -93,10 +93,10 @@
           <div class="col-md-12">
             <p class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newTermin.to"
-                     is-open="status.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true"
+                     is-open="statusTo.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true"
                      close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                <button type="button" class="btn btn-default" ng-click="openTo($event)"><i
                     class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
@@ -129,7 +129,7 @@
     <div class="col-sm-12 edit-room-wrapper">
       <p>Room services:</p>
       <label class="col-sm-12" ng-repeat="service in room.free_services"><input type="checkbox" value="service.active"
-                                                                                ng-model="service.active">{{getRoomServiceByLang(service,usedLang)}}</label>
+                                                                                ng-model="service.active">{{getServiceTitleByLang(service.service)}}</label>
     </div>
   </div>
 </div>

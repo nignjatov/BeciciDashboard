@@ -3,6 +3,8 @@ angular.module('RDash')
 
 function contactCtrl($scope,$rootScope,ContactService) {
 
+  $rootScope.currentPage = "Contact";
+
   $scope.contact = {};
   ContactService.getContactInfo().then(function(data) {
     if(data.data.length == 0){

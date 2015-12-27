@@ -4,6 +4,8 @@ angular.module('RDash')
 
 function reservationsCtrl($scope,$rootScope) {
 
+  $rootScope.currentPage = "Reservations";
+
   $scope.selectedReservation = null;
 
   $scope.reservations = [{

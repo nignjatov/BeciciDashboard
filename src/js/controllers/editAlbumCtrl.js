@@ -13,6 +13,7 @@ angular.module('RDash')
 
 function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService) {
 
+  $rootScope.currentPage = "Edit Album";
   $scope.titleLang = $rootScope.defaultLang;
 
   $scope.titleEdit = "";

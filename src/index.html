@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>Hotel Dashboard</title>
-  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <!--<script src="http://maps.googleapis.com/maps/api/js"></script>-->
   <!-- STYLES -->
   <!-- build:css lib/css/main.min.css -->
   <link rel="stylesheet" type="text/css" href="components/bootstrap/dist/css/bootstrap.min.css">
@@ -36,7 +36,7 @@
       <ul class="sidebar">
         <li class="sidebar-main yo">
           <a ng-click="toggleSidebar()">
-            Dashboard
+            BackOffice
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
@@ -86,18 +86,12 @@
           <div class="col-xs-12">
             <div class="user pull-right">
               <div class="item dropdown">
-                <a href="#" class="dropdown-toggle">
+                <a href="#/" class="dropdown-toggle">
                   <img src="img/avatar.jpg">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                   <li class="dropdown-header">
                     Admin Admin
-                  </li>
-                  <li class="divider"></li>
-                  <li class="link">
-                    <a href="#">
-                      Profile
-                    </a>
                   </li>
                   <li class="divider"></li>
                   <li class="link">
@@ -116,18 +110,15 @@
                     Notifications
                   </li>
                   <li class="divider"></li>
-                  <li>
-                    <a href="#">Server Down!</a>
-                  </li>
                 </ul>
               </div>
             </div>
             <div class="meta">
               <div class="page">
-                Dashboard
+                BackOffice
               </div>
               <div class="breadcrumb-links">
-                Home / Dashboard
+                Home / {{currentPage}}
               </div>
             </div>
           </div>

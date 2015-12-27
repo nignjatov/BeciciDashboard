@@ -4,6 +4,8 @@ angular.module('RDash')
 
 function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
 
+  $rootScope.currentPage = "Free Services";
+
   $scope.editDesc  = {
     text : ""
   };

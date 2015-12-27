@@ -3,6 +3,8 @@ angular.module('RDash')
 
 function roomServiceCtrl($scope, $rootScope, HotelServicesService) {
 
+  $rootScope.currentPage = "Room Services";
+
   $scope.editRoomService = null;
 
   $scope.editTitle = {};

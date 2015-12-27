@@ -21,7 +21,7 @@ angular.module('RDash')
         return $http({
           method: 'PATCH',
           url:  servicePrefix+''+networkId,
-          data: networkData
+          data: data
         });
       },
       deleteNetwork: function (networkId) {

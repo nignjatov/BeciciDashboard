@@ -1,19 +1,55 @@
 
 angular.module('RDash')
-  .service('roomsService', function ($http) {
+  .service('RoomsService', function ($http,$q,$rootScope) {
+    var servicePrefix = '/rooms/';
     return {
-      test: function () {
-        console.log("this is a test");
-        $http({
+      getRooms: function () {
+        return $http({
           method: 'GET',
-          url: '/users/list/all'
-        }).then(function successCallback(response) {
-          // this callback will be called asynchronously
-          // when the response is available
-        }, function errorCallback(response) {
-          // called asynchronously if an error occurs
-          // or server returns response with an error status.
+          url: servicePrefix+'list/all'
         });
-      }
+      },
+      getRoomById: function (roomId) {
+        return $http({
+          method: 'GET',
+          url: servicePrefix+roomId
+        });
+      },
+      createRoom: function (roomData) {
+        return $http({
+          method: 'POST',
+          url:  servicePrefix,
+          data: roomData
+        });
+      },
+      deleteRoom: function (roomId) {
+        return $http({
+          method: 'DELETE',
+          url:  servicePrefix+roomId
+        });
+      },
+      updateRoom: function (roomId,roomData) {
+        return $http({
+          method: 'PATCH',
+          url:  servicePrefix+roomId,
+          data: roomData
+        });
+      },
+      uploadImage: function (roomId, flowObj) {
+        var deferred = $q.defer();
+        flowObj.opts.target = $rootScope.serverUrl +servicePrefix +roomId;
+        flowObj.opts.testChunks=false;
+        flowObj.opts.fileParameterName = "image";
+        flowObj.on('fileSuccess', function (event,resp) {
+          console.log('fileSuccess ', resp);
+          deferred.resolve(JSON.parse(resp));
+        });
+        flowObj.on('fileError', function (event,err) {
+          console.log('fileError ', err);
+          deferred.reject(err);
+        });
+        flowObj.upload();
+        return deferred.promise;
+      },
     }
 });

@@ -1,18 +1,19 @@
 <div class="row">
   <div class="col-sm-12">
-    <button class="btn btn-primary  col-sm-2" ng-click="addRoom()"><i class="fa fa-plus"></i> Add
+    <button class="btn btn-primary  col-sm-2" ui-sref="editRoom()"><i class="fa fa-plus"></i> Add
     </button>
   </div>
   <div class="col-sm-7">
     <div class="col-sm-4" ng-repeat="room in rooms" ng-click="selectRoom(room)">
       <div class="box-wrapper text-center cursor">
         <div class="img-container">
-          <img class="text-center " src="{{room.image}}" class=" img-thumbnail">
+          <img class="text-center " src="{{getImageUrl(room.image)}}" alt="No image provided" class=" img-thumbnail">
         </div>
 
-        <p>{{room.title}}</p>
+        <p>{{getRoomTitleByLang(room)}}</p>
 
-        <p><strong>{{room.price}} {{currency}}</strong> per night</p>
+        <p><strong>{{room.price}} {{currency}}</strong></p>
+        <p>(per night)</p>
       </div>
     </div>
   </div>
@@ -24,12 +25,12 @@
       <div class="edit-body-row">
         <p class="col-sm-3">Title:</p>
 
-        <p class="col-sm-9">{{selectedRoom.title}}</p>
+        <p class="col-sm-9">{{getRoomTitleByLang(selectedRoom)}}</p>
       </div>
       <div class="edit-body-row">
         <p class="col-sm-3">Type:</p>
 
-        <p class="col-sm-9">{{selectedRoom.type}}</p>
+        <p class="col-sm-9">{{getRoomTypeByLang(selectedRoom)}}</p>
       </div>
       <div class="edit-body-row">
         <p class="col-sm-3">Price:</p>
@@ -48,7 +49,7 @@
       </div>
       <div class="edit-body-row">
         <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteRoom()">Delete</button>
-        <button class="btn btn-primary col-sm-3" ng-click="updateRoom()">Update</button>
+        <button class="btn btn-primary col-sm-3" ui-sref="editRoom({roomId : selectedRoom._id})">Update</button>
       </div>
     </div>
   </div>

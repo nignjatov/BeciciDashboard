@@ -1,7 +1,9 @@
 angular.module('RDash')
-  .controller('socialCtrl', ['$scope', 'SocialService', socialCtrl]);
+  .controller('socialCtrl', ['$scope', '$rootScope','SocialService', socialCtrl]);
 
-function socialCtrl($scope, SocialService) {
+function socialCtrl($scope,$rootScope, SocialService) {
+
+  $rootScope.currentPage = "Social Networks";
 
   $scope.socials = [];
 
