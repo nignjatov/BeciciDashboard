@@ -1,4 +1,5 @@
-var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-notification','ui.bootstrap','ui.bootstrap.datetimepicker'])
+var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-notification','ui.bootstrap',
+  'ui.bootstrap.datetimepicker','chart.js'])
   .filter('html', function ($sce) {
   return function (input) {
     return $sce.trustAsHtml(input);

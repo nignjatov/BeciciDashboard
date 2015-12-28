@@ -13,7 +13,7 @@ angular.module('RDash')
       getAlbumById: function (albumId) {
         return $http({
           method: 'GET',
-          url: servicePrefix+'list/'+albumId
+          url: servicePrefix+albumId
         });
       },
       createAlbum: function (albumData) {

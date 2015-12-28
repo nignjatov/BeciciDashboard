@@ -7,7 +7,7 @@
     <div class="col-sm-4" ng-repeat="album in albums" ng-click="selectAlbum(album)">
       <div class="box-wrapper text-center cursor">
         <div class="img-container">
-          <img class="text-center " src="{{album.images[0]}}" alt="No images provided" class=" img-thumbnail">
+          <img class="text-center " src="{{getImageUrl(album.images[0])}}" alt="No images provided" class=" img-thumbnail">
         </div>
         <p>{{getAlbumNameByLang(album)}}</p>
       </div>
