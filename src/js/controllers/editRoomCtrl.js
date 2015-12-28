@@ -9,9 +9,9 @@
  */
 
 angular.module('RDash')
-  .controller('editRoomCtrl', ['$scope', '$rootScope', '$window', '$state', 'RoomsService', 'HotelServicesService', editRoomCtrl]);
+  .controller('editRoomCtrl', ['$scope', '$rootScope', '$window', '$state', 'RoomsService', 'HotelServicesService','Notification', editRoomCtrl]);
 
-function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelServicesService) {
+function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelServicesService,Notification) {
 
   $rootScope.currentPage = "Edit Room";
 
@@ -106,10 +106,12 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
       RoomsService.createRoom($scope.room).then(function (data) {
         $scope.room = data.data;
         $scope.uploadPicture();
+        Notification.primary({message: 'New room created!'});
       });
     } else {
       RoomsService.updateRoom($scope.room._id, $scope.room).then(function (data) {
         $scope.uploadPicture();
+        Notification.primary({message: 'Room updated!'});
       })
     }
   }
@@ -124,6 +126,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
   $scope.saveNewTermin = function () {
     $scope.room.available.push($scope.newTermin);
     $scope.newTermin = null;
+    Notification.primary({message: 'New available termin saved!'});
   }
 
   $scope.getRoomTitleByLang = function (lang) {

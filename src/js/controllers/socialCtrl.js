@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('socialCtrl', ['$scope', '$rootScope','SocialService', socialCtrl]);
+  .controller('socialCtrl', ['$scope', '$rootScope','SocialService','Notification', socialCtrl]);
 
-function socialCtrl($scope,$rootScope, SocialService) {
+function socialCtrl($scope,$rootScope, SocialService,Notification) {
 
   $rootScope.currentPage = "Social Networks";
 
@@ -30,6 +30,7 @@ function socialCtrl($scope,$rootScope, SocialService) {
           filterNetworks();
           console.log($scope.socials);
           $scope.addNetworkName = ""
+          Notification.primary({message: 'Social network added!'});
         });
     }
   }
@@ -40,6 +41,7 @@ function socialCtrl($scope,$rootScope, SocialService) {
       link: social.link
     }).then(function (data) {
       console.log(social);
+      Notification.primary({message: 'Social network updated!'});
     });
 
   }
@@ -47,6 +49,7 @@ function socialCtrl($scope,$rootScope, SocialService) {
     SocialService.deleteNetwork(social._id).then(function (data) {
       $scope.socials.splice($scope.socials.indexOf(social), 1);
       filterNetworks();
+      Notification.primary({message: 'Social network removed!'});
     });
   }
 

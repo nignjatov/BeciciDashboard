@@ -32,7 +32,17 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-noti
     });
     // Can be used with different implementations of Flow.js
     // flowFactoryProvider.factory = fustyFlowFactory;
-  }]);
+  }]).config(function (NotificationProvider) {
+    NotificationProvider.setOptions({
+      delay: 5000,
+      startTop: 20,
+      startRight: 10,
+      verticalSpacing: 20,
+      horizontalSpacing: 20,
+      positionX: 'center',
+      positionY: 'top'
+    });
+  });
 
 RDashApp.run(function ($rootScope){
 

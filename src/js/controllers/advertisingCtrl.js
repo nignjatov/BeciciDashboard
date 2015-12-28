@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('advertisingCtrl', ['$scope', '$rootScope', 'BlogService', advertisingCtrl]);
+  .controller('advertisingCtrl', ['$scope', '$rootScope', 'BlogService','Notification', advertisingCtrl]);
 
-function advertisingCtrl($scope, $rootScope, BlogService) {
+function advertisingCtrl($scope, $rootScope, BlogService,Notification) {
 
   $rootScope.currentPage = "Advertising";
 
@@ -103,12 +103,14 @@ function advertisingCtrl($scope, $rootScope, BlogService) {
         $scope.uploadPicture();
         $scope.advertising.push(data.data);
         $scope.editAdvertising = null;
+        Notification.primary({message: 'Created new advertisement!'});
       });
     } else {
       console.log($scope.editAdvertising);
       BlogService.updateBlogItem($scope.editAdvertising._id, $scope.editAdvertising).then(function (data) {
         $scope.uploadPicture();
         $scope.editAdvertising = null;
+        Notification.primary({message: 'Advertisement updated!'});
       });
     }
   }
@@ -117,6 +119,7 @@ function advertisingCtrl($scope, $rootScope, BlogService) {
     BlogService.deleteBlogItem($scope.editAdvertising._id).then(function (data) {
       $scope.advertising.splice($scope.advertising.indexOf($scope.editAdvertising), 1);
       $scope.editAdvertising = null;
+      Notification.primary({message: 'Advertisement removed!'});
     });
   }
 

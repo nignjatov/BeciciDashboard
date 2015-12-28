@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('roomServiceCtrl', ['$scope', '$rootScope', 'HotelServicesService', roomServiceCtrl]);
+  .controller('roomServiceCtrl', ['$scope', '$rootScope', 'HotelServicesService','Notification', roomServiceCtrl]);
 
-function roomServiceCtrl($scope, $rootScope, HotelServicesService) {
+function roomServiceCtrl($scope, $rootScope, HotelServicesService,Notification) {
 
   $rootScope.currentPage = "Room Services";
 
@@ -58,10 +58,12 @@ function roomServiceCtrl($scope, $rootScope, HotelServicesService) {
       HotelServicesService.createService($scope.editRoomService).then(function(data){
         $scope.roomServices.push(data.data);
         $scope.editRoomService = null;
+        Notification.primary({message: 'Created new room service!'});
       });
     } else {
       HotelServicesService.updateService($scope.editRoomService._id,$scope.editRoomService).then(function (data) {
         $scope.editRoomService = null;
+        Notification.primary({message: 'Room service updated!'});
       });
     }
 
@@ -70,6 +72,7 @@ function roomServiceCtrl($scope, $rootScope, HotelServicesService) {
     HotelServicesService.deleteHotelService($scope.editRoomService._id).then(function (data) {
       $scope.roomServices.splice($scope.roomServices.indexOf($scope.editRoomService), 1);
       $scope.editRoomService = null;
+      Notification.primary({message: 'Room service removed!'});
     });
   }
 

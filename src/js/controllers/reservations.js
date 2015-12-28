@@ -1,8 +1,8 @@
 
 angular.module('RDash')
-  .controller('reservationsCtrl', ['$scope', '$rootScope','$cookieStore', reservationsCtrl]);
+  .controller('reservationsCtrl', ['$scope', '$rootScope','Notification', reservationsCtrl]);
 
-function reservationsCtrl($scope,$rootScope) {
+function reservationsCtrl($scope,$rootScope,Notification) {
 
   $rootScope.currentPage = "Reservations";
 
@@ -49,11 +49,14 @@ function reservationsCtrl($scope,$rootScope) {
   $scope.archiveReservation = function(){
     $scope.selectedReservation.status = 'archive';
     $scope.selectedReservation = null;
+    Notification.primary({message: 'Reservation archived!'});
   }
   $scope.rejectReservation = function(){
     $scope.selectedReservation.status = 'rejected';
+    Notification.primary({message: 'Reservation rejected!'});
   }
   $scope.approveReservation = function(){
     $scope.selectedReservation.status = 'approved';
+    Notification.primary({message: 'Reservation approved!'});
   }
 }

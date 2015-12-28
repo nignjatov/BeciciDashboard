@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('timelineCtrl', ['$scope', '$rootScope', 'BlogService', timelineCtrl]);
+  .controller('timelineCtrl', ['$scope', '$rootScope', 'BlogService','Notification', timelineCtrl]);
 
-function timelineCtrl($scope, $rootScope,BlogService) {
+function timelineCtrl($scope, $rootScope,BlogService,Notification) {
 
   $rootScope.currentPage = "Timeline";
 
@@ -98,10 +98,12 @@ function timelineCtrl($scope, $rootScope,BlogService) {
       BlogService.createBlogItem($scope.editTimelineEvent).then(function(data){
         $scope.timelineEvents.push(data.data);
         $scope.editTimelineEvent = null;
+        Notification.primary({message: 'Created timeline event!'});
       });
     } else {
       BlogService.updateBlogItem($scope.editTimelineEvent._id,$scope.editTimelineEvent).then(function (data) {
         $scope.editTimelineEvent = null;
+        Notification.primary({message: 'Timeline event updated!'});
       });
     }
   }
@@ -109,6 +111,7 @@ function timelineCtrl($scope, $rootScope,BlogService) {
     BlogService.deleteBlogItem($scope.editTimelineEvent._id).then(function (data) {
       $scope.timelineEvents.splice($scope.timelineEvents.indexOf($scope.editTimelineEvent), 1);
       $scope.editTimelineEvent = null;
+      Notification.primary({message: 'Timeline event removed!'});
     });
   }
 

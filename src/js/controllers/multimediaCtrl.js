@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('multimediaCtrl', ['$scope', '$rootScope', 'AlbumsService', multimediaCtrl]);
+  .controller('multimediaCtrl', ['$scope', '$rootScope', 'AlbumsService','Notification', multimediaCtrl]);
 
-function multimediaCtrl($scope, $rootScope, AlbumsService) {
+function multimediaCtrl($scope, $rootScope, AlbumsService,Notification) {
 
   $rootScope.currentPage = "Multimedia";
 
@@ -21,6 +21,7 @@ function multimediaCtrl($scope, $rootScope, AlbumsService) {
     AlbumsService.deleteAlbum($scope.selectedAlbum._id).then(function (data){
       $scope.albums.splice($scope.albums.indexOf($scope.selectedAlbum), 1);
       $scope.selectedAlbum = null;
+      Notification.primary({message: 'Album removed!'});
     });
   }
 

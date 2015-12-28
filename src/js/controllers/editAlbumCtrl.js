@@ -9,9 +9,9 @@
  */
 
 angular.module('RDash')
-  .controller('editAlbumCtrl', ['$scope','$rootScope','$window','$state','AlbumsService', editAlbumCtrl]);
+  .controller('editAlbumCtrl', ['$scope','$rootScope','$window','$state','AlbumsService','Notification', editAlbumCtrl]);
 
-function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService) {
+function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notification) {
 
   $rootScope.currentPage = "Edit Album";
   $scope.titleLang = $rootScope.defaultLang;
@@ -57,10 +57,12 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService) {
     if (typeof $scope.album._id === 'undefined') {
       AlbumsService.createAlbum($scope.album).then(function (data){
         $scope.album=data.data;
+        Notification.primary({message: 'New album created!'});
       });
     } else {
       AlbumsService.updateAlbum($scope.album._id,$scope.album).then(function (data){
         $scope.album=data.data;
+        Notification.primary({message: 'Album updated!'});
       })
     }
   }
@@ -72,6 +74,7 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService) {
   $scope.deleteImage = function(image){
     AlbumsService.deleteImage($scope.album._id,image.filename).then(function(data){
       $scope.imageUrls.splice($scope.imageUrls.indexOf(image),1);
+      Notification.primary({message: 'Image removed!'});
     });
   }
 
@@ -82,8 +85,9 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService) {
           url : $rootScope.getImageUrl(data.filename),
           filename: data.filename
         });
+        Notification.primary({message: 'Image added!'});
       }).catch( function (err){
-        console.log("FAILURE");
+        Notification.error({message: 'Failed to add image!'});
       });
 
     }

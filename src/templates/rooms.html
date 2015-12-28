@@ -22,32 +22,32 @@
       <h4>Room</h4>
     </div>
     <div class="col-sm-12 edit-body">
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Title:</p>
 
         <p class="col-sm-9">{{getRoomTitleByLang(selectedRoom)}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Type:</p>
 
         <p class="col-sm-9">{{getRoomTypeByLang(selectedRoom)}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Price:</p>
 
         <p class="col-sm-9"><strong>{{selectedRoom.price}} {{currency}}</strong> per night</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Created:</p>
 
         <p class="col-sm-9">{{selectedRoom.created_at | date : dateFormat}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Modified:</p>
 
         <p class="col-sm-9">{{selectedRoom.last_modified | date : dateFormat}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteRoom()">Delete</button>
         <button class="btn btn-primary col-sm-3" ui-sref="editRoom({roomId : selectedRoom._id})">Update</button>
       </div>

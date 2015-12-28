@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('contactCtrl', ['$scope','$rootScope', 'ContactService', contactCtrl]);
+  .controller('contactCtrl', ['$scope','$rootScope', 'ContactService','Notification', contactCtrl]);
 
-function contactCtrl($scope,$rootScope,ContactService) {
+function contactCtrl($scope,$rootScope,ContactService,Notification) {
 
   $rootScope.currentPage = "Contact";
 
@@ -24,11 +24,11 @@ function contactCtrl($scope,$rootScope,ContactService) {
     if((typeof $scope.contact._id  === 'undefined')){
       ContactService.createContactInfo($scope.contact).then(function (data){
         $scope.contact = data.data;
-        console.log($scope.contact);
+        Notification.primary({message: 'Contact information saved!'});
       });
     } else {
       ContactService.updateContactInfo($scope.contact._id,$scope.contact).then(function (data){
-        console.log($scope.contact);
+        Notification.primary({message: 'Contact information saved!'});
       });
     }
   }

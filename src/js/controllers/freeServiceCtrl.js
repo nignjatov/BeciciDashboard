@@ -1,8 +1,8 @@
 
 angular.module('RDash')
-  .controller('freeServicesCtrl', ['$scope', '$rootScope','HotelServicesService', freeServicesCtrl]);
+  .controller('freeServicesCtrl', ['$scope', '$rootScope','HotelServicesService','Notification', freeServicesCtrl]);
 
-function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
+function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
 
   $rootScope.currentPage = "Free Services";
 
@@ -103,12 +103,14 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
         $scope.editFreeService = data.data;
         $scope.uploadPicture();
         $scope.editFreeService = null;
+        Notification.primary({message: 'Created new free service!'});
       });
     } else {
       HotelServicesService.updateService($scope.editFreeService._id,$scope.editFreeService).then(function (data) {
         $scope.editFreeService = data.data;
         $scope.uploadPicture();
         $scope.editFreeService = null;
+        Notification.primary({message: 'Free service updated!'});
       });
     }
   }
@@ -117,6 +119,7 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService) {
     HotelServicesService.deleteHotelService($scope.editFreeService._id).then(function (data) {
       $scope.freeServices.splice($scope.freeServices.indexOf($scope.editFreeService), 1);
       $scope.editFreeService = null;
+      Notification.primary({message: 'Free service removed!'});
     });
   }
 

@@ -1,8 +1,8 @@
 
 angular.module('RDash')
-  .controller('reviewsCtrl', ['$scope', '$rootScope','$cookieStore','ReviewsService', reviewsCtrl]);
+  .controller('reviewsCtrl', ['$scope', '$rootScope','$cookieStore','ReviewsService','Notification', reviewsCtrl]);
 
-function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService) {
+function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService,Notification) {
 
   $rootScope.currentPage = "Reviews";
 
@@ -30,18 +30,21 @@ function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService) {
       .then(function () {
         $scope.reviews.splice($scope.reviews.indexOf($scope.selectedReview), 1);
         $scope.selectedReview = null;
+        Notification.primary({message: 'Review removed!'});
       });
   }
   $scope.rejectReview = function(){
     ReviewsService.changeReviewStatus($scope.selectedReview._id,'rejected')
       .then(function () {
         $scope.selectedReview.status = 'rejected';
+        Notification.primary({message: 'Changed review\'s status to: rejected!'});
       });
 
   }
   $scope.approveReview = function(){
     ReviewsService.changeReviewStatus($scope.selectedReview._id,'approved')
       .then(function () {
+        Notification.primary({message: 'Changed review\'s status to: approved!'});
         $scope.selectedReview.status = 'approved';
       });
 
