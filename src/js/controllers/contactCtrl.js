@@ -19,8 +19,10 @@ function contactCtrl($scope,$rootScope,ContactService,Notification) {
   });
 
   $scope.saveContactData = function () {
-    $scope.contact.latitude = $scope.marker.getPosition().lat();
-    $scope.contact.longitude = $scope.marker.getPosition().lng();
+    if((typeof $scope.marker  !== 'undefined')){
+      $scope.contact.latitude = $scope.marker.getPosition().lat();
+      $scope.contact.longitude = $scope.marker.getPosition().lng();
+    }
     if((typeof $scope.contact._id  === 'undefined')){
       ContactService.createContactInfo($scope.contact).then(function (data){
         $scope.contact = data.data;

@@ -17,7 +17,7 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
   $scope.defaultNetworks = [
     "Facebook",
     "Twitter",
-    "YouTube"
+    "Youtube"
   ];
 
   $scope.addNetwork = function () {
