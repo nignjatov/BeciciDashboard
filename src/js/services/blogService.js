@@ -16,6 +16,12 @@ angular.module('RDash')
           url: servicePrefix + 'list/news/all'
         });
       },
+      getBannerItems: function () {
+        return $http({
+          method: 'GET',
+          url: servicePrefix + 'list/banner/all'
+        });
+      },
       createBlogItem: function (blogData) {
         return $http({
           method: 'POST',

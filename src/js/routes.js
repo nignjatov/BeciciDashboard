@@ -24,10 +24,14 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         url: '/reservations',
         templateUrl: 'templates/reservations.html',
         controller: 'reservationsCtrl'
-      }).state('multimedia', {
-        url: '/multimedia',
+      }).state('albums', {
+        url: '/albums',
         templateUrl: 'templates/multimedia.html',
         controller: 'multimediaCtrl'
+      }).state('banners', {
+        url: '/banners',
+        templateUrl: 'templates/banners.html',
+        controller: 'bannersCtrl'
       }).state('freeServices', {
         url: '/freeServices',
         templateUrl: 'templates/freeServices.html',
@@ -36,8 +40,8 @@ angular.module('RDash').config(['$stateProvider', '$urlRouterProvider',
         url: '/roomServices',
         templateUrl: 'templates/roomServices.html',
         controller: 'roomServiceCtrl'
-      }).state('advertising', {
-        url: '/advertising',
+      }).state('adverts', {
+        url: '/adverts',
         templateUrl: 'templates/advertising.html',
         controller: 'advertisingCtrl'
       }).state('timeline', {

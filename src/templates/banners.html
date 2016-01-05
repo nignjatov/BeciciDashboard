@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-sm-12">
+    <button class="btn btn-primary  col-sm-2" class="cursor" ng-click="addBannerItem()"><i class="fa fa-plus"></i> Add Banner
+    </button>
+  </div>
+  <div class="col-sm-7">
+    <div class="col-sm-6" ng-repeat="banner in banners" ng-click="selectBanner(banner)">
+      <div class="box-wrapper text-center cursor">
+        <div class="banner-container">
+          <img class="text-center " src="{{getImageUrl(banner.multimedia)}}" alt="No images provided" class=" img-thumbnail">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="editBanner" class="col-sm-5">
+    <div class="col-sm-12 edit-header">
+      <h4 class="col-sm-6">Banner item</h4>
+
+      <div class="col-sm-3 col-sm-offset-3 text-right select_join">
+        <select ng-model="usedLang" ng-change="changeLang(usedLang)"
+                ng-options="lang as lang for lang in languages">
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-12 edit-body">
+      <div class="col-sm-12">
+        <div class="col-sm-3">Title:</div>
+        <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle.text"
+               ng-change="editBannerTitle(editTitle.text)">
+        </input>
+      </div>
+      <div class=" col-sm-12 ">
+        <div class="col-sm-3">Description:</div>
+        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editDesc.text"
+                  ng-change="editBannerDescription(editDesc.text)">
+        </textarea>
+      </div>
+      <div class="col-sm-12 text-center ">
+        <div class="col-sm-12 text-center">Image:</div>
+        <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container " height="250px">
+          <div ng-show="!$flow.files.length">
+            <img src="{{multimedia}}" alt="No image provided"/>
+          </div>
+          <div ng-show="$flow.files.length">
+            <img flow-img="$flow.files[0]"/>
+          </div>
+          <div>
+          <span class="btn btn-primary" ng-show="!$flow.files.length"
+                flow-btn>Select image<input
+              type="file"
+              style="visibility: hidden; position: absolute;"></span>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>Update image<input type="file"
+                                            style="visibility: hidden; position: absolute;"></span>
+            <a class="btn btn-primary" ng-show="$flow.files.length"
+               ng-click="$flow.cancel()">
+              Discard
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-sm-3">Created:</div>
+        <p class="col-sm-9">{{editBanner.created_at | date : dateFormat}}</p>
+      </div>
+      <div class="col-sm-12">
+        <button ng-if="editBanner._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteBanner()">
+          Delete
+        </button>
+        <button class="btn btn-primary col-sm-3" ng-click="saveBannerItem()">Save</button>
+      </div>
+    </div>
+</div>

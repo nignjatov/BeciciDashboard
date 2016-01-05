@@ -86,6 +86,7 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
           filename: data.filename
         });
         Notification.primary({message: 'Image added!'});
+        $scope.obj.flow.cancel();
       }).catch( function (err){
         Notification.error({message: 'Failed to add image!'});
       });
