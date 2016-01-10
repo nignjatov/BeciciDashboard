@@ -5,6 +5,14 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
 
   $rootScope.currentPage = "Social Networks";
 
+  $scope.defaultNetworks = [
+    "Facebook",
+    "Twitter",
+    "Youtube",
+    "Instagram",
+    "LinkedIn"
+  ];
+
   $scope.socials = [];
 
   SocialService.getAllNetworks()
@@ -14,11 +22,7 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
     });
 
   $scope.addNetworkName  = "";
-  $scope.defaultNetworks = [
-    "Facebook",
-    "Twitter",
-    "Youtube"
-  ];
+  $scope.availableNetworks = [];
 
   $scope.addNetwork = function () {
     if ($scope.addNetworkName != "") {
@@ -54,11 +58,16 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
   }
 
   function filterNetworks() {
+    $scope.availableNetworks = [];
     for (var i = 0; i < $scope.defaultNetworks.length; i++) {
+      var found = false;
       for (var j = 0; j < $scope.socials.length; j++) {
         if ($scope.defaultNetworks[i] == $scope.socials[j].network) {
-          $scope.defaultNetworks.splice(i, 1);
+          found = true;
         }
+      }
+      if(found === false){
+        $scope.availableNetworks.push($scope.defaultNetworks[i]);
       }
     }
   }

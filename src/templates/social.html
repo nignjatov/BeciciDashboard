@@ -4,14 +4,17 @@
     </button>
     <div class="col-sm-5">
       <select class="form-control" ng-model="addNetworkName">
-        <option ng-repeat="network in defaultNetworks" value="{{network}}">{{network}}</option>
+        <option ng-repeat="network in availableNetworks" value="{{network}}">{{network}}</option>
       </select>
     </div>
+  </div>
+  <div class="col-sm-12">Please note that social network links have to be in full URL format, e.g.
+    https://www.facebook.com/
   </div>
   <div class="col-sm-12"><h4>Added Networks:</h4>
   </div>
   <div class="col-sm-10" ng-repeat="social in socials">
-    <div class="col-sm-9" >
+    <div class="col-sm-9">
       <div class="col-sm-2">
         <p><strong>{{social.network}}</strong></p>
       </div>
