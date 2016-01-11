@@ -23,7 +23,7 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
 
   $scope.addNetworkName  = "";
   $scope.availableNetworks = [];
-
+  filterNetworks();
   $scope.addNetwork = function () {
     if ($scope.addNetworkName != "") {
       SocialService.createNetwork({
