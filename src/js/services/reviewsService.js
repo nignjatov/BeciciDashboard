@@ -7,7 +7,7 @@ angular.module('RDash')
       getAllReviews: function () {
         return $http({
           method: 'GET',
-          url: servicePrefix+'list'
+          url: servicePrefix+'list/all'
         });
       },
       deleteReview: function (reviewId) {

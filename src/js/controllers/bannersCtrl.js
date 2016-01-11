@@ -66,24 +66,8 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
   $scope.addBannerItem = function () {
     $scope.editBanner = {
       blogType: 'banner',
-      title: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
-      description: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
+      title: $rootScope.createLangFields(),
+      description: $rootScope.createLangFields(),
       img: ""
     };
 

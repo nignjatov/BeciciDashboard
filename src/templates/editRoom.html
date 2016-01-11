@@ -77,7 +77,7 @@
 
           <div class="col-md-12">
             <p class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newTermin.from"
+              <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}" ng-model="newTermin.from"
                      is-open="statusFrom.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true"
                      close-text="Close"/>
               <span class="input-group-btn">
@@ -92,7 +92,7 @@
 
           <div class="col-md-12">
             <p class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="newTermin.to"
+              <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}" ng-model="newTermin.to"
                      is-open="statusTo.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true"
                      close-text="Close"/>
               <span class="input-group-btn">
@@ -120,8 +120,8 @@
         <tbody>
         <tr ng-repeat="termin in room.available">
           <td>{{termin.amount}}</td>
-          <td>{{termin.from | date : dateFormat}}</td>
-          <td>{{termin.to | date : dateFormat}}</td>
+          <td>{{termin.from | date : fullDate}}</td>
+          <td>{{termin.to | date : fullDate}}</td>
         </tr>
         </tbody>
       </table>

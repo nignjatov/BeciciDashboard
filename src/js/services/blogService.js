@@ -36,6 +36,7 @@ angular.module('RDash')
         });
       },
       updateBlogItem: function (blogId, blogData) {
+        blogData.last_modified = Date.now();
         return $http({
           method: 'PATCH',
           url: servicePrefix + blogId,

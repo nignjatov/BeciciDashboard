@@ -22,16 +22,7 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
     flow : null,
   }
   $scope.album = {
-    name : [
-      {
-        text : "",
-        lang : "en"
-      },
-      {
-        text : "",
-        lang : "rs"
-      }
-    ]
+    name : $rootScope.createLangFields()
   };
 
   $scope.imageUrls = [];

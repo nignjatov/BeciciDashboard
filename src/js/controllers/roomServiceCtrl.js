@@ -34,15 +34,7 @@ function roomServiceCtrl($scope, $rootScope, HotelServicesService,Notification) 
   $scope.addRoomService = function () {
     $scope.editRoomService = {
       serviceType: "roomService",
-      title: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
+      title: $rootScope.createLangFields(),
       created_at: Date.now()
     };
 

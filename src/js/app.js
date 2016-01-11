@@ -46,6 +46,9 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies','flow','ui-noti
 
 RDashApp.run(function ($rootScope){
 
+  $rootScope.fullDate = "d.M.yyyy";
+  $rootScope.fullDateTime = "H:mm:ss, d.M.yyyy",
+
   $rootScope.currentPage = "Dashboard";
   $rootScope.latitude = 42.28295;
   $rootScope.longitude = 18.87260;
@@ -55,14 +58,28 @@ RDashApp.run(function ($rootScope){
   $rootScope.defaultLang = 'en';
   $rootScope.languages = [
     'en',
-    'rs'
+    'rs',
+    'ru',
+    'hu',
+    'cz',
+    'sk'
   ]
 
   //$rootScope.serverUrl = "http://194.106.182.81:3000/api";
-  $rootScope.serverUrl = "http://192.168.0.25:3000/api";
+  $rootScope.serverUrl = "http://192.168.0.37:3000/api";
   $rootScope.getImageUrl = function(filename){
     return $rootScope.serverUrl + "/images/images/"+filename
   };
 
+  $rootScope.createLangFields = function() {
+    var fields = [];
+    angular.forEach($rootScope.languages, function(lang){
+      fields.push({
+        'lang' : lang,
+        'text' : ""
+      });
+    })
+    return fields;
+  }
 });
 

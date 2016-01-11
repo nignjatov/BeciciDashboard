@@ -43,41 +43,13 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
   console.log("Room Id " + roomId);
 
   $scope.room = {
-    title: [
-      {
-        text: "",
-        lang: 'en'
-      },
-      {
-        text: "",
-        lang: 'rs'
-      }
-    ],
-    type: [
-      {
-        text: "",
-        lang: 'en'
-      },
-      {
-        text: "",
-        lang: 'rs'
-      }
-    ],
-    description: [
-      {
-        text: "",
-        lang: 'en'
-      },
-      {
-        text: "",
-        lang: 'rs'
-      }
-    ],
+    title: $rootScope.createLangFields(),
+    type: $rootScope.createLangFields(),
+    description: $rootScope.createLangFields(),
     available: [],
     free_services : [],
     price: 0,
     bed_number: 0,
-    free_services: [],
     created_at: Date.now(),
     last_modified: Date.now()
   };

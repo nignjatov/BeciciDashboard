@@ -7,7 +7,7 @@ angular.module('RDash')
       getAllNetworks: function () {
         return $http({
           method: 'GET',
-          url: servicePrefix+'list'
+          url: servicePrefix+'list/all'
         });
       },
       createNetwork: function (data) {

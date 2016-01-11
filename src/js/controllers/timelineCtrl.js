@@ -64,29 +64,13 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
   $scope.addTimelineEvent = function () {
     $scope.editTimelineEvent = {
       blogType : 'timeline',
-      title: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
-      description: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
+      title: $rootScope.createLangFields(),
+      description: $rootScope.createLangFields(),
       moment: Date.now()
     };
 
     $scope.usedLang = $rootScope.defaultLang;
-    $scope.editDesc = $scope.getDescriptionByLang($scope.editTimelineEvent, $scope.usedLang);
+    $scope.editDesc = $scope.reloadDescriptionByLang($scope.editTimelineEvent, $scope.usedLang);
     $scope.editTitle = $scope.getTitleByLang($scope.editTimelineEvent, $scope.usedLang);
 
   }
@@ -104,6 +88,9 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
       BlogService.updateBlogItem($scope.editTimelineEvent._id,$scope.editTimelineEvent).then(function (data) {
         $scope.editTimelineEvent = null;
         Notification.primary({message: 'Timeline event updated!'});
+        BlogService.getTimelineItems().then(function (data){
+          $scope.timelineEvents = data.data;
+        });
       });
     }
   }

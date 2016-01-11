@@ -14,9 +14,9 @@
       <tbody>
       <tr class="cursor" ng-repeat="timelineEvent in timelineEvents" ng-click="selectEvent(timelineEvent)">
         <td>{{getTitleByLang(timelineEvent,defaultLang)}}</td>
-        <td>{{timelineEvent.moment | date : dateFormat }}</td>
-        <td>{{timelineEvent.created_at | date : dateFormat }}</td>
-        <td>{{timelineEvent.last_modified | date : dateFormat}}</td>
+        <td>{{timelineEvent.moment | date : fullDate }}</td>
+        <td>{{timelineEvent.created_at | date : fullDateTime }}</td>
+        <td>{{timelineEvent.last_modified | date : fullDateTime}}</td>
       </tr>
       </tbody>
     </table>
@@ -45,7 +45,7 @@
         <div class="col-sm-3">Happened:</div>
         <div class="col-md-12">
           <p class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="editTimelineEvent.moment" is-open="status.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+            <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}" ng-model="editTimelineEvent.moment" is-open="status.opened" show-weeks="false" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -54,11 +54,11 @@
       </div>
       <div class="col-sm-12 edit-body-row">
         <div class="col-sm-3">Created:</div>
-        <p class="col-sm-9">{{editTimelineEvent.created_at | date : dateFormat}}</p>
+        <p class="col-sm-9">{{editTimelineEvent.created_at | date : fullDateTime}}</p>
       </div>
       <div class="col-sm-12 edit-body-row">
         <div class="col-sm-3">Modified:</div>
-        <p class="col-sm-9">{{editTimelineEvent.last_modified | date : dateFormat}}</p>
+        <p class="col-sm-9">{{editTimelineEvent.last_modified | date : fullDateTime}}</p>
       </div>
       <div class="edit-body-row">
         <button ng-if="editTimelineEvent._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteEvent()">Delete</button>

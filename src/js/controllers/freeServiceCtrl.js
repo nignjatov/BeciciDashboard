@@ -67,31 +67,15 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
 
     $scope.editFreeService = {
       serviceType: "freeService",
-      title: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
-      description: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
+      title: $rootScope.createLangFields(),
+      description: $rootScope.createLangFields(),
       img: "",
     };
 
     $scope.multimedia = "";
     $scope.usedLang = $rootScope.defaultLang;
     $scope.getServiceDescriptionByLang($scope.usedLang);
-    $scope.reloadServiceTitleByLang($scope.titleLang);
+    $scope.reloadServiceTitleByLang($scope.usedLang);
   }
 
   $scope.saveFreeService   = function () {

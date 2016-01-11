@@ -29,6 +29,7 @@ angular.module('RDash')
         });
       },
       updateRoom: function (roomId,roomData) {
+        roomData.last_modified = Date.now();
         return $http({
           method: 'PATCH',
           url:  servicePrefix+roomId,

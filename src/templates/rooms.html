@@ -40,12 +40,12 @@
       <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Created:</p>
 
-        <p class="col-sm-9">{{selectedRoom.created_at | date : dateFormat}}</p>
+        <p class="col-sm-9">{{selectedRoom.created_at | date : fullDateTime}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Modified:</p>
 
-        <p class="col-sm-9">{{selectedRoom.last_modified | date : dateFormat}}</p>
+        <p class="col-sm-9">{{selectedRoom.last_modified | date : fullDateTime}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
         <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteRoom()">Delete</button>

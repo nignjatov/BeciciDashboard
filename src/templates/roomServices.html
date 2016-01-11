@@ -12,7 +12,7 @@
       <tbody>
       <tr class="cursor" ng-repeat="roomService in roomServices" ng-click="selectRoomService(roomService)">
         <td>{{getServiceTitleByLang(roomService,defaultLang)}}</td>
-        <td>{{roomService.created_at | date : dateFormat }}</td>
+        <td>{{roomService.created_at | date : fullDateTime }}</td>
       </tr>
       </tbody>
     </table>
@@ -35,7 +35,7 @@
       </div>
       <div class="edit-body-row">
         <div class="col-sm-3">Created:</div>
-        <p class="col-sm-9">{{editRoomService.created_at | date : dateFormat}}</p>
+        <p class="col-sm-9">{{editRoomService.created_at | date : fullDateTime}}</p>
       </div>
       <div class="edit-body-row">
         <button ng-if="editRoomService._id" class="btn btn-primary col-sm-3 text-right"

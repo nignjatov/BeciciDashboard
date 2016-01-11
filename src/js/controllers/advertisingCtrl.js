@@ -66,24 +66,8 @@ function advertisingCtrl($scope, $rootScope, BlogService,Notification) {
   $scope.addAdvert = function () {
     $scope.editAdvertising = {
       blogType: 'news',
-      title: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
-      description: [
-        {
-          text: '',
-          lang: 'en'
-        },
-        {
-          text: '',
-          lang: 'rs'
-        }],
+      title: $rootScope.createLangFields(),
+      description: $rootScope.createLangFields(),
       img: ""
     };
 

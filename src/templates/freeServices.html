@@ -13,8 +13,8 @@
       <tbody>
       <tr class="cursor" ng-repeat="freeService in freeServices" ng-click="selectFreeService(freeService)">
         <td>{{getServiceTitleByLang(freeService,defaultLang)}}</td>
-        <td>{{freeService.created_at | date : dateFormat }}</td>
-        <td>{{freeService.last_modified | date : dateFormat}}</td>
+        <td>{{freeService.created_at | date : fullDateTime }}</td>
+        <td>{{freeService.last_modified | date : fullDateTime}}</td>
       </tr>
       </tbody>
     </table>
@@ -68,11 +68,11 @@
         </div>
         <div class="col-sm-12 ">
           <div class="col-sm-3">Created:</div>
-          <p class="col-sm-9">{{editFreeService.created_at | date : dateFormat}}</p>
+          <p class="col-sm-9">{{editFreeService.created_at | date : fullDateTime}}</p>
         </div>
         <div class="col-sm-12 ">
           <div class="col-sm-3">Modified:</div>
-          <p class="col-sm-9">{{editFreeService.last_modified | date : dateFormat}}</p>
+          <p class="col-sm-9">{{editFreeService.last_modified | date : fullDateTime}}</p>
         </div>
         <div class="col-sm-12">
           <button ng-if="editFreeService._id" class="btn btn-primary col-sm-3 text-right"
