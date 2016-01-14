@@ -143,4 +143,9 @@ function advertisingCtrl($scope, $rootScope, BlogService,Notification) {
 
     }
   }
+
+  $scope.sortType = "title";
+  $scope.sortReverse = "true";
+  $scope.searchWord   = '';
+
 }

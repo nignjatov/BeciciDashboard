@@ -133,4 +133,8 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
   $scope.open = function($event) {
     $scope.status.opened = true;
   };
+
+  $scope.sortType = "moment";
+  $scope.sortReverse = "true";
+  $scope.searchWord   = '';
 }

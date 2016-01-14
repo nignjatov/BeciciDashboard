@@ -59,4 +59,8 @@ function reservationsCtrl($scope,$rootScope,Notification) {
     $scope.selectedReservation.status = 'approved';
     Notification.primary({message: 'Reservation approved!'});
   }
+
+  $scope.sortType = "status";
+  $scope.sortReverse = "true";
+  $scope.searchWord   = '';
 }

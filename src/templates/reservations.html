@@ -1,16 +1,60 @@
 <div class="row">
   <div class="col-sm-7">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-search"></i></div>
+          <input type="text" class="form-control" placeholder="Search reservations" ng-model="searchWord">
+        </div>
+      </div>
+    </form>
     <table class="table table-responsive">
       <thead>
-      <th>User</th>
-      <th>Room</th>
-      <th>Start</th>
-      <th>End</th>
-      <th>Status</th>
-      <th>Created at</th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'user.email'; sortReverse = !sortReverse">
+          E-Mail
+          <span ng-show="sortType == 'user.email' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'user.email' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'room.type'; sortReverse = !sortReverse">
+          Room
+          <span ng-show="sortType == 'room.type' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'room.type' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'start_date'; sortReverse = !sortReverse">
+          End
+          <span ng-show="sortType == 'start_date' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'start_date' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'end_date'; sortReverse = !sortReverse">
+          End
+          <span ng-show="sortType == 'end_date' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'end_date' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'status'; sortReverse = !sortReverse">
+          Status
+          <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+          Created at
+          <span ng-show="sortType == 'created_at' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'created_at' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
       </thead>
       <tbody>
-      <tr ng-repeat="reservation in reservations" ng-click="selectReservation(reservation)">
+      <tr class="cursor" ng-repeat="reservation in reservations | orderBy:sortType:sortReverse | filter:searchWord" ng-click="selectReservation(reservation)">
         <td>{{reservation.user.email}}</td>
         <td>{{reservation.room.type}}</td>
         <td>{{reservation.start_date | date : dateFormat}}</td>

@@ -65,8 +65,43 @@ RDashApp.run(function ($rootScope){
     'sk'
   ]
 
-  //$rootScope.serverUrl = "http://194.106.182.81:3000/api";
-  $rootScope.serverUrl = "http://192.168.0.37:3000/api";
+  $rootScope.fullLanguages = [
+    {
+      code : 'en',
+      text : 'English'
+    },
+    {
+      code : 'rs',
+      text : 'Srpski'
+    },
+    {
+      code : 'ru',
+      text : 'Ruski'
+    },
+    {
+      code : 'hu',
+      text : 'Madjarski'
+    },
+    {
+      code : 'cz',
+      text : 'Czech'
+    },
+    {
+      code : 'sk',
+      text : 'Slovak'
+    }
+  ]
+
+  $rootScope.getLanguage = function(code){
+    for(var i=0;i<$rootScope.fullLanguages.length;i++){
+      if($rootScope.fullLanguages[i].code == code){
+        return $rootScope.fullLanguages[i].text;
+      }
+    }
+  };
+
+  $rootScope.serverUrl = "http://194.106.182.81:3000/api";
+  //$rootScope.serverUrl = "http://192.168.1.7:3000/api";
   $rootScope.getImageUrl = function(filename){
     return $rootScope.serverUrl + "/images/images/"+filename
   };

@@ -9,6 +9,9 @@ function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService,Notification) {
   ReviewsService.getAllReviews()
     .then(function (data) {
       $scope.reviews =  data.data;
+        angular.forEach($scope.reviews ,function(rev){
+          rev.language = $rootScope.getLanguage(rev.language);
+        })
     });
 
   $scope.selectedReview = null;
@@ -49,4 +52,9 @@ function reviewsCtrl($scope,$rootScope,reviewsObj,ReviewsService,Notification) {
       });
 
   }
+
+  $scope.sortType = "status";
+  $scope.sortReverse = "true";
+  $scope.searchWord   = '';
+
 }

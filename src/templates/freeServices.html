@@ -4,14 +4,40 @@
     </button>
   </div>
   <div class="col-sm-7">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-search"></i></div>
+          <input type="text" class="form-control" placeholder="Search free services" ng-model="searchWord">
+        </div>
+      </div>
+    </form>
     <table class="table table-responsive">
       <thead>
-      <th>Title</th>
-      <th>Created</th>
-      <th>Last modified</th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'title'; sortReverse = !sortReverse">
+          Title
+          <span ng-show="sortType == 'title' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'title' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
+          Created at
+          <span ng-show="sortType == 'created_at' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'created_at' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
+      <th>
+        <a class="cursor white-text" ng-click="sortType = 'last_modified'; sortReverse = !sortReverse">
+          Last modified
+          <span ng-show="sortType == 'last_modified' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'last_modified' && !sortReverse" class="fa fa-caret-up"></span>
+        </a>
+      </th>
       </thead>
       <tbody>
-      <tr class="cursor" ng-repeat="freeService in freeServices" ng-click="selectFreeService(freeService)">
+      <tr class="cursor" ng-repeat="freeService in freeServices | orderBy:sortType:sortReverse | filter:searchWord" ng-click="selectFreeService(freeService)">
         <td>{{getServiceTitleByLang(freeService,defaultLang)}}</td>
         <td>{{freeService.created_at | date : fullDateTime }}</td>
         <td>{{freeService.last_modified | date : fullDateTime}}</td>

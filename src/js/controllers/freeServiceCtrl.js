@@ -143,4 +143,8 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
 
     }
   }
+
+  $scope.sortType = "title";
+  $scope.sortReverse = "true";
+  $scope.searchWord   = '';
 }

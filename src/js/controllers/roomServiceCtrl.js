@@ -81,4 +81,8 @@ function roomServiceCtrl($scope, $rootScope, HotelServicesService,Notification) 
     $scope.editTitle.text = $scope.getServiceTitleByLang($scope.editRoomService, $scope.titleLang);
     console.log("Changed title lang,text: " + $scope.editTitle.text);
   }
+
+  $scope.sortType = "title";
+  $scope.sortReverse = "true";
+  $scope.searchWord   = '';
 }
