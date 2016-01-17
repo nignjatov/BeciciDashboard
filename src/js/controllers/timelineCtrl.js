@@ -29,6 +29,7 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
     $scope.editTimelineEvent = angular.extend({}, timelineEvent);
 
     $scope.usedLang = $rootScope.defaultLang;
+
     $scope.reloadDescriptionByLang($scope.usedLang);
     $scope.reloadTitleByLang($scope.usedLang);
   }
@@ -70,8 +71,8 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
     };
 
     $scope.usedLang = $rootScope.defaultLang;
-    $scope.editDesc = $scope.reloadDescriptionByLang($scope.editTimelineEvent, $scope.usedLang);
-    $scope.editTitle = $scope.getTitleByLang($scope.editTimelineEvent, $scope.usedLang);
+    $scope.reloadDescriptionByLang($scope.usedLang);
+    $scope.editTitle.text = $scope.getTitleByLang($scope.editTimelineEvent, $scope.usedLang);
 
   }
 
@@ -113,7 +114,7 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
   $scope.changeDescLang = function (lang) {
     $scope.descLang = lang;
     $scope.reloadDescriptionByLang($scope.usedLang);
-    console.log("Changed desc lang,text: " + $scope.editDesc);
+    console.log("Changed desc lang,text: " + $scope.editDesc.text);
   }
 
   $scope.editEventTitle = function (title) {

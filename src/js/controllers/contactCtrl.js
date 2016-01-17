@@ -5,13 +5,25 @@ function contactCtrl($scope,$rootScope,ContactService,Notification) {
 
   $rootScope.currentPage = "Contact";
 
-  $scope.contact = {};
+  $scope.enterEmail = "";
+  $scope.contact = {
+    email : []
+  };
+
+  $scope.addEmail = function () {
+    if($scope.enterEmail.length > 0) {
+      $scope.contact.email.push($scope.enterEmail);
+      $scope.enterEmail = "";
+    }
+  }
+
+  $scope.deleteEmail = function(email){
+    $scope.contact.email.splice($scope.contact.email.indexOf(email),1);
+  }
   ContactService.getContactInfo().then(function(data) {
     if(data.data.length == 0){
-      $scope.contact = {
-        latitude: $rootScope.latitude,
-        longitude: $rootScope.longitude
-      };
+      $scope.contact.latitude = $rootScope.latitude;
+      $scope.contact.longitude = $rootScope.longitude;
     } else {
       $scope.contact = data.data[0];
     }
@@ -47,7 +59,7 @@ function contactCtrl($scope,$rootScope,ContactService,Notification) {
       position: myLatLng,
       map: map,
       draggable:true,
-      title: 'O Zone Hotel Becici'
+      title: 'Hotel Becici'
     });
   }
 
