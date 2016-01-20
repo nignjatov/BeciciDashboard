@@ -30,7 +30,7 @@ angular.module('RDash')
         });
       },
       updateAlbum: function (albumId,albumData) {
-        albumData.last_modified = Date.now()
+        albumData.last_modified = new Date();
         console.log(albumData);
         return $http({
           method: 'PATCH',
