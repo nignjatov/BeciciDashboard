@@ -49,12 +49,16 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
       AlbumsService.createAlbum($scope.album).then(function (data){
         $scope.album=data.data;
         Notification.primary({message: 'New album created!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to create new album!'});
       });
     } else {
       AlbumsService.updateAlbum($scope.album._id,$scope.album).then(function (data){
         $scope.album=data.data;
         Notification.primary({message: 'Album updated!'});
-      })
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to update album!'});
+      });
     }
   }
 
@@ -66,6 +70,8 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
     AlbumsService.deleteImage($scope.album._id,image.filename).then(function(data){
       $scope.imageUrls.splice($scope.imageUrls.indexOf(image),1);
       Notification.primary({message: 'Image removed!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to remove image!'});
     });
   }
 

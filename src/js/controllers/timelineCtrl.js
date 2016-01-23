@@ -84,6 +84,8 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
         $scope.timelineEvents.push(data.data);
         $scope.editTimelineEvent = null;
         Notification.primary({message: 'Created timeline event!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to create timeline event!'});
       });
     } else {
       BlogService.updateBlogItem($scope.editTimelineEvent._id,$scope.editTimelineEvent).then(function (data) {
@@ -92,6 +94,8 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
         BlogService.getTimelineItems().then(function (data){
           $scope.timelineEvents = data.data;
         });
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to update timeline event!'});
       });
     }
   }
@@ -100,6 +104,8 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
       $scope.timelineEvents.splice($scope.timelineEvents.indexOf($scope.editTimelineEvent), 1);
       $scope.editTimelineEvent = null;
       Notification.primary({message: 'Timeline event removed!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to remove timeline event!'});
     });
   }
 

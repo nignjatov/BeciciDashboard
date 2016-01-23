@@ -39,10 +39,14 @@ function contactCtrl($scope,$rootScope,ContactService,Notification) {
       ContactService.createContactInfo($scope.contact).then(function (data){
         $scope.contact = data.data;
         Notification.primary({message: 'Contact information saved!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to save contact information!'});
       });
     } else {
       ContactService.updateContactInfo($scope.contact._id,$scope.contact).then(function (data){
         Notification.primary({message: 'Contact information saved!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to save contact information!'});
       });
     }
   }

@@ -30,6 +30,10 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         formatYear: 'yy',
         startingDay: 1
     };
+    $scope.minDate = new Date();
+    $scope.toMinDate = new Date();
+    $scope.toMaxDate = new Date().setDate($scope.toMinDate.getDate() + 14);
+
     $scope.format = 'shortDate';
 
     $scope.statusFrom = {
@@ -38,6 +42,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
     $scope.statusTo = {
         opened: false
     };
+
 
     var roomId = $state.params.roomId;
     console.log("Room Id " + roomId);
@@ -52,7 +57,8 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         child_bed_discount: 0,
         bed_number: 0,
         created_at: Date.now(),
-        last_modified: Date.now()
+        last_modified: Date.now(),
+        price: {}
     };
     $scope.roomServicesAll = [];
     HotelServicesService.getRoomServices().then(function (roomServices) {
@@ -99,6 +105,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
 
     $scope.saveNewTermin = function () {
         var added = false;
+        $scope.newTermin.remained = $scope.newTermin.amount;
         angular.forEach($scope.room.available, function (termin) {
             if (added == false) {
                 var newFrom = new Date($scope.newTermin.from).getTime();
@@ -109,6 +116,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
                     (newTo == terTo) &&
                     (termin.price == $scope.newTermin.price )) {
                     termin.amount += parseInt($scope.newTermin.amount);
+                    termin.remained += parseInt($scope.newTermin.remained);
                     added = true;
                 }
             }
@@ -253,4 +261,24 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         }
         return '';
     }
+
+    $scope.getMaxDate = function () {
+        if ($scope.newTermin.from != null) {
+            return new Date().setDate($scope.newTermin.from.getDate() + 14)
+        }
+    }
+
+    $scope.getMinDate = function () {
+        if ($scope.newTermin.from != null) {
+            return $scope.newTermin.from;
+        } else {
+            return $scope.minDate;
+        }
+    }
+
+    $scope.$watch('newTermin.from', function () {
+        $scope.toMinDate = $scope.newTermin.from;
+        $scope.toMaxDate = $scope.toMinDate.getTime() + 14*24*3600*1000;
+        $scope.newTermin.to = null;
+    });
 }

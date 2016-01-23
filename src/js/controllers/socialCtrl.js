@@ -35,7 +35,9 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
           console.log($scope.socials);
           $scope.addNetworkName = ""
           Notification.primary({message: 'Social network added!'});
-        });
+        }).catch(function (err) {
+            Notification.error({message: 'Failed to add social network!'});
+          });
     }
   }
 
@@ -46,6 +48,8 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
     }).then(function (data) {
       console.log(social);
       Notification.primary({message: 'Social network updated!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to update social networks!'});
     });
 
   }
@@ -54,6 +58,8 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
       $scope.socials.splice($scope.socials.indexOf(social), 1);
       filterNetworks();
       Notification.primary({message: 'Social network removed!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to remove social network!'});
     });
   }
 
