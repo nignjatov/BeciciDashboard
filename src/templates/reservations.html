@@ -11,31 +11,31 @@
     <table class="table table-responsive">
       <thead>
       <th>
-        <a class="cursor white-text" ng-click="sortType = 'user.email'; sortReverse = !sortReverse">
+        <a class="cursor white-text" ng-click="sortType = 'order.email'; sortReverse = !sortReverse">
           E-Mail
-          <span ng-show="sortType == 'user.email' && sortReverse" class="fa fa-caret-down"></span>
-          <span ng-show="sortType == 'user.email' && !sortReverse" class="fa fa-caret-up"></span>
+          <span ng-show="sortType == 'order.email' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'order.email' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
       </th>
       <th>
-        <a class="cursor white-text" ng-click="sortType = 'room.type'; sortReverse = !sortReverse">
+        <a class="cursor white-text" ng-click="sortType = 'room.title'; sortReverse = !sortReverse">
           Room
-          <span ng-show="sortType == 'room.type' && sortReverse" class="fa fa-caret-down"></span>
-          <span ng-show="sortType == 'room.type' && !sortReverse" class="fa fa-caret-up"></span>
+          <span ng-show="sortType == 'room.title' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'room.title' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
       </th>
       <th>
-        <a class="cursor white-text" ng-click="sortType = 'start_date'; sortReverse = !sortReverse">
-          End
-          <span ng-show="sortType == 'start_date' && sortReverse" class="fa fa-caret-down"></span>
-          <span ng-show="sortType == 'start_date' && !sortReverse" class="fa fa-caret-up"></span>
+        <a class="cursor white-text" ng-click="sortType = 'termin.from'; sortReverse = !sortReverse">
+          From
+          <span ng-show="sortType == 'termin.from' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'termin.from' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
       </th>
       <th>
-        <a class="cursor white-text" ng-click="sortType = 'end_date'; sortReverse = !sortReverse">
-          End
-          <span ng-show="sortType == 'end_date' && sortReverse" class="fa fa-caret-down"></span>
-          <span ng-show="sortType == 'end_date' && !sortReverse" class="fa fa-caret-up"></span>
+        <a class="cursor white-text" ng-click="sortType = 'termin.to'; sortReverse = !sortReverse">
+          To
+          <span ng-show="sortType == 'termin.to' && sortReverse" class="fa fa-caret-down"></span>
+          <span ng-show="sortType == 'termin.to' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
       </th>
       <th>
@@ -55,12 +55,12 @@
       </thead>
       <tbody>
       <tr class="cursor" ng-repeat="reservation in reservations | orderBy:sortType:sortReverse | filter:searchWord" ng-click="selectReservation(reservation)">
-        <td>{{reservation.user.email}}</td>
-        <td>{{reservation.room.type}}</td>
-        <td>{{reservation.start_date | date : dateFormat}}</td>
-        <td>{{reservation.end_date | date : dateFormat}}</td>
+        <td>{{reservation.order.email}}</td>
+        <td>{{getRoomTypeByLang(reservation.room)}}</td>
+        <td>{{reservation.termin.from | date : fullDate}}</td>
+        <td>{{reservation.termin.to | date : fullDate}}</td>
         <td>{{reservation.status}}</td>
-        <td>{{reservation.created_at | date : dateFormat}}</td>
+        <td>{{reservation.created_at | date : fullDateTime}}</td>
       </tr>
       </tbody>
     </table>
@@ -70,43 +70,47 @@
       <h4>Reservation</h4>
     </div>
     <div class="col-sm-12 edit-body">
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">First name:</p>
-        <p class="col-sm-8">{{selectedReservation.user.firstName}}</p>
+        <p class="col-sm-8">{{selectedReservation.order.name}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">Last name:</p>
-        <p class="col-sm-8">{{selectedReservation.user.lastName}}</p>
+        <p class="col-sm-8">{{selectedReservation.order.lastname}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">E-Mail:</p>
-        <p class="col-sm-8">{{selectedReservation.user.email}}</p>
+        <p class="col-sm-8">{{selectedReservation.order.email}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">Room type:</p>
-        <p class="col-sm-8">{{selectedReservation.room.type}}</p>
+        <p class="col-sm-8">{{getRoomTypeByLang(selectedReservation.room)}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">Start date:</p>
-        <p class="col-sm-8">{{selectedReservation.start_date | date : dateFormat}}</p>
+        <p class="col-sm-8">{{selectedReservation.termin.from| date : fullDate}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">End date:</p>
-        <p class="col-sm-8">{{selectedReservation.end_date | date : dateFormat}}</p>
+        <p class="col-sm-8">{{selectedReservation.termin.to | date : fullDate}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <p class="col-sm-4">Created at:</p>
-        <p class="col-sm-8">{{selectedReservation.created_at | date : dateFormat}}</p>
+        <p class="col-sm-8">{{selectedReservation.created_at | date : fullDateTime}}</p>
       </div>
-      <div class="edit-body-row">
-        <p class="col-sm-4">Transaction:</p>
-        <p class="col-sm-8">{{selectedReservation.transaction.id}}</p>
+      <div class="col-sm-12">
+        <p class="col-sm-4">Transaction ID:</p>
+        <p class="col-sm-8">{{selectedReservation.notification.tranid}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
+        <p class="col-sm-4">Price:</p>
+        <p class="col-sm-8">{{selectedReservation.amount}} RSD</p>
+      </div>
+      <div class="col-sm-12">
         <p class="col-sm-4">Status:</p>
         <p class="col-sm-8">{{selectedReservation.status}}</p>
       </div>
-      <div class="edit-body-row">
+      <div class="col-sm-12">
         <button ng-if="selectedReservation.status == 'approved' || selectedReservation.status == 'waiting' "class="btn btn-primary col-sm-3 text-right" ng-click="archiveReservation()">Archive</button>
         <button ng-if="selectedReservation.status == 'waiting'" class="btn btn-primary col-sm-3" ng-click="approveReservation()">Approve</button>
         <button ng-if="selectedReservation.status == 'waiting'" class="btn btn-primary col-sm-3" ng-click="rejectReservation()">Reject</button>
