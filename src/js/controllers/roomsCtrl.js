@@ -25,6 +25,8 @@ function roomsCtrl($scope,$rootScope, RoomsService,Notification) {
       $scope.rooms.splice($scope.rooms.indexOf($scope.selectedRoom),1);
       $scope.selectedRoom = null;
       Notification.primary({message: 'Room removed!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to remove room!'});
     });
   }
 

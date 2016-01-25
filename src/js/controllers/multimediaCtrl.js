@@ -22,6 +22,8 @@ function multimediaCtrl($scope, $rootScope, AlbumsService,Notification) {
       $scope.albums.splice($scope.albums.indexOf($scope.selectedAlbum), 1);
       $scope.selectedAlbum = null;
       Notification.primary({message: 'Album removed!'});
+    }).catch( function (err){
+      Notification.error({message: 'Failed to remove album!'});
     });
   }
 

@@ -88,6 +88,8 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
         $scope.uploadPicture();
         $scope.editFreeService = null;
         Notification.primary({message: 'Created new free service!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to create new free service!'});
       });
     } else {
       HotelServicesService.updateService($scope.editFreeService._id,$scope.editFreeService).then(function (data) {
@@ -95,6 +97,8 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
         $scope.uploadPicture();
         $scope.editFreeService = null;
         Notification.primary({message: 'Free service updated!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to update free service!'});
       });
     }
   }
@@ -104,6 +108,8 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
       $scope.freeServices.splice($scope.freeServices.indexOf($scope.editFreeService), 1);
       $scope.editFreeService = null;
       Notification.primary({message: 'Free service removed!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to remove free service!'});
     });
   }
 
@@ -138,7 +144,7 @@ function freeServicesCtrl($scope,$rootScope,HotelServicesService,Notification) {
           }
         }
       }).catch( function (err){
-        console.log("FAILURE");
+        Notification.error({message: 'Failed to upload picture!'});
       });
 
     }

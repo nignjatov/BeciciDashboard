@@ -87,6 +87,8 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
         $scope.banners.push(data.data);
         $scope.editBanner = null;
         Notification.primary({message: 'Created new banner item!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to create banner item!'});
       });
     } else {
       console.log($scope.editBanner);
@@ -94,6 +96,8 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
         $scope.uploadPicture();
         $scope.editBanner = null;
         Notification.primary({message: 'Banner item updated!'});
+      }).catch(function (err) {
+        Notification.error({message: 'Failed to update banner item!'});
       });
     }
   }
@@ -103,6 +107,8 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
       $scope.banners.splice($scope.banners.indexOf($scope.editBanner), 1);
       $scope.editBanner = null;
       Notification.primary({message: 'Banner item removed removed!'});
+    }).catch(function (err) {
+      Notification.error({message: 'Failed to remove banner item!'});
     });
   }
 
@@ -137,7 +143,7 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
           }
         }
       }).catch(function (err) {
-        console.log("FAILURE");
+        Notification.error({message: 'Failed to upload picture!'});
       });
 
     }

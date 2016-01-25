@@ -1,54 +1,57 @@
 <div class="row">
-    <div class="edit-body-row col-sm-7">
-        <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">Save</button>
-        <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
+    <div class="col-sm-12">
+        <div class="edit-body-row col-sm-7">
+            <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">Save</button>
+            <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
+        </div>
+        <div class="edit-body-row col-sm-offset-1 col-sm-4 text-right">
+            <p class="col-sm-5">Language:</p>
+            <select class="col-sm-3" ng-model="usedLang" ng-change="changeLang(usedLang)"
+                    ng-options="lang as lang for lang in languages">
+            </select>
+        </div>
     </div>
-    <div class="edit-body-row col-sm-offset-1 col-sm-4 text-right">
-        <p class="col-sm-5">Language:</p>
-        <select class="col-sm-3" ng-model="usedLang" ng-change="changeLang(usedLang)"
-                ng-options="lang as lang for lang in languages">
-        </select>
-    </div>
-    <div class="col-sm-6">
-        <h5>Edit room:</h5>
+    <div class="col-sm-12">
+        <div class="col-sm-5 pull-left">
+            <h5>Edit room:</h5>
 
-        <div class="col-sm-12 edit-room-wrapper">
-            <p>Room type:</p>
-            <input type="text" class="form-control" ng-model="typeEdit"
-                   placeholder="{{typeEdit}}" ng-change="editRoomType(typeEdit)">
-        </div>
-        <div class="col-sm-6 edit-room-wrapper">
-            <div>Children discount(%):</div>
-            <input type="number" class="form-control" ng-model="room.child_discount"
-                   placeholder="{{room.child_discount}}">
-        </div>
-        <div class="col-sm-6 edit-room-wrapper">
-            <div>Bed sharing discount(%):</div>
-            <input type="number" class="form-control" ng-model="room.child_bed_discount"
-                   placeholder="{{room.child_bed_discount}}">
-        </div>
-        <div class="col-sm-12 edit-room-wrapper">
-            <p>Title:</p>
-            <input type="text" class="form-control" ng-model="titleEdit"
-                   placeholder="{{titleEdit}}" ng-change="editRoomTitle(titleEdit)">
-        </div>
-        <div class="col-sm-12 edit-room-wrapper">
-            <p>Description:</p>
+            <div class="col-sm-12 edit-room-wrapper">
+                <p>Room type:</p>
+                <input type="text" class="form-control" ng-model="typeEdit"
+                       placeholder="{{typeEdit}}" ng-change="editRoomType(typeEdit)">
+            </div>
+            <div class="col-sm-6 edit-room-wrapper">
+                <div>Children discount(%):</div>
+                <input type="number" class="form-control" ng-model="room.child_discount"
+                       placeholder="{{room.child_discount}}">
+            </div>
+            <div class="col-sm-6 edit-room-wrapper">
+                <div>Bed sharing discount(%):</div>
+                <input type="number" class="form-control" ng-model="room.child_bed_discount"
+                       placeholder="{{room.child_bed_discount}}">
+            </div>
+            <div class="col-sm-12 edit-room-wrapper">
+                <p>Title:</p>
+                <input type="text" class="form-control" ng-model="titleEdit"
+                       placeholder="{{titleEdit}}" ng-change="editRoomTitle(titleEdit)">
+            </div>
+            <div class="col-sm-12 edit-room-wrapper">
+                <p>Description:</p>
       <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="descEdit"
                 ng-change="editRoomDescription(descEdit)">
       </textarea>
-        </div>
-        <div class="col-sm-12 edit-room-wrappers">
-            <p>Image:</p>
+            </div>
+            <div class="col-sm-12 edit-room-wrappers">
+                <p>Image:</p>
 
-            <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container ">
-                <div ng-show="!$flow.files.length">
-                    <img src="{{imageURL}}"/>
-                </div>
-                <div ng-show="$flow.files.length">
-                    <img flow-img="$flow.files[0]"/>
-                </div>
-                <div>
+                <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container ">
+                    <div ng-show="!$flow.files.length">
+                        <img src="{{imageURL}}"/>
+                    </div>
+                    <div ng-show="$flow.files.length">
+                        <img flow-img="$flow.files[0]"/>
+                    </div>
+                    <div>
           <span class="btn btn-primary" ng-show="!$flow.files.length"
                 flow-btn>Select image<input
                   type="file"
@@ -57,103 +60,116 @@
                 ng-show="$flow.files.length"
                 flow-btn>Update image<input type="file"
                                             style="visibility: hidden; position: absolute;"></span>
-                    <a class="btn btn-primary" ng-show="$flow.files.length"
-                       ng-click="$flow.cancel()">
-                        Delete
-                    </a>
+                        <a class="btn btn-primary" ng-show="$flow.files.length"
+                           ng-click="$flow.cancel()">
+                            Delete
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <h5>Additional information:</h5>
+        <div class="col-sm-7">
+            <h5>Additional information:</h5>
 
-        <div class="col-sm-12 edit-room-wrapper">
-            <p>Number of beds:</p>
+            <div class="col-sm-12 edit-room-wrapper">
+                <p>Number of beds:</p>
 
-            <div class="col-sm-6">
-                <input type="number" class="form-control" ng-model="room.bed_number"
-                       placeholder="{{room.bed_number}}">
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" ng-model="room.bed_number"
+                           placeholder="{{room.bed_number}}">
+                </div>
+                <div class="col-sm-6" style="padding-top: 7px;">
+                    <input type="checkbox" value="room.big_bed"
+                           ng-model="room.big_bed">French bed
+                </div>
             </div>
-            <div class="col-sm-6" style="padding-top: 7px;">
-                <input type="checkbox" value="room.big_bed"
-                       ng-model="room.big_bed">French bed
-            </div>
-        </div>
-        <div class="col-sm-12 edit-room-wrapper">
-            <p>Room availability:</p>
-            <button class="btn btn-primary col-sm-2" ng-click="addNewTermin()">Add</button>
-            <div class=col-sm-12 ng-if="newTermin">
-                <div class="col-sm-6 edit-room-wrapper">
-                    <div>From:</div>
+            <div class="col-sm-12 edit-room-wrapper">
+                <p>Room availability:</p>
+                <button class="btn btn-primary col-sm-2" ng-click="addNewTermin()">Add</button>
+                <div class=col-sm-12 ng-if="newTermin">
+                    <div class="col-sm-6 edit-room-wrapper">
+                        <div>From:</div>
 
-                    <div class="col-md-12">
-                        <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}"
-                                   ng-model="newTermin.from"
-                                   is-open="statusFrom.opened" show-weeks="false" datepicker-options="dateOptions"
-                                   ng-required="true"
-                                   close-text="Close"/>
+                        <div class="col-md-12">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}"
+                                       min-date="minDate"
+                                       ng-model="newTermin.from"
+                                       is-open="statusFrom.opened" show-weeks="false" datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
-                        </p>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6 edit-room-wrapper">
-                    <div>To:</div>
+                    <div class="col-sm-6 edit-room-wrapper">
+                        <div>To:</div>
 
-                    <div class="col-md-12">
-                        <p class="input-group">
-                            <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}"
-                                   ng-model="newTermin.to"
-                                   is-open="statusTo.opened" show-weeks="false" datepicker-options="dateOptions"
-                                   ng-required="true"
-                                   close-text="Close"/>
+                        <div class="col-md-12">
+                            <p class="input-group">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}"
+                                       min-date="toMinDate"
+                                       max-date="toMaxDate"
+                                       ng-model="newTermin.to"
+                                       is-open="statusTo.opened" show-weeks="false" datepicker-options="dateOptions"
+                                       ng-required="true"
+                                       close-text="Close"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openTo($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
-                        </p>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 edit-room-wrapper">
+                        <div>Number of rooms:</div>
+                        <input type="number" class="form-control" ng-model="newTermin.amount"
+                               placeholder="{{newTermin.amount}}">
+                    </div>
+                    <div class="col-sm-4 edit-room-wrapper">
+                        <div>Price({{currencyRSD}}):</div>
+                        <input type="number" class="form-control" ng-model="newTermin.price[currencyRSD]"
+                               placeholder="{{newTermin.price[currencyRSD]}}">
+                    </div>
+                    <div class="col-sm-4 edit-room-wrapper">
+                        <div>Price({{currencyEUR}}):</div>
+                        <input type="number" class="form-control" ng-model="newTermin.price[currencyEUR]"
+                               placeholder="{{newTermin.price[currencyEUR]}}">
+                    </div>
+                    <div class="col-sm-12 edit-room-wrapper">
+                        <button class="btn btn-primary col-sm-2" ng-click="saveNewTermin()">Save</button>
                     </div>
                 </div>
-                <div class="col-sm-6 edit-room-wrapper">
-                    <div>Number of rooms:</div>
-                    <input type="number" class="form-control" ng-model="newTermin.amount"
-                           placeholder="{{newTermin.amount}}">
-                </div>
-                <div class="col-sm-6 edit-room-wrapper">
-                    <div>Price(RSD):</div>
-                    <input type="number" class="form-control" ng-model="newTermin.price"
-                           placeholder="{{newTermin.price}}">
-                </div>
-                <div class="col-sm-12 edit-room-wrapper">
-                    <button class="btn btn-primary col-sm-2" ng-click="saveNewTermin()">Save</button>
-                </div>
+                <table class="col-sm-12 edit-room-wrapper">
+                    <thead>
+                    <th>Rooms number</th>
+                    <th>Available</th>
+                    <th>Price({{currencyRSD}})</th>
+                    <th>Price({{currencyEUR}})</th>
+                    <th>From</th>
+                    <th>To</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="termin in room.available">
+                        <td>{{termin.amount}}</td>
+                        <td>{{termin.remained}}</td>
+                        <td>{{termin.price[currencyRSD]}}</td>
+                        <td>{{termin.price[currencyEUR]}}</td>
+                        <td>{{termin.from | date : fullDate}}</td>
+                        <td>{{termin.to | date : fullDate}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <table class="col-sm-12 edit-room-wrapper">
-                <thead>
-                <th>Rooms number</th>
-                <th>Price</th>
-                <th>From</th>
-                <th>To</th>
-                </thead>
-                <tbody>
-                <tr ng-repeat="termin in room.available">
-                    <td>{{termin.amount}}</td>
-                    <td>{{termin.price}}</td>
-                    <td>{{termin.from | date : fullDate}}</td>
-                    <td>{{termin.to | date : fullDate}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-12 edit-room-wrapper">
-            <p>Room services:</p>
-            <label class="col-sm-12" ng-repeat="service in room.free_services"><input type="checkbox"
-                                                                                      value="service.active"
-                                                                                      ng-model="service.active">{{getServiceTitleByLang(service.service)}}</label>
+            <div class="col-sm-12 edit-room-wrapper">
+                <p>Room services:</p>
+                <label class="col-sm-12" ng-repeat="service in room.free_services"><input type="checkbox"
+                                                                                          value="service.active"
+                                                                                          ng-model="service.active">{{getServiceTitleByLang(service.service)}}</label>
+            </div>
         </div>
     </div>
 </div>

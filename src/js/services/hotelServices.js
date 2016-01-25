@@ -30,6 +30,7 @@ angular.module('RDash')
         });
       },
       updateService: function (serviceId,serviceData) {
+        serviceData.last_modified = new Date();
         return $http({
           method: 'PATCH',
           url:  servicePrefix+''+serviceId,
