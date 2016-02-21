@@ -1,58 +1,68 @@
 <div class="row">
-  <div class="col-lg-4 col-md-6 col-xs-12">
-    <rd-widget>
-      <rd-widget-body>
-        <div class="widget-icon green pull-left">
-          <i class="fa fa-users"></i>
+    <div class=" col-sm-12 ">
+        <div class="col-sm-2 text-right mt07">Course: 1 EUR =</div>
+        <div class="col-sm-2">
+            <input type="number" class="form-control col-sm-3 text-left" ng-model="course">
+            </input>
         </div>
-        <div class="title">{{reservationsCounter}}</div>
-        <div class="comment">Reservations</div>
-      </rd-widget-body>
-    </rd-widget>
-  </div>
-  <div class="col-lg-4 col-md-6 col-xs-12">
-    <rd-widget>
-      <rd-widget-body>
-        <div class="widget-icon red pull-left">
-          <i class="fa fa-tasks"></i>
-        </div>
-        <div class="title">{{approvedReviews}}</div>
-        <div class="comment">Approved reviews</div>
-      </rd-widget-body>
-    </rd-widget>
-  </div>
-  <div class="col-lg-4 col-md-6 col-xs-12">
-    <rd-widget>
-      <rd-widget-body>
-        <div class="widget-icon orange pull-left">
-          <i class="fa fa-sitemap"></i>
-        </div>
-        <div class="title">{{waitingReviews}}</div>
-        <div class="comment">Waiting reviews</div>
-      </rd-widget-body>
-    </rd-widget>
-  </div>
+        <div class="col-sm-3 mt07">RSD</div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon green pull-left">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div class="title">{{reservations.length}}</div>
+                <div class="comment">Reservations</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="col-lg-4 col-md-6 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon red pull-left">
+                    <i class="fa fa-tasks"></i>
+                </div>
+                <div class="title">{{approvedReviews}}</div>
+                <div class="comment">Approved reviews</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
+    <div class="col-lg-4 col-md-6 col-xs-12">
+        <rd-widget>
+            <rd-widget-body>
+                <div class="widget-icon orange pull-left">
+                    <i class="fa fa-sitemap"></i>
+                </div>
+                <div class="title">{{waitingReviews}}</div>
+                <div class="comment">Waiting reviews</div>
+            </rd-widget-body>
+        </rd-widget>
+    </div>
 </div>
 
 <div class="row">
-  <div class="col-lg-12 col-sm-12" id="line-chart">
-    <div class="panel panel-default">
-      <div class="panel-heading text-center">
-        Users/Reservations Chart
-      </div>
-      <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
-        <canvas id="line" class="chart chart-line" data="dataTop" labels="labels" legend="true" click="onClickTop" series="seriesTop"></canvas>
-      </div>
+    <div class="col-lg-12 col-sm-12" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Reservations Chart
+            </div>
+            <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
+                <canvas id="line" class="chart chart-line" data="dataTop" labels="labels" legend="true"
+                        click="onClickTop" series="seriesTop"></canvas>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-lg-12 col-sm-12" id="line-chart">
-    <div class="panel panel-default">
-      <div class="panel-heading text-center">
-        Earnings Chart
-      </div>
-      <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
-        <canvas id="line" class="chart chart-line" data="dataBottom" labels="labels" legend="true" click="onClickBottom" series="seriesBottom"></canvas>
-      </div>
+    <div class="col-lg-12 col-sm-12" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                Earnings Chart
+            </div>
+            <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
+                <canvas id="line" class="chart chart-line" data="dataBottom" labels="labels" legend="true"
+                        click="onClickBottom" series="seriesBottom"></canvas>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

@@ -111,7 +111,7 @@ RDashApp.run(function ($rootScope) {
     };
 
     $rootScope.serverUrl = "http://194.106.182.81:3000/api";
-    //$rootScope.serverUrl = "http://192.168.238.51:3000/api";
+    //$rootScope.serverUrl = "http://192.168.1.6:3000/api";
     $rootScope.getImageUrl = function (filename) {
         return $rootScope.serverUrl + "/images/images/" + filename
     };

@@ -6,9 +6,14 @@ function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,
     $rootScope.currentPage = "Reservations";
 
     $scope.selectedReservation = null;
-
+    $scope.reservations = [];
     ReservationsService.getReservations().then(function (data) {
-        $scope.reservations = data.data;
+        angular.forEach(data.data,function(reservation){
+            if(reservation.status != 'INIT'){
+                $scope.reservations.push(reservation);
+            }
+        })
+
         RoomsService.getRooms().then(function (roomsData) {
             angular.forEach($scope.reservations, function (reservation) {
                 if (reservation.order.room) {
@@ -38,12 +43,37 @@ function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,
         Notification.primary({message: 'Reservation archived!'});
     }
     $scope.rejectReservation = function () {
-        $scope.selectedReservation.status = 'rejected';
-        Notification.primary({message: 'Reservation rejected!'});
+        var req = {
+            order : {
+                room : $scope.selectedReservation.room._id,
+                termin : $scope.selectedReservation.termin._id
+            },
+            email : $scope.selectedReservation.order.email
+        };
+        console.log(req);
+        ReservationsService.rejectReservation($scope.selectedReservation.paymentId,req).then( function(data){
+            $scope.selectedReservation.status = 'VOIDED';
+            Notification.primary({message: 'Reservation rejected!'});
+        }).catch(function(err){
+            Notification.error({message: 'Failed to reject reservation!'});
+        })
     }
     $scope.approveReservation = function () {
-        $scope.selectedReservation.status = 'approved';
-        Notification.primary({message: 'Reservation approved!'});
+        var req = {
+            order : {
+                room : $scope.selectedReservation.room._id,
+                termin : $scope.selectedReservation.termin._id
+            },
+            email : $scope.selectedReservation.order.email
+        };
+        console.log(req);
+        ReservationsService.approveReservation($scope.selectedReservation.paymentId,req).then( function(data){
+            $scope.selectedReservation.status = 'CAPTURED';
+            $scope.selectedReservation.termin.remained--;
+            Notification.primary({message: 'Reservation approved!'});
+        }).catch(function(err){
+            Notification.error({message: 'Failed to approve reservation!'});
+        })
     }
 
     $scope.getRoomTypeByLang = function (room) {

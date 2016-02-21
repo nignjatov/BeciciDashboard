@@ -114,7 +114,8 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
                 var terTo = new Date(termin.to).getTime();
                 if ((newFrom == terFrom) &&
                     (newTo == terTo) &&
-                    (termin.price == $scope.newTermin.price )) {
+                    (termin.price.RSD == $scope.newTermin.price.RSD ) &&
+                    (termin.price.EUR == $scope.newTermin.price.EUR )) {
                     termin.amount += parseInt($scope.newTermin.amount);
                     termin.remained += parseInt($scope.newTermin.remained);
                     added = true;
