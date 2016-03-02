@@ -1,11 +1,16 @@
 <div class="row">
     <div class=" col-sm-12 ">
-        <div class="col-sm-2 text-right mt07">Course: 1 EUR =</div>
+        <div class="col-sm-2 text-right mt07">Currency: 1 EUR =</div>
         <div class="col-sm-2">
-            <input type="number" class="form-control col-sm-3 text-left" ng-model="course">
+            <input type="number" class="form-control col-sm-6 text-left" ng-model="euroCourse.value">
             </input>
         </div>
-        <div class="col-sm-3 mt07">RSD</div>
+        <div class="mt07 pull-left">RSD</div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary col-sm-12" ng-click="updateCourse()"><i class="fa fa-floppy-o"></i> Update
+            </button>
+        </div>
+
     </div>
     <div class="col-lg-4 col-md-6 col-xs-12">
         <rd-widget>

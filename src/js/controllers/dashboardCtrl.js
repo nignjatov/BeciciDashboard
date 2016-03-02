@@ -1,8 +1,8 @@
 angular.module('RDash')
-    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService',
+    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService', 'CoursesService','Notification',
         dashboardCtrl]);
 
-function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService) {
+function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, CoursesService,Notification) {
 
     $rootScope.currentPage = "Dashboard";
 
@@ -21,6 +21,7 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService) 
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
+    $scope.euroCourse = null;
     ReviewsService.getAllReviews()
         .then(function (data) {
             var reviews = data.data;
@@ -50,7 +51,24 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService) 
     )
     ;
 
+    CoursesService.getEuroCourse().then(function (data) {
+        console.log(data);
+        angular.forEach(data.data, function (curr) {
+            if (curr.currency == 'EUR') {
+                $scope.euroCourse = curr;
+                $scope.euroCourse.value = parseFloat($scope.euroCourse.value);
+            }
+        })
 
+    });
+
+    $scope.updateCourse = function () {
+        CoursesService.updateEuroCurrency($scope.euroCourse).then(function (data) {
+            Notification.primary({message: 'Currency updated!'});
+        }).catch(function () {
+            Notification.error({message: 'Failed to currency update!'});
+        });
+    }
     $scope.onClickTop = function (points, evt) {
         console.log(points, evt);
     };

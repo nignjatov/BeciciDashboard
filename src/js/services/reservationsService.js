@@ -20,7 +20,7 @@ angular.module('RDash')
       rejectReservation : function(paymentId, reservationData){
         return $http({
           method: 'PATCH',
-          url: servicePrefix + paymentId+'/cancel',
+          url: servicePrefix + paymentId+'/reject',
           data : reservationData
         });
       }
