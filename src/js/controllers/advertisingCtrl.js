@@ -7,12 +7,6 @@ function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
 
     $scope.advertising = [];
     $scope.editAdvertising = null;
-    $scope.editDesc = {
-        text: ""
-    };
-    $scope.editTitle = {
-        text: ""
-    };
 
     $scope.multimedia = "";
     $scope.usedLang = $rootScope.defaultLang;
@@ -30,37 +24,6 @@ function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
 
         $scope.multimedia = $rootScope.getImageUrl($scope.editAdvertising.multimedia);
         $scope.usedLang = $rootScope.defaultLang;
-        $scope.getAdvertDescriptionByLang($scope.usedLang);
-        $scope.reloadAdvertTitleByLang($scope.usedLang);
-    }
-
-    $scope.getAdvertTitleByLang = function (advert, lang) {
-        for (var i = 0; i < advert.title.length; i++) {
-            if (advert.title[i].lang == lang) {
-                return advert.title[i].text;
-            }
-        }
-        return '';
-    }
-
-    $scope.reloadAdvertTitleByLang = function (lang) {
-        for (var i = 0; i < $scope.editAdvertising.title.length; i++) {
-            if ($scope.editAdvertising.title[i].lang == lang) {
-                $scope.editTitle.text = $scope.editAdvertising.title[i].text;
-                return $scope.editAdvertising.title[i].text;
-            }
-        }
-        return '';
-    }
-
-    $scope.getAdvertDescriptionByLang = function (lang) {
-        for (var i = 0; i < $scope.editAdvertising.description.length; i++) {
-            if ($scope.editAdvertising.description[i].lang == lang) {
-                $scope.editDesc.text = $scope.editAdvertising.description[i].text;
-                return $scope.editAdvertising.description[i].text;
-            }
-        }
-        return '';
     }
 
     $scope.addAdvert = function () {
@@ -73,9 +36,6 @@ function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
 
         $scope.multimedia = "";
         $scope.usedLang = $rootScope.defaultLang;
-        $scope.getAdvertDescriptionByLang($scope.usedLang);
-        $scope.reloadAdvertTitleByLang($scope.usedLang);
-
     }
 
     $scope.saveAdvert = function () {
@@ -113,38 +73,16 @@ function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
         });
     }
 
-    $scope.editAdvertDescription = function (desc) {
-        for (var i = 0; i < $scope.editAdvertising.description.length; i++) {
-            if ($scope.editAdvertising.description[i].lang == $scope.usedLang) {
-                $scope.editAdvertising.description[i].text = desc;
-            }
-        }
-    }
-
-    $scope.editAdvertTitle = function (title) {
-        for (var i = 0; i < $scope.editAdvertising.title.length; i++) {
-            if ($scope.editAdvertising.title[i].lang == $scope.usedLang) {
-                $scope.editAdvertising.title[i].text = title;
-            }
-        }
-    }
-
     $scope.changeLang = function (lang) {
         $scope.usedLang = lang;
-        $scope.reloadAdvertTitleByLang($scope.usedLang);
-        $scope.getAdvertDescriptionByLang($scope.usedLang);
     }
 
     $scope.uploadPicture = function () {
         if (typeof $scope.obj.flow.files !== 'undefined') {
-            BlogService.uploadImage($scope.editAdvertising._id, $scope.obj.flow).then(function (data) {
-                for (var i = 0; i < $scope.advertising.length; i++) {
-                    if ((typeof $scope.advertising[i]._id !== 'undefined') && ($scope.advertising[i]._id == data._id)) {
-                        $scope.advertising[i].multimedia = data.filename;
-                    }
-                }
+            PriceService.uploadPriceList($scope.obj.flow).then(function (data) {
+                Notification.primary({message: 'Price list uploaded!'});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload picture!'});
+                Notification.error({message: 'Failed to upload price list!'});
             });
 
         }

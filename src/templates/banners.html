@@ -25,19 +25,19 @@
     <div class="col-sm-12 edit-body">
       <div class="col-sm-12">
         <div class="col-sm-3">Title:</div>
-        <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle.text"
-               ng-change="editBannerTitle(editTitle.text)">
+        <input type="text" class="form-control col-sm-12 text-left" ng-model="editBanner.title[usedLang]">
         </input>
       </div>
       <div class=" col-sm-12 ">
         <div class="col-sm-3">Description:</div>
-        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editDesc.text"
-                  ng-change="editBannerDescription(editDesc.text)">
+        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editBanner.description[usedLang]">
         </textarea>
       </div>
       <div class="col-sm-12 text-center ">
         <div class="col-sm-12 text-center">Image:</div>
-        <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container " height="250px">
+        <div flow-init flow-files-submitted="" flow-name="obj.flow"
+             flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
+             class="col-sm-12 img_preview_container " height="250px">
           <div ng-show="!$flow.files.length">
             <img src="{{multimedia}}" alt="No image provided"/>
           </div>

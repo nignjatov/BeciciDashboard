@@ -1,41 +1,47 @@
 <div class="row">
-  <div class="col-sm-6">
-    <button class="btn btn-primary col-sm-offset-1 col-sm-2" ng-click="addNetwork()"><i class="fa fa-plus"></i> Add
-    </button>
-    <div class="col-sm-5">
-      <select class="form-control" ng-model="addNetworkName">
-        <option ng-repeat="network in availableNetworks" value="{{network}}">{{network}}</option>
-      </select>
-    </div>
-  </div>
-  <div class="col-sm-12">Please note that social network links have to be in full URL format, e.g.
-    https://www.facebook.com/
-  </div>
-  <div class="col-sm-12"><h4>Added Networks:</h4>
-  </div>
-  <div class="col-sm-10" ng-repeat="social in socials">
-    <div class="col-sm-9">
-      <div class="col-sm-2">
-        <p><strong>{{social.network}}</strong></p>
-      </div>
-      <div class="col-sm-2">
-        <label class="checkbox-inline"><input type="checkbox" value="" ng-model="social.active">Active</label>
-      </div>
-      <div class="col-sm-12">
-        <div class="col-sm-2">Link</div>
-        <div class="col-sm-8"><input type="text" class="form-control" ng-model="social.link"
-                                     placeholder="{{social.link}}">
+    <div class="col-sm-6">
+        <button class="btn btn-primary col-sm-offset-1 col-sm-2" ng-click="addNetwork()"><i class="fa fa-plus"></i> Add
+        </button>
+        <div class="col-sm-5">
+            <select class="form-control" ng-model="addNetworkName">
+                <option ng-repeat="network in availableNetworks" value="{{network}}">{{network}}</option>
+            </select>
         </div>
-      </div>
     </div>
-    <div class="col-sm-3">
-      <div class="col-sm-12">
-        <button class="btn btn-primary col-sm-8 social-button" ng-click="saveSocialData(social)">Save</button>
-      </div>
-      <div class="col-sm-12">
-        <button class="btn btn-primary col-sm-8 social-button" ng-click="deleteSocialData(social)">Delete</button>
-      </div>
+    <div class="col-sm-12">Please note that social network links have to be in full URL format, e.g.
+        https://www.facebook.com/
     </div>
-    <hr class="blackhr"/>
-  </div>
+    <div class="col-sm-12"><h4>Added Networks:</h4>
+    </div>
+    <div class="col-sm-10" ng-repeat="social in socials">
+        <div class="col-sm-9">
+            <form id="socialForm" name="socialForm">
+                <div class="col-sm-2">
+                    <p><strong>{{social.network}}</strong></p>
+                </div>
+                <div class="col-sm-2">
+                    <label class="checkbox-inline"><input type="checkbox" value=""
+                                                          ng-model="social.active">Active</label>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-2">Link</div>
+
+                    <div class="col-sm-8"><input type="text" name="link" class="form-control"
+                                                 required="" pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"
+                                                 ng-model="social.link" placeholder="{{social.link}}">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-3">
+            <div class="col-sm-12">
+                <button class="btn btn-primary col-sm-8 social-button" ng-disabled="socialForm.$invalid"ng-click="saveSocialData(social)">Save</button>
+            </div>
+            <div class="col-sm-12">
+                <button class="btn btn-primary col-sm-8 social-button" ng-click="deleteSocialData(social)">Delete
+                </button>
+            </div>
+        </div>
+        <hr class="blackhr"/>
+    </div>
 </div>

@@ -32,7 +32,7 @@
       </thead>
       <tbody>
       <tr class="cursor" ng-repeat="roomService in roomServices | orderBy:sortType:sortReverse | filter:searchWord" ng-click="selectRoomService(roomService)">
-        <td>{{getServiceTitleByLang(roomService,defaultLang)}}</td>
+        <td>{{roomService.title[defaultLang]}}</td>
         <td>{{roomService.created_at | date : fullDateTime }}</td>
       </tr>
       </tbody>
@@ -50,8 +50,7 @@
     <div class="col-sm-12 edit-body">
       <div class="edit-body-row">
         <div class="col-sm-3">Title:</div>
-        <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle.text"
-               ng-change="editRoomServiceTitle(editTitle.text)">
+        <input type="text" class="form-control col-sm-12 text-left" ng-model="editRoomService.title[titleLang]">
         </input>
       </div>
       <div class="edit-body-row">

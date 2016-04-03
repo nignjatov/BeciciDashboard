@@ -8,12 +8,6 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
   $scope.editTimelineEvent = null;
 
   $scope.timelineEvents = [];
-  $scope.editDesc = {
-    text : ""
-  };
-  $scope.editTitle = {
-    text : ""
-  };
 
   $scope.usedLang = $rootScope.defaultLang;
 
@@ -29,37 +23,6 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
     $scope.editTimelineEvent = angular.extend({}, timelineEvent);
 
     $scope.usedLang = $rootScope.defaultLang;
-
-    $scope.reloadDescriptionByLang($scope.usedLang);
-    $scope.reloadTitleByLang($scope.usedLang);
-  }
-
-  $scope.getTitleByLang = function (timelineEvent, lang) {
-    for (var i = 0; i < timelineEvent.title.length; i++) {
-      if (timelineEvent.title[i].lang == lang) {
-        return timelineEvent.title[i].text;
-      }
-    }
-    return '';
-  }
-
-  $scope.reloadTitleByLang = function (lang) {
-    for (var i = 0; i < $scope.editTimelineEvent.title.length; i++) {
-      if ($scope.editTimelineEvent.title[i].lang == lang) {
-        $scope.editTitle.text = $scope.editTimelineEvent.title[i].text;
-        return $scope.editTimelineEvent.title[i].text;
-      }
-    }
-    return '';
-  }
-  $scope.reloadDescriptionByLang = function (lang) {
-    for (var i = 0; i < $scope.editTimelineEvent.description.length; i++) {
-      if ($scope.editTimelineEvent.description[i].lang == lang) {
-        $scope.editDesc.text = $scope.editTimelineEvent.description[i].text;
-        return $scope.editTimelineEvent.description[i].text;
-      }
-    }
-    return '';
   }
 
   $scope.addTimelineEvent = function () {
@@ -71,8 +34,6 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
     };
 
     $scope.usedLang = $rootScope.defaultLang;
-    $scope.reloadDescriptionByLang($scope.usedLang);
-    $scope.editTitle.text = $scope.getTitleByLang($scope.editTimelineEvent, $scope.usedLang);
 
   }
 
@@ -109,20 +70,6 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
     });
   }
 
-  $scope.editDescription = function (desc) {
-    for (var i = 0; i < $scope.editTimelineEvent.description.length; i++) {
-      if ($scope.editTimelineEvent.description[i].lang == $scope.usedLang) {
-        $scope.editTimelineEvent.description[i].text = desc;
-      }
-    }
-  }
-
-  $scope.changeDescLang = function (lang) {
-    $scope.descLang = lang;
-    $scope.reloadDescriptionByLang($scope.usedLang);
-    console.log("Changed desc lang,text: " + $scope.editDesc.text);
-  }
-
   $scope.editEventTitle = function (title) {
     for (var i = 0; i < $scope.editTimelineEvent.title.length; i++) {
       if ($scope.editTimelineEvent.title[i].lang == $scope.usedLang) {
@@ -133,8 +80,6 @@ function timelineCtrl($scope, $rootScope,BlogService,Notification) {
 
   $scope.changeLang = function (lang) {
     $scope.usedLang = lang;
-    $scope.reloadTitleByLang($scope.usedLang);
-    $scope.reloadDescriptionByLang($scope.usedLang);
   }
 
   $scope.open = function($event) {

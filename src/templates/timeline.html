@@ -48,7 +48,7 @@
             <tr class="cursor"
                 ng-repeat="timelineEvent in timelineEvents | orderBy:sortType:sortReverse | filter:searchWord"
                 ng-click="selectEvent(timelineEvent)">
-                <td>{{getTitleByLang(timelineEvent,defaultLang)}}</td>
+                <td>{{timelineEvent.title[defaultLang]}}</td>
                 <td>{{timelineEvent.moment | date : fullDate }}</td>
                 <td>{{timelineEvent.created_at | date : fullDateTime }}</td>
                 <td>{{timelineEvent.last_modified | date : fullDateTime}}</td>
@@ -69,14 +69,12 @@
         <div class="col-sm-12 edit-body">
             <div class="edit-body-row">
                 <div class="col-sm-3">Title:</div>
-                <input type="text" class="form-control col-sm-12 text-left" ng-model="editTitle.text"
-                       ng-change="editEventTitle(editTitle.text)">
+                <input type="text" class="form-control col-sm-12 text-left" ng-model="editTimelineEvent.title[usedLang]">
                 </input>
             </div>
             <div class="edit-body-row">
                 <div class="col-sm-3">Description:</div>
-        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editDesc.text"
-                  ng-change="editDescription(editDesc.text)">
+        <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editTimelineEvent.description[usedLang]">
         </textarea>
             </div>
             <div class="edit-body-row">

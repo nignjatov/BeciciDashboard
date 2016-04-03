@@ -19,10 +19,6 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
 
     $scope.usedLang = $rootScope.defaultLang;
 
-    $scope.titleEdit = "";
-    $scope.typeEdit = "";
-    $scope.descEdit = "";
-
     $scope.obj = {
         flow: null
     }
@@ -43,7 +39,6 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         opened: false
     };
 
-
     var roomId = $state.params.roomId;
     console.log("Room Id " + roomId);
 
@@ -60,6 +55,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         last_modified: Date.now(),
         price: {}
     };
+
     $scope.roomServicesAll = [];
     HotelServicesService.getRoomServices().then(function (roomServices) {
         $scope.roomServicesAll = roomServices.data;
@@ -67,9 +63,6 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
             RoomsService.getRoomById(roomId).then(function (data) {
                 if (data.data.length == 1) {
                     $scope.room = data.data[0];
-                    $scope.getRoomTitleByLang($scope.usedLang);
-                    $scope.getRoomTypeByLang($scope.usedLang);
-                    $scope.getRoomDescriptionByLang($scope.usedLang);
                     $scope.imageURL = $rootScope.getImageUrl($scope.room.image);
                     $scope.mergeServices();
                 }
@@ -126,77 +119,10 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
             $scope.room.available.push($scope.newTermin);
         }
         $scope.newTermin = null;
-        Notification.primary({message: 'New available termin saved!'});
-    }
-
-    $scope.getRoomTitleByLang = function (lang) {
-        for (var i = 0; i < $scope.room.title.length; i++) {
-            if ($scope.room.title[i].lang == lang) {
-                $scope.titleEdit = $scope.room.title[i].text;
-                return $scope.room.title[i].text;
-            }
-        }
-        return '';
-    }
-
-    $scope.getRoomTypeByLang = function (lang) {
-        for (var i = 0; i < $scope.room.type.length; i++) {
-            if ($scope.room.type[i].lang == lang) {
-                $scope.typeEdit = $scope.room.type[i].text;
-                return $scope.room.type[i].text;
-            }
-        }
-        return '';
-    }
-
-    $scope.getRoomDescriptionByLang = function (lang) {
-        for (var i = 0; i < $scope.room.description.length; i++) {
-            if ($scope.room.description[i].lang == lang) {
-                $scope.descEdit = $scope.room.description[i].text;
-                return $scope.room.description[i].text;
-            }
-        }
-        return '';
-    }
-
-    $scope.getRoomServiceByLang = function (service, lang) {
-        for (var i = 0; i < service.title.length; i++) {
-            if (service.title[i].lang == lang) {
-                return service.title[i].text;
-            }
-        }
-        return '';
-    }
-
-    $scope.editRoomType = function (newType) {
-        for (var i = 0; i < $scope.room.type.length; i++) {
-            if ($scope.room.type[i].lang == $scope.usedLang) {
-                $scope.room.type[i].text = newType;
-            }
-        }
-    }
-
-    $scope.editRoomTitle = function (newTitle) {
-        for (var i = 0; i < $scope.room.title.length; i++) {
-            if ($scope.room.title[i].lang == $scope.usedLang) {
-                $scope.room.title[i].text = newTitle;
-            }
-        }
-    }
-
-    $scope.editRoomDescription = function (newDescirption) {
-        for (var i = 0; i < $scope.room.description.length; i++) {
-            if ($scope.room.description[i].lang == $scope.usedLang) {
-                $scope.room.description[i].text = newDescirption;
-            }
-        }
     }
 
     $scope.changeLang = function (lang) {
         $scope.usedLang = lang;
-        $scope.getRoomTitleByLang($scope.usedLang);
-        $scope.getRoomTypeByLang($scope.usedLang);
-        $scope.getRoomDescriptionByLang($scope.usedLang);
     }
 
     $scope.openFrom = function ($event) {
@@ -252,15 +178,6 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
             });
         }
 
-    }
-
-    $scope.getServiceTitleByLang = function (roomService) {
-        for (var i = 0; i < roomService.title.length; i++) {
-            if (roomService.title[i].lang == $scope.usedLang) {
-                return roomService.title[i].text;
-            }
-        }
-        return '';
     }
 
     $scope.getMaxDate = function () {

@@ -10,7 +10,6 @@
             <button class="btn btn-primary col-sm-12" ng-click="updateCourse()"><i class="fa fa-floppy-o"></i> Update
             </button>
         </div>
-
     </div>
     <div class="col-lg-4 col-md-6 col-xs-12">
         <rd-widget>
@@ -67,6 +66,40 @@
             <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
                 <canvas id="line" class="chart chart-line" data="dataBottom" labels="labels" legend="true"
                         click="onClickBottom" series="seriesBottom"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <div class="col-sm-12 mt07 text-center">Rooms price list image: </div>
+        <div flow-init flow-files-submitted=""
+             flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
+             flow-name="obj.flow" class="col-sm-12 mt07 img_preview_container " height="250px">
+            <div ng-show="!$flow.files.length">
+                <img src="{{getImageUrl(priceListImg)}}" alt="No image provided"/>
+            </div>
+            <div ng-show="$flow.files.length">
+                <img flow-img="$flow.files[0]"/>
+            </div>
+            <div>
+          <span class="btn btn-primary" ng-show="!$flow.files.length"
+                flow-btn>Select image<input
+                  type="file"
+                  style="visibility: hidden; position: absolute;"></span>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>Update image<input type="file"
+                                            style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    Discard
+                </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadPriceList()">
+                    Add
+                </a>
             </div>
         </div>
     </div>

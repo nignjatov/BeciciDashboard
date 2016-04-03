@@ -10,9 +10,9 @@
           <img class="text-center " src="{{getImageUrl(room.image)}}" alt="No image provided" class=" img-thumbnail">
         </div>
 
-        <p>{{getRoomTitleByLang(room)}}</p>
+        <p>{{room.title[defaultLang]}}</p>
 
-        <p>{{getRoomTypeByLang(room)}}</p>
+        <p>{{room.type[defaultLang]}}</p>
 
       </div>
     </div>
@@ -25,12 +25,12 @@
       <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Title:</p>
 
-        <p class="col-sm-9">{{getRoomTitleByLang(selectedRoom)}}</p>
+        <p class="col-sm-9">{{selectedRoom.title[defaultLang]}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Type:</p>
 
-        <p class="col-sm-9">{{getRoomTypeByLang(selectedRoom)}}</p>
+        <p class="col-sm-9">{{selectedRoom.type[defaultLang]}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Price:</p>

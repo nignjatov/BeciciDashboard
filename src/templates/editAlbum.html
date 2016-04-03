@@ -11,8 +11,8 @@
                 ng-options="lang as lang for lang in languages">
         </select>
       </div>
-      <input type="text" class="form-control col-sm-12 text-left" ng-model="titleEdit"
-             ng-change="editAlbumTitle(titleEdit)">
+      <div>{{album.name}}</div>
+      <input type="text" class="form-control col-sm-12 text-left" ng-model="album.name[titleLang]">
       </input>
     </div>
   </div>
@@ -36,7 +36,9 @@
         <h5>Add new image:</h5>
       </div>
       <div class="col-sm-12 edit-room-wrappers">
-        <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 album_img_preview_container ">
+        <div flow-init flow-files-submitted="" flow-name="obj.flow"
+             flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
+             class="col-sm-12 album_img_preview_container ">
           <div ng-show="$flow.files.length">
             <img flow-img="$flow.files[0]"/>
           </div>

@@ -1,8 +1,8 @@
 angular.module('RDash')
-    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService', 'CoursesService','Notification',
+    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService', 'CoursesService','PriceService','Notification',
         dashboardCtrl]);
 
-function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, CoursesService,Notification) {
+function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, CoursesService,PriceService,Notification) {
 
     $rootScope.currentPage = "Dashboard";
 
@@ -22,6 +22,18 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
     ];
 
     $scope.euroCourse = null;
+
+    $scope.obj = {
+        flow: null
+    };
+
+    $scope.priceListImg = null;
+
+    PriceService.getPriceList().then(function (data){
+        if(data.data.length > 0){
+            $scope.priceListImg = data.data[0].filename;
+        }
+    });
     ReviewsService.getAllReviews()
         .then(function (data) {
             var reviews = data.data;
@@ -75,4 +87,15 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
     $scope.onClickBottom = function (points, evt) {
         console.log(points, evt);
     };
+
+    $scope.uploadPriceList = function (){
+        if (typeof $scope.obj.flow.files !== 'undefined') {
+            PriceService.uploadImage($scope.obj.flow).then(function (data) {
+                Notification.primary({message: 'Price list uploaded!'});
+            }).catch(function (err) {
+                Notification.error({message: 'Failed to upload picture!'});
+            });
+
+        }
+    }
 }

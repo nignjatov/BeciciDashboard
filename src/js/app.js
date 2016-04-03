@@ -1,5 +1,5 @@
 var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-notification', 'ui.bootstrap',
-    'ui.bootstrap.datetimepicker', 'chart.js'])
+        'ui.bootstrap.datetimepicker', 'chart.js','pascalprecht.translate'])
     .filter('html', function ($sce) {
         return function (input) {
             return $sce.trustAsHtml(input);
@@ -15,7 +15,7 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-no
                 return $sce.trustAsHtml('Ruski');
             } else if (input === 'hu') {
                 return $sce.trustAsHtml('Madjarski');
-            }else if (input === 'cz') {
+            } else if (input === 'cz') {
                 return $sce.trustAsHtml('Češki');
             } else if (input === 'sk') {
                 return $sce.trustAsHtml('Slovački');
@@ -63,6 +63,7 @@ RDashApp.run(function ($rootScope) {
     $rootScope.latitude = 42.28295;
     $rootScope.longitude = 18.87260;
 
+    $rootScope.maxPictureSize = 1024 * 512;
     $rootScope.currency = "RSD";
     $rootScope.dateFormat = 'medium';
     $rootScope.defaultLang = 'en';
@@ -110,20 +111,24 @@ RDashApp.run(function ($rootScope) {
         }
     };
 
-    $rootScope.serverUrl = "http://194.106.182.81:3000/api";
-    //$rootScope.serverUrl = "http://192.168.1.6:3000/api";
+    //$rootScope.serverUrl = "http://194.106.182.81:3000/api";
+    $rootScope.serverUrl = "http://192.168.1.2:3000/api";
     $rootScope.getImageUrl = function (filename) {
-        return $rootScope.serverUrl + "/images/images/" + filename
+        if (filename != null && filename.length > 0) {
+            return $rootScope.serverUrl + "/images/images/" + filename
+        } else {
+            return null;
+        }
     };
 
     $rootScope.createLangFields = function () {
-        var fields = [];
-        angular.forEach($rootScope.languages, function (lang) {
-            fields.push({
-                'lang': lang,
-                'text': ""
-            });
-        })
+        var fields = {};
+        fields.en = "";
+        fields.rs = "";
+        fields.ru = "";
+        fields.hu = "";
+        fields.cz = "";
+        fields.sk = "";
         return fields;
     }
 });

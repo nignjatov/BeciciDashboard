@@ -9,7 +9,7 @@
         <div class="img-container">
           <img class="text-center " src="{{getImageUrl(album.images[0])}}" alt="No images provided" class=" img-thumbnail">
         </div>
-        <p>{{getAlbumNameByLang(album)}}</p>
+        <p>{{album.name[defaultLang]}}</p>
       </div>
     </div>
   </div>
@@ -18,10 +18,10 @@
       <h4>Album</h4>
     </div>
     <div class="col-sm-12 edit-body">
-      <div class="edit-body-row">
+      <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Title:</p>
 
-        <p class="col-sm-9">{{getAlbumNameByLang(selectedAlbum)}}</p>
+        <p class="col-sm-9">{{selectedAlbum.name[defaultLang]}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
         <p class="col-sm-3">Images:</p>

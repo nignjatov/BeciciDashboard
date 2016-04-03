@@ -17,8 +17,8 @@
 
             <div class="col-sm-12 edit-room-wrapper">
                 <p>Room type:</p>
-                <input type="text" class="form-control" ng-model="typeEdit"
-                       placeholder="{{typeEdit}}" ng-change="editRoomType(typeEdit)">
+                <input type="text" class="form-control" ng-model="room.type[usedLang]"
+                       placeholder="{{room.type[usedLang]}}" >
             </div>
             <div class="col-sm-6 edit-room-wrapper">
                 <div>Children discount(%):</div>
@@ -32,19 +32,21 @@
             </div>
             <div class="col-sm-12 edit-room-wrapper">
                 <p>Title:</p>
-                <input type="text" class="form-control" ng-model="titleEdit"
-                       placeholder="{{titleEdit}}" ng-change="editRoomTitle(titleEdit)">
+                <input type="text" class="form-control" ng-model="room.title[usedLang]"
+                       placeholder="{{room.title[usedLang]}}">
             </div>
             <div class="col-sm-12 edit-room-wrapper">
                 <p>Description:</p>
-      <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="descEdit"
-                ng-change="editRoomDescription(descEdit)">
+      <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="room.description[usedLang]"
+                ng-change="room.description[usedLang]">
       </textarea>
             </div>
             <div class="col-sm-12 edit-room-wrappers">
                 <p>Image:</p>
 
-                <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container ">
+                <div flow-init flow-files-submitted="" flow-name="obj.flow"
+                     flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
+                     class="col-sm-12 img_preview_container ">
                     <div ng-show="!$flow.files.length">
                         <img src="{{imageURL}}"/>
                     </div>
@@ -168,7 +170,7 @@
                 <p>Room services:</p>
                 <label class="col-sm-12" ng-repeat="service in room.free_services"><input type="checkbox"
                                                                                           value="service.active"
-                                                                                          ng-model="service.active">{{getServiceTitleByLang(service.service)}}</label>
+                                                                                          ng-model="service.active">{{service.service.title[usedLang]}}</label>
             </div>
         </div>
     </div>

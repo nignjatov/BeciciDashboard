@@ -31,7 +31,8 @@
     "angular-ui-notification": "~0.1.0",
     "bootstrap-ui-datetime-picker": "~2.0.4",
     "angular-chart.js": "~0.8.8",
-    "Chart.js": "~1.0.2"
+    "Chart.js": "~1.0.2",
+    "angular-translate": "^2.11.0"
   },
   "repository": {
     "type": "git",

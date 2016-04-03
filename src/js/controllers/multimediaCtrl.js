@@ -27,13 +27,5 @@ function multimediaCtrl($scope, $rootScope, AlbumsService,Notification) {
     });
   }
 
-  $scope.getAlbumNameByLang = function (album) {
-    for (var i = 0; i < album.name.length; i++) {
-      if (album.name[i].lang == $rootScope.defaultLang) {
-        return album.name[i].text;
-      }
-    }
-  }
-
 
 }

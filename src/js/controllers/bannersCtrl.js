@@ -7,12 +7,6 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
 
   $scope.banners    = [];
   $scope.editBanner = null;
-  $scope.editDesc   = {
-    text: ""
-  };
-  $scope.editTitle  = {
-    text: ""
-  };
 
   $scope.multimedia = "";
   $scope.usedLang   = $rootScope.defaultLang;
@@ -30,37 +24,6 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
 
     $scope.multimedia = $rootScope.getImageUrl($scope.editBanner.multimedia);
     $scope.usedLang   = $rootScope.defaultLang;
-    $scope.getBannerDescriptionByLang($scope.usedLang);
-    $scope.reloadBannerTitleByLang($scope.usedLang);
-  }
-
-  $scope.getBannerTitleByLang = function (banner, lang) {
-    for (var i = 0; i < banner.title.length; i++) {
-      if (banner.title[i].lang == lang) {
-        return banner.title[i].text;
-      }
-    }
-    return '';
-  }
-
-  $scope.reloadBannerTitleByLang = function (lang) {
-    for (var i = 0; i < $scope.editBanner.title.length; i++) {
-      if ($scope.editBanner.title[i].lang == lang) {
-        $scope.editTitle.text = $scope.editBanner.title[i].text;
-        return $scope.editBanner.title[i].text;
-      }
-    }
-    return '';
-  }
-
-  $scope.getBannerDescriptionByLang = function (lang) {
-    for (var i = 0; i < $scope.editBanner.description.length; i++) {
-      if ($scope.editBanner.description[i].lang == lang) {
-        $scope.editDesc.text = $scope.editBanner.description[i].text;
-        return $scope.editBanner.description[i].text;
-      }
-    }
-    return '';
   }
 
   $scope.addBannerItem = function () {
@@ -70,11 +33,8 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
       description: $rootScope.createLangFields(),
       img: ""
     };
-
     $scope.multimedia = "";
     $scope.usedLang   = $rootScope.defaultLang;
-    $scope.getBannerDescriptionByLang($scope.usedLang);
-    $scope.reloadBannerTitleByLang($scope.usedLang);
 
   }
 
@@ -130,8 +90,6 @@ function bannersCtrl($scope, $rootScope, BlogService, Notification) {
 
   $scope.changeLang = function (lang) {
     $scope.usedLang = lang;
-    $scope.reloadBannerTitleByLang($scope.usedLang);
-    $scope.getBannerDescriptionByLang($scope.usedLang);
   }
 
   $scope.uploadPicture = function () {
