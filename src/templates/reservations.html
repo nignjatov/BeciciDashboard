@@ -58,7 +58,7 @@
                 ng-repeat="reservation in reservations | orderBy:sortType:sortReverse | filter:searchWord"
                 ng-click="selectReservation(reservation)">
                 <td>{{reservation.order.email}}</td>
-                <td>{{getRoomTypeByLang(reservation.room)}}</td>
+                <td>{{reservation.room.type[defaultLang]}}</td>
                 <td>{{reservation.termin.from | date : fullDate}}</td>
                 <td>{{reservation.termin.to | date : fullDate}}</td>
                 <td>{{reservation.status}}</td>
@@ -90,7 +90,7 @@
             <div class="col-sm-12">
                 <p class="col-sm-4">Room type:</p>
 
-                <p class="col-sm-8">{{getRoomTypeByLang(selectedReservation.room)}}</p>
+                <p class="col-sm-8">{{selectedReservation.room.type[defaultLang]}}</p>
             </div>
             <div class="col-sm-12">
                 <p class="col-sm-4">Start date:</p>
