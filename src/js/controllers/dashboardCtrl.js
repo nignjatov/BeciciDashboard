@@ -1,8 +1,8 @@
 angular.module('RDash')
-    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService', 'CoursesService','PriceService','Notification',
+    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService', 'CoursesService', 'PriceService', 'Notification',
         dashboardCtrl]);
 
-function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, CoursesService,PriceService,Notification) {
+function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, CoursesService, PriceService, Notification) {
 
     $rootScope.currentPage = "Dashboard";
 
@@ -21,6 +21,7 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
+    $scope.chartYear = new Date().getFullYear();
     $scope.euroCourse = null;
 
     $scope.obj = {
@@ -29,8 +30,8 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
 
     $scope.priceListImg = null;
 
-    PriceService.getPriceList().then(function (data){
-        if(data.data.length > 0){
+    PriceService.getPriceList().then(function (data) {
+        if (data.data.length > 0) {
             $scope.priceListImg = data.data[0].filename;
         }
     });
@@ -48,13 +49,12 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
     ReservationsService.getReservations().then(function (data) {
             var resSeries = $scope.dataTop[0];
             var moneySeries = $scope.dataBottom[0];
-            var currentYear = new Date().getYear();
             angular.forEach(data.data, function (reservation) {
                 if (reservation.status != 'INIT') {
                     $scope.reservations.push(reservation);
                 }
                 var resDate = new Date(reservation.updated_on);
-                if (resDate.getYear() == currentYear) {
+                if (resDate.getFullYear() == $scope.chartYear) {
                     resSeries[resDate.getMonth()]++;
                     moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
                 }
@@ -88,7 +88,7 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
         console.log(points, evt);
     };
 
-    $scope.uploadPriceList = function (){
+    $scope.uploadPriceList = function () {
         if (typeof $scope.obj.flow.files !== 'undefined') {
             PriceService.uploadImage($scope.obj.flow).then(function (data) {
                 Notification.primary({message: 'Price list uploaded!'});
@@ -97,5 +97,24 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
             });
 
         }
+    }
+
+    $scope.changeYear = function (year) {
+        $scope.dataTop = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ];
+        $scope.dataBottom = [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ];
+        var resSeries = $scope.dataTop[0];
+        var moneySeries = $scope.dataBottom[0];
+        angular.forEach($scope.reservations, function (reservation) {
+            var resDate = new Date(reservation.updated_on);
+            console.log(resDate.getYear());
+            if (resDate.getFullYear() == $scope.chartYear) {
+                resSeries[resDate.getMonth()]++;
+                moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
+            }
+        })
     }
 }

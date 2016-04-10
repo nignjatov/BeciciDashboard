@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('advertisingCtrl', ['$scope', '$rootScope', 'BlogService', 'Notification', advertisingCtrl]);
+    .controller('advertisingCtrl', ['$scope', '$rootScope','$modal', 'BlogService', 'Notification', advertisingCtrl]);
 
-function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
+function advertisingCtrl($scope, $rootScope,$modal, BlogService, Notification) {
 
     $rootScope.currentPage = "Advertising";
 
@@ -64,12 +64,20 @@ function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
     }
 
     $scope.deleteAdvert = function () {
-        BlogService.deleteBlogItem($scope.editAdvertising._id).then(function (data) {
-            $scope.advertising.splice($scope.advertising.indexOf($scope.editAdvertising), 1);
-            $scope.editAdvertising = null;
-            Notification.primary({message: 'Advertisement removed!'});
-        }).catch(function () {
-            Notification.error({message: 'Failed to remove advertisement!'});
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'deleteModal.html',
+            controller: 'deleteModalCtrl',
+            size: 'sm'
+        });
+        modalInstance.result.then(function (retModal) {
+            BlogService.deleteBlogItem($scope.editAdvertising._id).then(function (data) {
+                $scope.advertising.splice($scope.advertising.indexOf($scope.editAdvertising), 1);
+                $scope.editAdvertising = null;
+                Notification.primary({message: 'Advertisement removed!'});
+            }).catch(function () {
+                Notification.error({message: 'Failed to remove advertisement!'});
+            });
         });
     }
 
@@ -79,10 +87,10 @@ function advertisingCtrl($scope, $rootScope, BlogService, Notification) {
 
     $scope.uploadPicture = function () {
         if (typeof $scope.obj.flow.files !== 'undefined') {
-            PriceService.uploadPriceList($scope.obj.flow).then(function (data) {
-                Notification.primary({message: 'Price list uploaded!'});
+            BlogService.uploadImage($scope.editAdvertising._id, $scope.obj.flow).then(function (data) {
+                Notification.primary({message: 'Advert picture uploaded!'});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload price list!'});
+                Notification.error({message: 'Failed to upload advert picture!'});
             });
 
         }

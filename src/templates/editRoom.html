@@ -5,10 +5,12 @@
             <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
         </div>
         <div class="edit-body-row col-sm-offset-1 col-sm-4 text-right">
-            <p class="col-sm-5">Language:</p>
-            <select class="col-sm-3" ng-model="usedLang" ng-change="changeLang(usedLang)"
-                    ng-options="lang as lang for lang in languages">
-            </select>
+            <div class="col-sm-5">Language:</div>
+            <div class="col-sm-5">
+                <select class="form-control" ng-model="usedLang" ng-change="changeLang(usedLang)"
+                        ng-options="lang as lang for lang in languages">
+                </select>
+            </div>
         </div>
     </div>
     <div class="col-sm-12">
@@ -18,7 +20,7 @@
             <div class="col-sm-12 edit-room-wrapper">
                 <p>Room type:</p>
                 <input type="text" class="form-control" ng-model="room.type[usedLang]"
-                       placeholder="{{room.type[usedLang]}}" >
+                       placeholder="{{room.type[usedLang]}}">
             </div>
             <div class="col-sm-6 edit-room-wrapper">
                 <div>Children discount(%):</div>
@@ -87,6 +89,14 @@
             </div>
             <div class="col-sm-12 edit-room-wrapper">
                 <p>Room availability:</p>
+                <div class="col-sm-12">
+                    <div class="col-sm-3 mt07">Select year:</div>
+                    <div class="col-sm-3"><select class="form-control" ng-model="terminYear"
+                                                  ng-change="changeYear(terminYear)"
+                                                  ng-options="year as year for year in years">
+                    </select>
+                    </div>
+                </div>
                 <button class="btn btn-primary col-sm-2" ng-click="addNewTermin()">Add</button>
                 <div class=col-sm-12 ng-if="newTermin">
                     <div class="col-sm-6 edit-room-wrapper">
@@ -94,14 +104,16 @@
 
                         <div class="col-md-12">
                             <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}"
+                                <input ng-disabled="newTermin._id" type="text" class="form-control"
+                                       uib-datepicker-popup="{{fullDate}}"
                                        min-date="minDate"
                                        ng-model="newTermin.from"
-                                       is-open="statusFrom.opened" show-weeks="false" datepicker-options="dateOptions"
+                                       is-open="statusFrom.opened" show-weeks="false"
+                                       datepicker-options="dateOptions"
                                        ng-required="true"
                                        close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i
+                <button type="button" class="btn btn-default" ng-disabled="newTermin._id" ng-click="openFrom($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
                             </p>
@@ -112,7 +124,8 @@
 
                         <div class="col-md-12">
                             <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{fullDate}}"
+                                <input ng-disabled="newTermin._id" type="text" class="form-control"
+                                       uib-datepicker-popup="{{fullDate}}"
                                        min-date="toMinDate"
                                        max-date="toMaxDate"
                                        ng-model="newTermin.to"
@@ -120,7 +133,7 @@
                                        ng-required="true"
                                        close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="openTo($event)"><i
+                <button type="button" class="btn btn-default" ng-disabled="newTermin._id" ng-click="openTo($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
                             </p>
@@ -128,22 +141,31 @@
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
                         <div>Number of rooms:</div>
-                        <input type="number" class="form-control" ng-model="newTermin.amount"
+                        <input ng-disabled="newTermin._id" type="number" class="form-control"
+                               ng-model="newTermin.amount"
                                placeholder="{{newTermin.amount}}">
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
                         <div>Price({{currencyRSD}}):</div>
-                        <input type="number" class="form-control" ng-model="newTermin.price[currencyRSD]"
+                        <input ng-disabled="newTermin._id" type="number" class="form-control"
+                               ng-model="newTermin.price[currencyRSD]"
                                placeholder="{{newTermin.price[currencyRSD]}}">
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
                         <div>Price({{currencyEUR}}):</div>
-                        <input type="number" class="form-control" ng-model="newTermin.price[currencyEUR]"
+                        <input ng-disabled="newTermin._id" type="number" class="form-control"
+                               ng-model="newTermin.price[currencyEUR]"
                                placeholder="{{newTermin.price[currencyEUR]}}">
                     </div>
-                    <div class="col-sm-12 edit-room-wrapper">
-                        <button class="btn btn-primary col-sm-2" ng-click="saveNewTermin()">Save</button>
+                    <div ng-if="newTermin._id " class="col-sm-3 edit-room-wrapper">
+                        <button class="btn btn-primary col-sm-12" ng-click="closeTermin()">Close</button>
                     </div>
+                    <div ng-if="!newTermin._id " class="col-sm-3 edit-room-wrapper">
+                        <button class="btn btn-primary col-sm-12" ng-click="saveNewTermin()">Save</button>
+                    </div>
+                    <!--<div ng-if="newTermin._id && (termin.amount == termin.remained)" class="col-sm-3 edit-room-wrapper">-->
+                    <!--<button class="btn btn-primary col-sm-12" ng-click="deleteTermin()">Delete</button>-->
+                    <!--</div>-->
                 </div>
                 <table class="col-sm-12 edit-room-wrapper">
                     <thead>
@@ -155,7 +177,7 @@
                     <th>To</th>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="termin in room.available">
+                    <tr ng-repeat="termin in room.available" ng-if="showTermin(termin)" class="cursor" ng-click="openTermin(termin)">
                         <td>{{termin.amount}}</td>
                         <td>{{termin.remained}}</td>
                         <td>{{termin.price[currencyRSD]}}</td>

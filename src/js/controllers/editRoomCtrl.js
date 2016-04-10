@@ -56,6 +56,10 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         price: {}
     };
 
+    $scope.terminYear = new Date().getFullYear();
+
+    $scope.termins = [];
+
     $scope.roomServicesAll = [];
     HotelServicesService.getRoomServices().then(function (roomServices) {
         $scope.roomServicesAll = roomServices.data;
@@ -66,6 +70,11 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
                     $scope.imageURL = $rootScope.getImageUrl($scope.room.image);
                     $scope.mergeServices();
                 }
+                angular.forEach($scope.room.available,function(termin){
+                   if(new Date(termin.from).getFullYear() == $scope.terminYear){
+                       $scope.termins.push(termin);
+                   }
+                });
             });
         } else {
             $scope.mergeServices();
@@ -96,6 +105,18 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
         $scope.newTermin = {};
     }
 
+    $scope.openTermin = function (termin) {
+        $scope.newTermin = termin;
+    }
+
+    $scope.closeTermin = function () {
+        $scope.newTermin = null;
+    }
+
+    $scope.deleteTermin = function () {
+        $scope.room.available.push($scope.newTermin);
+        $scope.newTermin = null;
+    }
     $scope.saveNewTermin = function () {
         var added = false;
         $scope.newTermin.remained = $scope.newTermin.amount;
@@ -196,7 +217,19 @@ function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelSe
 
     $scope.$watch('newTermin.from', function () {
         $scope.toMinDate = $scope.newTermin.from;
-        $scope.toMaxDate = $scope.toMinDate.getTime() + 14*24*3600*1000;
+        $scope.toMaxDate = $scope.toMinDate.getTime() + 14 * 24 * 3600 * 1000;
         $scope.newTermin.to = null;
     });
+
+    $scope.changeYear = function(){
+        $scope.termins = [];
+        $scope.newTermin = null;
+    }
+
+    $scope.showTermin = function(termin){
+        if(new Date(termin.from).getFullYear() == $scope.terminYear){
+            return true;
+        }
+        return false;
+    }
 }

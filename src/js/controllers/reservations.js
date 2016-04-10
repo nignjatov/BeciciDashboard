@@ -1,15 +1,15 @@
 angular.module('RDash')
-    .controller('reservationsCtrl', ['$scope', '$rootScope', 'Notification', 'ReservationsService','RoomsService', reservationsCtrl]);
+    .controller('reservationsCtrl', ['$scope', '$rootScope', 'Notification', 'ReservationsService', 'RoomsService', reservationsCtrl]);
 
-function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,RoomsService) {
+function reservationsCtrl($scope, $rootScope, Notification, ReservationsService, RoomsService) {
 
     $rootScope.currentPage = "Reservations";
 
     $scope.selectedReservation = null;
     $scope.reservations = [];
     ReservationsService.getReservations().then(function (data) {
-        angular.forEach(data.data,function(reservation){
-            if(reservation.status != 'INIT'){
+        angular.forEach(data.data, function (reservation) {
+            if (reservation.status != 'INIT') {
                 $scope.reservations.push(reservation);
             }
         })
@@ -37,6 +37,13 @@ function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,
         $scope.selectedReservation = reservation;
     }
 
+    $scope.saveReservation = function () {
+        ReservationsService.saveRoomNumber($scope.selectedReservation.paymentId, $scope.selectedReservation.roomNumber).then(function () {
+            Notification.primary({message: 'Reservation updated!'});
+        }).catch(function (err) {
+            Notification.error({message: 'Failed to update reservation!'});
+        })
+    }
     $scope.archiveReservation = function () {
         $scope.selectedReservation.status = 'archive';
         $scope.selectedReservation = null;
@@ -44,34 +51,34 @@ function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,
     }
     $scope.rejectReservation = function () {
         var req = {
-            order : {
-                room : $scope.selectedReservation.room._id,
-                termin : $scope.selectedReservation.termin._id
+            order: {
+                room: $scope.selectedReservation.room._id,
+                termin: $scope.selectedReservation.termin._id
             },
-            email : $scope.selectedReservation.order.email
+            email: $scope.selectedReservation.order.email
         };
         console.log(req);
-        ReservationsService.rejectReservation($scope.selectedReservation.paymentId,req).then( function(data){
+        ReservationsService.rejectReservation($scope.selectedReservation.paymentId, req).then(function (data) {
             $scope.selectedReservation.status = 'VOIDED';
             Notification.primary({message: 'Reservation rejected!'});
-        }).catch(function(err){
+        }).catch(function (err) {
             Notification.error({message: 'Failed to reject reservation!'});
         })
     }
     $scope.approveReservation = function () {
         var req = {
-            order : {
-                room : $scope.selectedReservation.room._id,
-                termin : $scope.selectedReservation.termin._id
+            order: {
+                room: $scope.selectedReservation.room._id,
+                termin: $scope.selectedReservation.termin._id
             },
-            email : $scope.selectedReservation.order.email
+            email: $scope.selectedReservation.order.email
         };
         console.log(req);
-        ReservationsService.approveReservation($scope.selectedReservation.paymentId,req).then( function(data){
+        ReservationsService.approveReservation($scope.selectedReservation.paymentId, req).then(function (data) {
             $scope.selectedReservation.status = 'CAPTURED';
             $scope.selectedReservation.termin.remained--;
             Notification.primary({message: 'Reservation approved!'});
-        }).catch(function(err){
+        }).catch(function (err) {
             Notification.error({message: 'Failed to approve reservation!'});
         })
     }

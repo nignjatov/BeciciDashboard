@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('reviewsCtrl', ['$scope', '$rootScope', 'ReviewsService', 'Notification', reviewsCtrl]);
+    .controller('reviewsCtrl', ['$scope', '$rootScope', '$modal','ReviewsService', 'Notification', reviewsCtrl]);
 
-function reviewsCtrl($scope, $rootScope, ReviewsService, Notification) {
+function reviewsCtrl($scope, $rootScope,$modal, ReviewsService, Notification) {
 
     $rootScope.currentPage = "Reviews";
 
@@ -28,14 +28,22 @@ function reviewsCtrl($scope, $rootScope, ReviewsService, Notification) {
     };
 
     $scope.deleteReview = function () {
-        ReviewsService.deleteReview($scope.selectedReview._id)
-            .then(function () {
-                $scope.reviews.splice($scope.reviews.indexOf($scope.selectedReview), 1);
-                $scope.selectedReview = null;
-                Notification.primary({message: 'Review removed!'});
-            }).catch(function (err) {
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'deleteModal.html',
+            controller: 'deleteModalCtrl',
+            size: 'sm'
+        });
+        modalInstance.result.then(function (retModal) {
+            ReviewsService.deleteReview($scope.selectedReview._id)
+                .then(function () {
+                    $scope.reviews.splice($scope.reviews.indexOf($scope.selectedReview), 1);
+                    $scope.selectedReview = null;
+                    Notification.primary({message: 'Review removed!'});
+                }).catch(function (err) {
                 Notification.error({message: 'Failed to remove review!'});
             });
+        });
     }
     $scope.rejectReview = function () {
         ReviewsService.changeReviewStatus($scope.selectedReview._id, 'rejected')

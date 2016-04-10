@@ -47,6 +47,11 @@
 </div>
 
 <div class="row">
+    <div class="col-sm-6 text-right mt07">Select year for charts:</div>
+    <div class="col-sm-2"><select class="form-control" ng-model="chartYear" ng-change="changeYear(chartYear)"
+                 ng-options="year as year for year in years">
+    </select>
+    </div>
     <div class="col-lg-12 col-sm-12" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
@@ -63,6 +68,7 @@
             <div class="panel-heading text-center">
                 Earnings Chart
             </div>
+
             <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
                 <canvas id="line" class="chart chart-line" data="dataBottom" labels="labels" legend="true"
                         click="onClickBottom" series="seriesBottom"></canvas>
@@ -73,7 +79,7 @@
 
 <div class="row">
     <div class="col-sm-12 text-center">
-        <div class="col-sm-12 mt07 text-center">Rooms price list image: </div>
+        <div class="col-sm-12 mt07 text-center">Rooms price list image:</div>
         <div flow-init flow-files-submitted=""
              flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
              flow-name="obj.flow" class="col-sm-12 mt07 img_preview_container " height="250px">

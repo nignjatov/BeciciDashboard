@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('roomServiceCtrl', ['$scope', '$rootScope', 'HotelServicesService', 'Notification', roomServiceCtrl]);
+    .controller('roomServiceCtrl', ['$scope', '$rootScope', '$modal', 'HotelServicesService', 'Notification', roomServiceCtrl]);
 
-function roomServiceCtrl($scope, $rootScope, HotelServicesService, Notification) {
+function roomServiceCtrl($scope, $rootScope, $modal, HotelServicesService, Notification) {
 
     $rootScope.currentPage = "Room Services";
 
@@ -53,12 +53,20 @@ function roomServiceCtrl($scope, $rootScope, HotelServicesService, Notification)
 
     }
     $scope.deleteRoomService = function () {
-        HotelServicesService.deleteHotelService($scope.editRoomService._id).then(function (data) {
-            $scope.roomServices.splice($scope.roomServices.indexOf($scope.editRoomService), 1);
-            $scope.editRoomService = null;
-            Notification.primary({message: 'Room service removed!'});
-        }).catch(function (err) {
-            Notification.error({message: 'Failed to remove room service!'});
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'deleteModal.html',
+            controller: 'deleteModalCtrl',
+            size: 'sm'
+        });
+        modalInstance.result.then(function (retModal) {
+            HotelServicesService.deleteHotelService($scope.editRoomService._id).then(function (data) {
+                $scope.roomServices.splice($scope.roomServices.indexOf($scope.editRoomService), 1);
+                $scope.editRoomService = null;
+                Notification.primary({message: 'Room service removed!'});
+            }).catch(function (err) {
+                Notification.error({message: 'Failed to remove room service!'});
+            });
         });
     }
 

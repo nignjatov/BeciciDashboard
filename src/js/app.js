@@ -1,5 +1,5 @@
 var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-notification', 'ui.bootstrap',
-        'ui.bootstrap.datetimepicker', 'chart.js','pascalprecht.translate'])
+        'ui.bootstrap.datetimepicker', 'chart.js', 'pascalprecht.translate'])
     .filter('html', function ($sce) {
         return function (input) {
             return $sce.trustAsHtml(input);
@@ -112,7 +112,7 @@ RDashApp.run(function ($rootScope) {
     };
 
     //$rootScope.serverUrl = "http://194.106.182.81:3000/api";
-    $rootScope.serverUrl = "http://192.168.1.2:3000/api";
+    $rootScope.serverUrl = "http://192.168.1.8:3000/api";
     $rootScope.getImageUrl = function (filename) {
         if (filename != null && filename.length > 0) {
             return $rootScope.serverUrl + "/images/images/" + filename
@@ -131,5 +131,9 @@ RDashApp.run(function ($rootScope) {
         fields.sk = "";
         return fields;
     }
+
+    $rootScope.years = [
+        2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030
+    ];
 });
 
