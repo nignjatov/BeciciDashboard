@@ -110,7 +110,7 @@
             <div class="col-sm-12">
                 <p class="col-sm-4">Transaction ID:</p>
 
-                <p class="col-sm-8">{{selectedReservation.notification.tranid}}</p>
+                <p class="col-sm-8">{{selectedReservation.notification.paymentid}}</p>
             </div>
             <div class="col-sm-12">
                 <p class="col-sm-4">Price:</p>
@@ -140,9 +140,13 @@
                 <!--<button ng-if="selectedReservation.status == 'CAPTURED' || selectedReservation.status == 'VOIDED' "-->
                 <!--class="btn btn-primary col-sm-3 text-right" ng-click="archiveReservation()">Archive-->
                 <!--</button>-->
-                <button ng-if="selectedReservation.status == 'APPROVED' && (selectedReservation.termin.remained > 0)"
+                <button ng-if="selectedReservation.status == 'CAPTURED'"
+                        class="btn btn-primary col-sm-4"
+                        ng-click="markAsPaid()">Mark as paid
+                </button>
+                <button ng-if="selectedReservation.status == 'PAID'"
                         class="btn btn-primary col-sm-3"
-                        ng-click="approveReservation()">Approve
+                        ng-click="cancelReservation()">Cancel
                 </button>
                 <button ng-if="selectedReservation.status == 'APPROVED'" class="btn btn-primary col-sm-3"
                         ng-click="rejectReservation()">Reject

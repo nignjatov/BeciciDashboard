@@ -23,6 +23,18 @@ angular.module('RDash')
                     data: reservationData
                 });
             },
+            markReservationPaid: function (paymentId, reservationData) {
+                return $http({
+                    method: 'PATCH',
+                    url: servicePrefix + paymentId + '/paid'
+                });
+            },
+            cancelReservation: function (paymentId) {
+                return $http({
+                    method: 'PATCH',
+                    url: servicePrefix + paymentId + '/cancel'
+                });
+            },
             saveRoomNumber: function (paymentId, roomNumber) {
                 return $http({
                     method: 'PUT',

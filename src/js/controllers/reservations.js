@@ -44,6 +44,23 @@ function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,
             Notification.error({message: 'Failed to update reservation!'});
         })
     }
+    $scope.markAsPaid = function () {
+        ReservationsService.markReservationPaid($scope.selectedReservation.paymentId).then(function (data) {
+            $scope.selectedReservation.status = 'PAID';
+            Notification.primary({message: 'Reservation marked as paid!'});
+        }).catch(function (err) {
+            Notification.error({message: 'Failed to mark reservation as paid!'});
+        })
+    }
+    $scope.cancelReservation = function () {
+        ReservationsService.cancelReservation($scope.selectedReservation.paymentId).then(function (data) {
+            $scope.selectedReservation.status = 'CANCELED';
+            Notification.primary({message: 'Reservation canceled !'});
+        }).catch(function (err) {
+            Notification.error({message: 'Failed to cancel reservation!'});
+        })
+    }
+
     $scope.archiveReservation = function () {
         $scope.selectedReservation.status = 'archive';
         $scope.selectedReservation = null;
