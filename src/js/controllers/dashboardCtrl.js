@@ -56,7 +56,11 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
                 var resDate = new Date(reservation.updated_on);
                 if (resDate.getFullYear() == $scope.chartYear) {
                     resSeries[resDate.getMonth()]++;
-                    moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
+                    if(reservation.status== "PAID"){
+                        moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
+                    } else if (reservation.status== "CANCELED"){
+                        moneySeries[resDate.getMonth()] += parseFloat(reservation.earned);
+                    }
                 }
             })
         }
@@ -113,7 +117,11 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
             console.log(resDate.getYear());
             if (resDate.getFullYear() == $scope.chartYear) {
                 resSeries[resDate.getMonth()]++;
-                moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
+                if(reservation.status== "PAID"){
+                    moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
+                } else if (reservation.status== "CANCELED"){
+                    moneySeries[resDate.getMonth()] += parseFloat(reservation.earned);
+                }
             }
         })
     }
