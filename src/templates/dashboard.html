@@ -110,3 +110,36 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <div class="col-sm-12 mt07 text-center">Individual reservation file:</div>
+        <div flow-init flow-files-submitted=""
+             flow-name="obj.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length">
+                <img src="{{getImageUrl(priceListImg)}}" alt="No image provided"/>
+            </div>
+            <div ng-show="$flow.files.length">
+                <img flow-img="$flow.files[0]"/>
+            </div>
+            <div>
+          <span class="btn btn-primary" ng-show="!$flow.files.length"
+                flow-btn>Select file<input
+                  type="file"
+                  style="visibility: hidden; position: absolute;"></span>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>Update file<input type="file"
+                                            style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    Discard
+                </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadIndividualReservation()">
+                    Add
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

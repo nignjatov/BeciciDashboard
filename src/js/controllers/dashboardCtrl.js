@@ -28,12 +28,28 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
         flow: null
     };
 
+    $scope.individual = {
+        flow: null
+    };
+
+    $scope.group = {
+        flow: null
+    };
+
     $scope.priceListImg = null;
+    $scope.individualReservation = null;
+    $scope.groupReservation = null;
 
     PriceService.getPriceList().then(function (data) {
-        if (data.data.length > 0) {
-            $scope.priceListImg = data.data[0].filename;
-        }
+        angular.forEach(data.data, function(item){
+            if(item.type == 'priceList'){
+                $scope.priceList = item.filename;
+            } else if(item.type == 'individualReservation'){
+                $scope.individualReservation = item.filename;
+            } else if(item.type == 'groupReservation'){
+                $scope.groupReservation = item.filename;
+            }
+        });
     });
     ReviewsService.getAllReviews()
         .then(function (data) {
