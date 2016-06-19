@@ -43,7 +43,7 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
     PriceService.getPriceList().then(function (data) {
         angular.forEach(data.data, function(item){
             if(item.type == 'priceList'){
-                $scope.priceList = item.filename;
+                $scope.priceListImg = item.filename;
             } else if(item.type == 'individualReservation'){
                 $scope.individualReservation = item.filename;
             } else if(item.type == 'groupReservation'){
@@ -119,6 +119,42 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
         }
     }
 
+    $scope.uploadIndividualReservation = function () {
+        if (typeof $scope.individual.flow.files !== 'undefined') {
+            PriceService.uploadIndividualReservation($scope.individual.flow).then(function (data) {
+                Notification.primary({message: 'Individual reservation file uploaded!'});
+            }).catch(function (err) {
+                Notification.error({message: 'Failed to upload file!'});
+            });
+        }
+    }
+
+    $scope.uploadGroupReservation = function () {
+        if (typeof $scope.group.flow.files !== 'undefined') {
+            PriceService.uploadGroupReservation($scope.group.flow).then(function (data) {
+                Notification.primary({message: 'Group reservation file uploaded!'});
+            }).catch(function (err) {
+                Notification.error({message: 'Failed to upload file!'});
+            });
+        }
+    }
+    $scope.deleteIndividualReservation = function () {
+        PriceService.deleteIndividualReservation().then(function (data) {
+            Notification.primary({message: 'Individual reservation file deleted!'});
+            $scope.individualReservation = null;
+        }).catch(function (err) {
+            Notification.error({message: 'Failed to delete file!'});
+        });
+    }
+
+    $scope.deleteGroupReservation = function () {
+        PriceService.deleteGroupReservation().then(function (data) {
+            Notification.primary({message: 'Group reservation file deleted!'});
+            $scope.groupReservation = null;
+        }).catch(function (err) {
+            Notification.error({message: 'Failed to delete file!'});
+        });
+    }
     $scope.changeYear = function (year) {
         $scope.dataTop = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

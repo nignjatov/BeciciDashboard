@@ -112,21 +112,22 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-12 text-center">
+    <div class="col-sm-6 text-center">
         <div class="col-sm-12 mt07 text-center">Individual reservation file:</div>
         <div flow-init flow-files-submitted=""
-             flow-name="obj.flow" class="col-sm-12 mt07 img_preview_container ">
-            <div ng-show="!$flow.files.length">
-                <img src="{{getImageUrl(priceListImg)}}" alt="No image provided"/>
+             flow-name="individual.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && individualReservation">
+                <a href="{{getImageUrl(individualReservation)}}" target="_blank">See file</a>
             </div>
             <div ng-show="$flow.files.length">
-                <img flow-img="$flow.files[0]"/>
+                {{$flow.files[0].name}}
             </div>
             <div>
-          <span class="btn btn-primary" ng-show="!$flow.files.length"
-                flow-btn>Select file<input
-                  type="file"
-                  style="visibility: hidden; position: absolute;"></span>
+                <span class="btn btn-primary"  ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>Upload File</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && individualReservation"
+                   ng-click="deleteIndividualReservation()">
+                    Delete
+                </a>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
                 flow-btn>Update file<input type="file"
@@ -137,6 +138,37 @@
                 </a>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
                    ng-click="uploadIndividualReservation()">
+                    Add
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <div class="col-sm-12 mt07 text-center">Group reservation file:</div>
+        <div flow-init flow-files-submitted=""
+             flow-name="group.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && groupReservation">
+                <a href="{{getImageUrl(groupReservation)}}" target="_blank">See file</a>
+            </div>
+            <div ng-show="$flow.files.length">
+                {{$flow.files[0].name}}
+            </div>
+            <div>
+                <span class="btn btn-primary"  ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>Upload File</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && groupReservation"
+                   ng-click="deleteGroupReservation()">
+                    Delete
+                </a>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>Update file<input type="file"
+                                           style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    Discard
+                </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadGroupReservation()">
                     Add
                 </a>
             </div>
