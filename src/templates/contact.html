@@ -1,57 +1,57 @@
 <div class="row">
     <div class="col-lg-12">
-        <button class="btn btn-primary col-sm-2" ng-click="saveContactData()">Save</button>
+        <button class="btn btn-primary col-sm-2" ng-click="saveContactData()">{{ 'SAVE' | translate}}</button>
     </div>
     <div class="col-lg-6">
         <table class="table table-responsive">
             <tbody>
             <tr>
-                <td>Title</td>
+                <td>{{ 'TITLE' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.title"></td>
             </tr>
             <tr>
-                <td>Phone</td>
+                <td>{{ 'PHONE' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.phone"></td>
             </tr>
             <tr>
-                <td>Fax</td>
+                <td>{{ 'FAX' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.fax"></td>
             </tr>
             <tr>
-                <td>Address</td>
+                <td>{{ 'ADDRESS' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.address"></td>
             </tr>
             <tr>
-                <td>City</td>
+                <td>{{ 'CITY' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.city"></td>
             </tr>
             <tr>
-                <td>State</td>
+                <td>{{ 'STATE' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.state"></td>
             </tr>
             <tr>
-                <td>Website</td>
+                <td>{{ 'WEBSITE' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.website"></td>
             </tr>
             <tr>
-                <td>Director</td>
+                <td>{{ 'DIRECTOR' | translate}}</td>
                 <td><input type="text" class="form-control" ng-model="contact.director"></td>
             </tr>
             <tr>
-                <td>E-Mail</td>
+                <td>{{ 'E_MAIL' | translate}}</td>
                 <td><input type="email" class="form-control" ng-model="enterEmail">
                     <button class="btn btn-primary pull-right" ng-click="addEmail()">
-                        <i class="fa fa-plus"></i> Add
+                        <i class="fa fa-plus"></i> {{ 'ADD' | translate}}
                     </button>
                 </td>
             </tr>
             </tbody>
         </table>
-        <h5>Existing E-Mails</h5>
+        <h5>{{ 'EXISTING_E_MAILS' | translate}}</h5>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="email in contact.email">
                 <button class="btn btn-primary" ng-click="deleteEmail(email)">
-                    Delete
+                    {{ 'DELETE' | translate}}
                 </button>
                 {{email}}
             </li>

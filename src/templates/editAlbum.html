@@ -1,11 +1,11 @@
 <div class="row">
   <div class="edit-body-row col-sm-7">
-    <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">Save</button>
-    <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
+    <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">{{ 'SAVE' | translate}}</button>
+    <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">{{ 'BACK' | translate}}</button>
   </div>
   <div class="col-sm-12">
     <div class="col-sm-5">
-      <div class="col-sm-3">Title:</div>
+      <div class="col-sm-3">{{ 'TITLE' | translate}}:</div>
       <div class="col-sm-3 col-sm-offset-6 text-right select_join">
         <select ng-model="titleLang" ng-change="changeLang(titleLang)"
                 ng-options="lang as lang for lang in languages">
@@ -18,7 +18,7 @@
   </div>
   <div class="col-sm-12">
     <div class="col-sm-8">
-      <h5 class="col-sm-12">Images:</h5>
+      <h5 class="col-sm-12">{{ 'IMAGES' | translate}}:</h5>
 
       <div class="col-sm-4" ng-repeat="image in imageUrls">
         <div class="col-sm-12 box-wrapper text-center cursor">
@@ -26,14 +26,14 @@
             <img class="text-center " src="{{image.url}}" class=" img-thumbnail">
           </div>
           <div class="col-sm-10 col-sm-offset-1">
-            <button class="btn btn-primary" ng-click="deleteImage(image)">Delete</button>
+            <button class="btn btn-primary" ng-click="deleteImage(image)">{{ 'DELETE' | translate}}</button>
           </div>
         </div>
       </div>
     </div>
     <div ng-if='album._id' class="col-sm-4 text-center">
       <div class="col-sm-12">
-        <h5>Add new image:</h5>
+        <h5>{{ 'ADD_NEW_IMAGE' | translate}}:</h5>
       </div>
       <div class="col-sm-12 edit-room-wrappers">
         <div flow-init flow-files-submitted="" flow-name="obj.flow"
@@ -44,27 +44,27 @@
           </div>
           <div>
           <span class="btn btn-primary" ng-show="!$flow.files.length"
-                flow-btn>Select Image<input
+                flow-btn>{{ 'SELECT_IMAGE' | translate}}<input
               type="file"
               style="visibility: hidden; position: absolute;"></span>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Change<input type="file"
+                flow-btn>{{ 'UPDATE' | translate}}<input type="file"
                                             style="visibility: hidden; position: absolute;"></span>
             <a class="btn btn-primary" ng-show="$flow.files.length"
                ng-click="$flow.cancel()">
-              Delete
+              {{ 'DELETE' | translate}}
             </a>
             <a class="btn btn-primary" ng-show="$flow.files.length"
                ng-click="uploadPicture()">
-              Add
+              {{ 'ADD' | translate}}
             </a>
           </div>
         </div>
       </div>
     </div>
     <div ng-if='!album._id' class="col-sm-4 text-center">
-      <h5>Please enter album title and click Save in order to be able to add pictures</h5>
+      <h5>{{ 'ALBUM_CREATE_MSG' | translate}}</h5>
     </div>
   </div>
 </div>

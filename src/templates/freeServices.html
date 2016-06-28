@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <button class="btn btn-primary  col-sm-2" ng-click="addFreeService()"><i class="fa fa-plus"></i> Add
+    <button class="btn btn-primary  col-sm-2" ng-click="addFreeService()"><i class="fa fa-plus"></i> {{ 'ADD' | translate}}
     </button>
   </div>
   <div class="col-sm-7">
@@ -8,7 +8,7 @@
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon"><i class="fa fa-search"></i></div>
-          <input type="text" class="form-control" placeholder="Search free services" ng-model="searchWord">
+          <input type="text" class="form-control" placeholder="{{ 'SEARCH_SERVICES' | translate}}" ng-model="searchWord">
         </div>
       </div>
     </form>
@@ -16,21 +16,21 @@
       <thead>
       <th>
         <a class="cursor white-text" ng-click="sortType = 'title'; sortReverse = !sortReverse">
-          Title
+          {{ 'TITLE' | translate}}
           <span ng-show="sortType == 'title' && sortReverse" class="fa fa-caret-down"></span>
           <span ng-show="sortType == 'title' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
       </th>
       <th>
         <a class="cursor white-text" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
-          Created at
+          {{ 'CREATED_AT' | translate}}
           <span ng-show="sortType == 'created_at' && sortReverse" class="fa fa-caret-down"></span>
           <span ng-show="sortType == 'created_at' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
       </th>
       <th>
         <a class="cursor white-text" ng-click="sortType = 'last_modified'; sortReverse = !sortReverse">
-          Last modified
+          {{ 'MODIFIED_AT' | translate}}
           <span ng-show="sortType == 'last_modified' && sortReverse" class="fa fa-caret-down"></span>
           <span ng-show="sortType == 'last_modified' && !sortReverse" class="fa fa-caret-up"></span>
         </a>
@@ -48,22 +48,22 @@
   <script type="text/ng-template" id="deleteModal.html">
     <div class="modal-header">
       <button type="button" class="close" ng-click="no()">&times;</button>
-      <h4 class="modal-title">Delete</h4>
+      <h4 class="modal-title">{{ 'DELETE' | translate}}</h4>
     </div>
     <div class="modal-body">
-      <p>Are you sure you want to delete this item?</p>
+      <p>{{ 'DELETE_QUESTION' | translate}}</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary"
-              ng-click="yes()">Yes
+              ng-click="yes()">{{ 'YES' | translate}}
       </button>
-      <button type="button" class="btn btn-primary" ng-click="no()">No
+      <button type="button" class="btn btn-primary" ng-click="no()">{{ 'NO' | translate}}
       </button>
     </div>
   </script>
   <div ng-if="editFreeService" class="col-sm-5">
     <div class="col-sm-12 edit-header">
-      <h4 class="col-sm-6">Free Service</h4>
+      <h4 class="col-sm-6">{{ 'SERVICE' | translate}}</h4>
 
       <div class="col-sm-3 col-sm-offset-3 text-right select_join">
         <select ng-model="usedLang" ng-change="changeLang(usedLang)"
@@ -73,17 +73,17 @@
     </div>
     <div class="col-sm-12 edit-body">
       <div class="col-sm-12">
-        <div class="col-sm-3">Title:</div>
+        <div class="col-sm-3">{{ 'TITLE' | translate}}:</div>
         <input type="text" class="form-control col-sm-12 text-left" ng-model="editFreeService.title[usedLang]">
         </input>
       </div>
       <div class=" col-sm-12 ">
-        <div class="col-sm-3">Description:</div>
+        <div class="col-sm-3">{{ 'DESCRIPTION' | translate}}:</div>
         <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editFreeService.description[usedLang]">
         </textarea>
       </div>
       <div class="col-sm-12 text-center">
-        <div class="col-sm-12 text-center">Image:</div>
+        <div class="col-sm-12 text-center">{{ 'IMAGE' | translate}}:</div>
         <div flow-init flow-files-submitted="" flow-name="obj.flow" class="col-sm-12 img_preview_container"
              flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize" height="250px">
           <div ng-show="!$flow.files.length">
@@ -94,32 +94,32 @@
           </div>
           <div>
           <span class="btn btn-primary" ng-show="!$flow.files.length"
-                flow-btn>Select image<input
+                flow-btn>{{ 'SELECT_IMAGE' | translate}}<input
               type="file"
               style="visibility: hidden; position: absolute;"></span>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Update image<input type="file"
+                flow-btn>{{ 'UPDATE_IMAGE' | translate}}<input type="file"
                                             style="visibility: hidden; position: absolute;"></span>
             <a class="btn btn-primary" ng-show="$flow.files.length"
                ng-click="$flow.cancel()">
-              Discard
+              {{ 'DISCARD' | translate}}
             </a>
           </div>
         </div>
         <div class="col-sm-12 ">
-          <div class="col-sm-3">Created:</div>
+          <div class="col-sm-3">{{ 'CREATED_AT' | translate}}:</div>
           <p class="col-sm-9">{{editFreeService.created_at | date : fullDateTime}}</p>
         </div>
         <div class="col-sm-12 ">
-          <div class="col-sm-3">Modified:</div>
+          <div class="col-sm-3">{{ 'MODIFIED_AT' | translate}}:</div>
           <p class="col-sm-9">{{editFreeService.last_modified | date : fullDateTime}}</p>
         </div>
         <div class="col-sm-12">
           <button ng-if="editFreeService._id" class="btn btn-primary col-sm-3 text-right"
-                  ng-click="deleteFreeService()">Delete
+                  ng-click="deleteFreeService()">{{ 'DELETE' | translate}}
           </button>
-          <button class="btn btn-primary col-sm-3" ng-click="saveFreeService()">Save</button>
+          <button class="btn btn-primary col-sm-3" ng-click="saveFreeService()">{{ 'SAVE' | translate}}</button>
         </div>
       </div>
     </div>

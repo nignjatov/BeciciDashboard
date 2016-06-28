@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="edit-body-row col-sm-7">
-            <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">Save</button>
-            <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">Back</button>
+            <button class="btn btn-primary col-sm-3 text-right" ng-click="saveChanges()">{{ 'SAVE' | translate}}</button>
+            <button class="btn btn-primary col-sm-3" ng-click="discardChanges()">{{ 'BACK' | translate}}</button>
         </div>
         <div class="edit-body-row col-sm-offset-1 col-sm-4 text-right">
-            <div class="col-sm-5">Language:</div>
+            <div class="col-sm-5">{{ 'LANGUAGE' | translate}}:</div>
             <div class="col-sm-5">
                 <select class="form-control" ng-model="usedLang" ng-change="changeLang(usedLang)"
                         ng-options="lang as lang for lang in languages">
@@ -15,36 +15,36 @@
     </div>
     <div class="col-sm-12">
         <div class="col-sm-5 pull-left">
-            <h5>Edit room:</h5>
+            <h5>{{ 'EDIT_ROOM' | translate}}:</h5>
 
             <div class="col-sm-12 edit-room-wrapper">
-                <p>Room type:</p>
+                <p>{{ 'ROOM_TYPE' | translate}}:</p>
                 <input type="text" class="form-control" ng-model="room.type[usedLang]"
                        placeholder="{{room.type[usedLang]}}">
             </div>
             <div class="col-sm-6 edit-room-wrapper">
-                <div>Children discount(%):</div>
+                <div>{{ 'CHILDREN_DISCOUNT' | translate}}(%):</div>
                 <input type="number" class="form-control" ng-model="room.child_discount"
                        placeholder="{{room.child_discount}}">
             </div>
             <div class="col-sm-6 edit-room-wrapper">
-                <div>Bed sharing discount(%):</div>
+                <div>{{ 'BED_SHARING_DISCOUNT' | translate}}(%):</div>
                 <input type="number" class="form-control" ng-model="room.child_bed_discount"
                        placeholder="{{room.child_bed_discount}}">
             </div>
             <div class="col-sm-12 edit-room-wrapper">
-                <p>Title:</p>
+                <p>{{ 'TITLE' | translate}}:</p>
                 <input type="text" class="form-control" ng-model="room.title[usedLang]"
                        placeholder="{{room.title[usedLang]}}">
             </div>
             <div class="col-sm-12 edit-room-wrapper">
-                <p>Description:</p>
+                <p>{{ 'DESCRIPTION' | translate}}:</p>
       <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="room.description[usedLang]"
                 ng-change="room.description[usedLang]">
       </textarea>
             </div>
             <div class="col-sm-12 edit-room-wrappers">
-                <p>Image:</p>
+                <p>{{ 'IMAGE' | translate}}:</p>
 
                 <div flow-init flow-files-submitted="" flow-name="obj.flow"
                      flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
@@ -57,26 +57,26 @@
                     </div>
                     <div>
           <span class="btn btn-primary" ng-show="!$flow.files.length"
-                flow-btn>Select image<input
+                flow-btn>{{ 'SELECT_IMAGE' | translate}}<input
                   type="file"
                   style="visibility: hidden; position: absolute;"></span>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Update image<input type="file"
+                flow-btn>{{ 'UPDATE_IMAGE' | translate}}<input type="file"
                                             style="visibility: hidden; position: absolute;"></span>
                         <a class="btn btn-primary" ng-show="$flow.files.length"
                            ng-click="$flow.cancel()">
-                            Delete
+                            {{ 'DELETE' | translate}}
                         </a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-7">
-            <h5>Additional information:</h5>
+            <h5>{{ 'ADDITIONAL_INFORMATION' | translate}}:</h5>
 
             <div class="col-sm-12 edit-room-wrapper">
-                <p>Number of beds:</p>
+                <p>{{ 'NUMBER_OF_BEDS' | translate}}:</p>
 
                 <div class="col-sm-6">
                     <input type="number" class="form-control" ng-model="room.bed_number"
@@ -84,23 +84,23 @@
                 </div>
                 <div class="col-sm-6" style="padding-top: 7px;">
                     <input type="checkbox" value="room.big_bed"
-                           ng-model="room.big_bed">French bed
+                           ng-model="room.big_bed">{{ 'FRENCH_BED' | translate}}
                 </div>
             </div>
             <div class="col-sm-12 edit-room-wrapper">
-                <p>Room availability:</p>
+                <p>{{ 'ROOM_AVAILABILITY' | translate}}:</p>
                 <div class="col-sm-12">
-                    <div class="col-sm-3 mt07">Select year:</div>
+                    <div class="col-sm-3 mt07">{{ 'SELECT)YEAR' | translate}}:</div>
                     <div class="col-sm-3"><select class="form-control" ng-model="terminYear"
                                                   ng-change="changeYear(terminYear)"
                                                   ng-options="year as year for year in years">
                     </select>
                     </div>
                 </div>
-                <button class="btn btn-primary col-sm-2" ng-click="addNewTermin()">Add</button>
+                <button class="btn btn-primary col-sm-2" ng-click="addNewTermin()">{{ 'ADD' | translate}}</button>
                 <div class=col-sm-12 ng-if="newTermin">
                     <div class="col-sm-6 edit-room-wrapper">
-                        <div>From:</div>
+                        <div>{{ 'FROM' | translate}}:</div>
 
                         <div class="col-md-12">
                             <p class="input-group">
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6 edit-room-wrapper">
-                        <div>To:</div>
+                        <div>{{ 'TO' | translate}}:</div>
 
                         <div class="col-md-12">
                             <p class="input-group">
@@ -140,28 +140,28 @@
                         </div>
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
-                        <div>Number of rooms:</div>
+                        <div>{{ 'NUMBER_OF_ROOMS' | translate}}:</div>
                         <input ng-disabled="newTermin._id" type="number" class="form-control"
                                ng-model="newTermin.amount"
                                placeholder="{{newTermin.amount}}">
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
-                        <div>Price({{currencyRSD}}):</div>
+                        <div>{{ 'PRICE' | translate}}({{currencyRSD}}):</div>
                         <input ng-disabled="newTermin._id" type="number" class="form-control"
                                ng-model="newTermin.price[currencyRSD]"
                                placeholder="{{newTermin.price[currencyRSD]}}">
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
-                        <div>Price({{currencyEUR}}):</div>
+                        <div>{{ 'PRICE' | translate}}({{currencyEUR}}):</div>
                         <input ng-disabled="newTermin._id" type="number" class="form-control"
                                ng-model="newTermin.price[currencyEUR]"
                                placeholder="{{newTermin.price[currencyEUR]}}">
                     </div>
                     <div ng-if="newTermin._id " class="col-sm-3 edit-room-wrapper">
-                        <button class="btn btn-primary col-sm-12" ng-click="closeTermin()">Close</button>
+                        <button class="btn btn-primary col-sm-12" ng-click="closeTermin()">{{ 'CLOSE' | translate}}</button>
                     </div>
                     <div ng-if="!newTermin._id " class="col-sm-3 edit-room-wrapper">
-                        <button class="btn btn-primary col-sm-12" ng-click="saveNewTermin()">Save</button>
+                        <button class="btn btn-primary col-sm-12" ng-click="saveNewTermin()">{{ 'SAVE' | translate}}</button>
                     </div>
                     <!--<div ng-if="newTermin._id && (termin.amount == termin.remained)" class="col-sm-3 edit-room-wrapper">-->
                     <!--<button class="btn btn-primary col-sm-12" ng-click="deleteTermin()">Delete</button>-->
@@ -169,12 +169,12 @@
                 </div>
                 <table class="col-sm-12 edit-room-wrapper">
                     <thead>
-                    <th>Rooms number</th>
-                    <th>Available</th>
-                    <th>Price({{currencyRSD}})</th>
-                    <th>Price({{currencyEUR}})</th>
-                    <th>From</th>
-                    <th>To</th>
+                    <th>{{ 'ROOMS_NUMBER' | translate}}</th>
+                    <th>{{ 'AVAILABLE' | translate}}</th>
+                    <th>{{ 'PRICE' | translate}}({{currencyRSD}})</th>
+                    <th>{{ 'PRICE' | translate}}({{currencyEUR}})</th>
+                    <th>{{ 'FROM' | translate}}</th>
+                    <th>{{ 'TO' | translate}}</th>
                     </thead>
                     <tbody>
                     <tr ng-repeat="termin in room.available" ng-if="showTermin(termin)" class="cursor" ng-click="openTermin(termin)">
@@ -189,7 +189,7 @@
                 </table>
             </div>
             <div class="col-sm-12 edit-room-wrapper">
-                <p>Room services:</p>
+                <p>{{ 'ROOM_SERVICES' | translate}}:</p>
                 <label class="col-sm-12" ng-repeat="service in room.free_services"><input type="checkbox"
                                                                                           value="service.active"
                                                                                           ng-model="service.active">{{service.service.title[usedLang]}}</label>

@@ -1,13 +1,14 @@
 <div class="row">
     <div class=" col-sm-12 ">
-        <div class="col-sm-2 text-right mt07">Currency: 1 EUR =</div>
+        <div class="col-sm-2 text-right mt07">{{ 'CURRENCY' | translate}}: 1 EUR =</div>
         <div class="col-sm-2">
             <input type="number" class="form-control col-sm-6 text-left" ng-model="euroCourse.value">
             </input>
         </div>
         <div class="mt07 pull-left">RSD</div>
         <div class="col-sm-2">
-            <button class="btn btn-primary col-sm-12" ng-click="updateCourse()"><i class="fa fa-floppy-o"></i> Update
+            <button class="btn btn-primary col-sm-12" ng-click="updateCourse()"><i class="fa fa-floppy-o"></i> {{
+                'UPDATE' | translate}}
             </button>
         </div>
     </div>
@@ -18,7 +19,7 @@
                     <i class="fa fa-users"></i>
                 </div>
                 <div class="title">{{reservations.length}}</div>
-                <div class="comment">Reservations</div>
+                <div class="comment">{{ 'RESERVATIONS' | translate}}</div>
             </rd-widget-body>
         </rd-widget>
     </div>
@@ -29,7 +30,7 @@
                     <i class="fa fa-tasks"></i>
                 </div>
                 <div class="title">{{approvedReviews}}</div>
-                <div class="comment">Approved reviews</div>
+                <div class="comment">{{ 'APPROVED_REVIEWS' | translate}}</div>
             </rd-widget-body>
         </rd-widget>
     </div>
@@ -40,22 +41,22 @@
                     <i class="fa fa-sitemap"></i>
                 </div>
                 <div class="title">{{waitingReviews}}</div>
-                <div class="comment">Waiting reviews</div>
+                <div class="comment">{{ 'WAITING_REVIEWS' | translate}}</div>
             </rd-widget-body>
         </rd-widget>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-sm-6 text-right mt07">Select year for charts:</div>
+    <div class="col-sm-6 text-right mt07">{{ 'CHARTS_YEAR' | translate}}:</div>
     <div class="col-sm-2"><select class="form-control" ng-model="chartYear" ng-change="changeYear(chartYear)"
-                 ng-options="year as year for year in years">
+                                  ng-options="year as year for year in years">
     </select>
     </div>
     <div class="col-lg-12 col-sm-12" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Reservations Chart
+                {{ 'RESERVATIONS_CHART' | translate}}
             </div>
             <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
                 <canvas id="line" class="chart chart-line" data="dataTop" labels="labels" legend="true"
@@ -66,7 +67,7 @@
     <div class="col-lg-12 col-sm-12" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Earnings Chart
+                {{ 'EARNINGS_CHART' | translate}}
             </div>
 
             <div class="col-lg-8 col-sm-offset-2 col-sm-8 panel-body">
@@ -79,7 +80,7 @@
 
 <div class="row">
     <div class="col-sm-12 text-center">
-        <div class="col-sm-12 mt07 text-center">Rooms price list image:</div>
+        <div class="col-sm-12 mt07 text-center">{{ 'ROOM_PRICE_LIST_IMG' | translate}}:</div>
         <div flow-init flow-files-submitted=""
              flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
              flow-name="obj.flow" class="col-sm-12 mt07 img_preview_container " height="250px">
@@ -91,20 +92,20 @@
             </div>
             <div>
           <span class="btn btn-primary" ng-show="!$flow.files.length"
-                flow-btn>Select image<input
+                flow-btn>{{ 'SELECT_IMAGE' | translate}}<input
                   type="file"
                   style="visibility: hidden; position: absolute;"></span>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Update image<input type="file"
-                                            style="visibility: hidden; position: absolute;"></span>
+                flow-btn>{{ 'UPDATE_IMAGE' | translate}}<input type="file"
+                                                               style="visibility: hidden; position: absolute;"></span>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
                    ng-click="$flow.cancel()">
-                    Discard
+                    {{ 'DISCARD' | translate}}
                 </a>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
                    ng-click="uploadPriceList()">
-                    Add
+                    {{ 'ADD' | translate}}
                 </a>
             </div>
         </div>
@@ -113,63 +114,187 @@
 
 <div class="row">
     <div class="col-sm-6 text-center">
-        <div class="col-sm-12 mt07 text-center">Individual reservation file:</div>
+        <div class="col-sm-12 mt07 text-center">{{ 'INDIVIDUAL_INFO' | translate}}:</div>
         <div flow-init flow-files-submitted=""
-             flow-name="individual.flow" class="col-sm-12 mt07 img_preview_container ">
-            <div ng-show="!$flow.files.length && individualReservation">
-                <a href="{{getImageUrl(individualReservation)}}" target="_blank">See file</a>
+             flow-name="individualInfo.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && individualReservationInfo">
+                <a href="{{getImageUrl(individualReservationInfo)}}" target="_blank">{{ 'SEE_FILE' | translate}}</a>
             </div>
             <div ng-show="$flow.files.length">
                 {{$flow.files[0].name}}
             </div>
             <div>
-                <span class="btn btn-primary"  ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>Upload File</span>
-                <a class="btn btn-primary" ng-show="!$flow.files.length && individualReservation"
-                   ng-click="deleteIndividualReservation()">
-                    Delete
+                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>{{ 'UPLOAD_FILE' | translate}}</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && individualReservationInfo"
+                   ng-click="deleteManagementDocument(individualReservationInfo,individualInfoType)">
+                    {{ 'DELETE' | translate}}
                 </a>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Update file<input type="file"
-                                            style="visibility: hidden; position: absolute;"></span>
+                flow-btn>{{ 'UPDATE_FILE' | translate}}<input type="file"
+                                                              style="visibility: hidden; position: absolute;"></span>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
                    ng-click="$flow.cancel()">
-                    Discard
+                    {{ 'DISCARD' | translate}}
                 </a>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
-                   ng-click="uploadIndividualReservation()">
-                    Add
+                   ng-click="uploadManagementDocument(individualInfo,individualInfoType)">
+                    {{ 'ADD' | translate}}
                 </a>
             </div>
         </div>
     </div>
     <div class="col-sm-6 text-center">
-        <div class="col-sm-12 mt07 text-center">Group reservation file:</div>
+        <div class="col-sm-12 mt07 text-center">{{ 'INDIVIDUAL_CONTRACT' | translate}}:</div>
         <div flow-init flow-files-submitted=""
-             flow-name="group.flow" class="col-sm-12 mt07 img_preview_container ">
-            <div ng-show="!$flow.files.length && groupReservation">
-                <a href="{{getImageUrl(groupReservation)}}" target="_blank">See file</a>
+             flow-name="individualContract.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && individualReservationContract">
+                <a href="{{getImageUrl(individualReservationInfo)}}" target="_blank">{{ 'SEE_FILE' | translate}}</a>
             </div>
             <div ng-show="$flow.files.length">
                 {{$flow.files[0].name}}
             </div>
             <div>
-                <span class="btn btn-primary"  ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>Upload File</span>
-                <a class="btn btn-primary" ng-show="!$flow.files.length && groupReservation"
-                   ng-click="deleteGroupReservation()">
-                    Delete
+                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>{{ 'UPLOAD_FILE' | translate}}</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && individualReservationContract"
+                   ng-click="deleteManagementDocument(individualReservationContract,individualContractType)">
+                    {{ 'DELETE' | translate}}
                 </a>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Update file<input type="file"
-                                           style="visibility: hidden; position: absolute;"></span>
+                flow-btn>{{ 'UPDATE_FILE' | translate}}<input type="file"
+                                                              style="visibility: hidden; position: absolute;"></span>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
                    ng-click="$flow.cancel()">
-                    Discard
+                    {{ 'DISCARD' | translate}}
                 </a>
                 <a class="btn btn-primary" ng-show="$flow.files.length"
-                   ng-click="uploadGroupReservation()">
-                    Add
+                   ng-click="uploadManagementDocument(individualContract,individualContractType)">
+                    {{ 'ADD' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 text-center">
+        <div class="col-sm-12 mt07 text-center">{{ 'GROUP_INFO' | translate}}:</div>
+        <div flow-init flow-files-submitted=""
+             flow-name="groupInfo.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && groupReservationInfo">
+                <a href="{{getImageUrl(groupReservationInfo)}}" target="_blank">{{ 'SEE_FILE' | translate}}</a>
+            </div>
+            <div ng-show="$flow.files.length">
+                {{$flow.files[0].name}}
+            </div>
+            <div>
+                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>{{ 'UPLOAD_FILE' | translate}}</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && groupReservationInfo"
+                   ng-click="deleteManagementDocument(groupReservationInfo,groupInfoType)">
+                    {{ 'DELETE' | translate}}
+                </a>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>{{ 'UPDATE_FILE' | translate}}<input type="file"
+                                                              style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    {{ 'DISCARD' | translate}} </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadManagementDocument(groupInfo,groupInfoType)">
+                    {{ 'ADD' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <div class="col-sm-12 mt07 text-center">{{ 'GROUP_CONTRACT' | translate}}:</div>
+        <div flow-init flow-files-submitted=""
+             flow-name="groupContract.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && groupReservationContract">
+                <a href="{{getImageUrl(groupReservationContract)}}" target="_blank">{{ 'SEE_FILE' | translate}}</a>
+            </div>
+            <div ng-show="$flow.files.length">
+                {{$flow.files[0].name}}
+            </div>
+            <div>
+                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>{{ 'UPLOAD_FILE' | translate}}</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && groupReservationContract"
+                   ng-click="deleteManagementDocument(groupReservationContract,groupContractType)">
+                    {{ 'DELETE' | translate}}
+                </a>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>{{ 'UPDATE_FILE' | translate}}<input type="file"
+                                                              style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    {{ 'DISCARD' | translate}} </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadManagementDocument(groupContract,groupContractType)">
+                    {{ 'ADD' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 text-center">
+        <div class="col-sm-12 mt07 text-center">{{ 'PARTNERS_INFO' | translate}}:</div>
+        <div flow-init flow-files-submitted=""
+             flow-name="partnersInfoFlow.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && partnersInfo">
+                <a href="{{getImageUrl(partnersInfo)}}" target="_blank">{{ 'SEE_FILE' | translate}}</a>
+            </div>
+            <div ng-show="$flow.files.length">
+                {{$flow.files[0].name}}
+            </div>
+            <div>
+                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>{{ 'UPLOAD_FILE' | translate}}</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && partnersInfo"
+                   ng-click="deleteManagementDocument(partnersInfo,partnersInfoType)">
+                    {{ 'DELETE' | translate}}
+                </a>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>{{ 'UPDATE_FILE' | translate}}<input type="file"
+                                                              style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    {{ 'DISCARD' | translate}} </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadManagementDocument(partnersInfoFlow,partnersInfoType)">
+                    {{ 'ADD' | translate}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 text-center">
+        <div class="col-sm-12 mt07 text-center">{{ 'PARTNERS_CONTRACT' | translate}}:</div>
+        <div flow-init flow-files-submitted=""
+             flow-name="partnersContractFlow.flow" class="col-sm-12 mt07 img_preview_container ">
+            <div ng-show="!$flow.files.length && partnersContract">
+                <a href="{{getImageUrl(partnersContract)}}" target="_blank">{{ 'SEE_FILE' | translate}}</a>
+            </div>
+            <div ng-show="$flow.files.length">
+                {{$flow.files[0].name}}
+            </div>
+            <div>
+                <span class="btn btn-primary" ng-show="!$flow.files.length" flow-btn><i class="icon icon-file"></i>{{ 'UPLOAD_FILE' | translate}}</span>
+                <a class="btn btn-primary" ng-show="!$flow.files.length && partnersContract"
+                   ng-click="deleteManagementDocument(partnersContract,partnersContractType)">
+                    {{ 'DELETE' | translate}}
+                </a>
+          <span class="btn btn-primary ng-hide"
+                ng-show="$flow.files.length"
+                flow-btn>{{ 'UPDATE_FILE' | translate}}<input type="file"
+                                                              style="visibility: hidden; position: absolute;"></span>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="$flow.cancel()">
+                    {{ 'DISCARD' | translate}} </a>
+                <a class="btn btn-primary" ng-show="$flow.files.length"
+                   ng-click="uploadManagementDocument(partnersContractFlow,partnersContractType)">
+                    {{ 'ADD' | translate}}
                 </a>
             </div>
         </div>

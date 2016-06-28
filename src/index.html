@@ -45,45 +45,42 @@
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
-        <li class="sidebar-title"><span>Navigation</span></li>
+        <li class="sidebar-title"><span>{{ 'NAVIGATION' | translate}}</span></li>
         <li class="sidebar-list">
-          <a href="#">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+          <a href="#">{{ 'DASHBOARD' | translate}} <span class="menu-icon fa fa-tachometer"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/rooms">Rooms <span class="menu-icon fa fa-bed"></span></a>
+          <a href="#/rooms">{{ 'ROOMS' | translate}} <span class="menu-icon fa fa-bed"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/reservations">Reservations<span class="menu-icon fa fa-table"></span></a>
+          <a href="#/reservations">{{ 'RESERVATIONS' | translate}}<span class="menu-icon fa fa-table"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/albums">Albums<span class="menu-icon fa fa-camera-retro"></span></a>
+          <a href="#/albums">{{ 'GALLERY' | translate}}<span class="menu-icon fa fa-camera-retro"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/banners">Banners<span class="menu-icon fa fa-camera-retro"></span></a>
+          <a href="#/banners">{{ 'BANNERS' | translate}}<span class="menu-icon fa fa-camera-retro"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/freeServices">Free Services<span class="menu-icon fa fa-plus-square"></span></a>
+          <a href="#/freeServices">{{ 'FREE_SERVICES' | translate}}<span class="menu-icon fa fa-plus-square"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/roomServices">Room Services<span class="menu-icon fa fa-plus-square"></span></a>
+          <a href="#/roomServices">{{ 'ROOM_SERVICES' | translate}}<span class="menu-icon fa fa-plus-square"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/adverts">Advertising<span class="menu-icon fa fa-picture-o"></span></a>
+          <a href="#/adverts">{{ 'ADVERTISING' | translate}}<span class="menu-icon fa fa-picture-o"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/timeline">Timeline<span class="menu-icon fa fa-clock-o"></span></a>
+          <a href="#/timeline">{{ 'TIMELINE' | translate}}<span class="menu-icon fa fa-clock-o"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/reviews">Reviews<span class="menu-icon fa fa-star"></span></a>
+          <a href="#/reviews">{{ 'REVIEWS' | translate}}<span class="menu-icon fa fa-star"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/social">Social<span class="menu-icon fa fa-facebook"></span></a>
+          <a href="#/social">{{ 'SOCIAL' | translate}}<span class="menu-icon fa fa-facebook"></span></a>
         </li>
         <li class="sidebar-list">
-          <a href="#/partner">Partners<span class="menu-icon fa fa-users"></span></a>
-        </li>
-        <li class="sidebar-list">
-          <a href="#/contact">Contact<span class="menu-icon fa fa-book"></span></a>
+          <a href="#/contact">{{ 'CONTACT' | translate}}<span class="menu-icon fa fa-book"></span></a>
         </li>
       </ul>
     </div>
@@ -93,9 +90,15 @@
       <div class="page-content">
 
         <!-- Header Bar -->
-        <div class="row header">
+        <div class="row header" ng-controller="dashboardCtrl">
           <div class="col-xs-12">
             <div class="user pull-right">
+              <a ng-click="changeLang('rs')" style="margin-right:15px;">
+                <img src="img/sr.jpg" style="margin-top: 15px;zoom: 1.2;">
+              </a>
+              <a  ng-click="changeLang('en')">
+                <img src="img/uk.jpg" style="margin-top: 15px;zoom: 1.2;">
+              </a>
               <div class="item dropdown">
                 <a href="#/" class="dropdown-toggle">
                   <img src="img/avatar.jpg">
@@ -115,10 +118,10 @@
             </div>
             <div class="meta">
               <div class="page">
-                BackOffice
+                {{ 'BACKOFFICE' | translate}}
               </div>
               <div class="breadcrumb-links">
-                Home / {{currentPage}}
+                {{ 'HOME' | translate}} / {{currentPage}}
               </div>
             </div>
           </div>

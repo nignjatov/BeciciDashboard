@@ -1,10 +1,17 @@
 angular.module('RDash')
-    .controller('dashboardCtrl', ['$scope', '$rootScope', 'ReviewsService', 'ReservationsService', 'CoursesService', 'PriceService', 'Notification',
+    .controller('dashboardCtrl', ['$scope', '$rootScope', '$translate','ReviewsService', 'ReservationsService', 'CoursesService', 'PriceService', 'Notification',
         dashboardCtrl]);
 
-function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, CoursesService, PriceService, Notification) {
+function dashboardCtrl($scope, $rootScope, $translate, ReviewsService, ReservationsService, CoursesService, PriceService, Notification) {
 
     $rootScope.currentPage = "Dashboard";
+
+    $scope.individualInfoType = "individualReservationInfo";
+    $scope.individualContractType = "individualReservationContract";
+    $scope.groupInfoType = "groupReservationInfo";
+    $scope.groupContractType = "groupReservationContract";
+    $scope.partnersInfoType = "partnersInfo";
+    $scope.partnersContractType = "partnersContract";
 
     $scope.approvedReviews = 0;
     $scope.waitingReviews = 0;
@@ -28,26 +35,52 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
         flow: null
     };
 
-    $scope.individual = {
+    $scope.individualInfo = {
         flow: null
     };
 
-    $scope.group = {
+    $scope.individualContract = {
+        flow: null
+    };
+
+    $scope.groupInfo = {
+        flow: null
+    };
+
+    $scope.groupContract = {
+        flow: null
+    };
+
+    $scope.partnersInfoFlow = {
+        flow: null
+    };
+    $scope.partnersContractFlow = {
         flow: null
     };
 
     $scope.priceListImg = null;
-    $scope.individualReservation = null;
-    $scope.groupReservation = null;
+
+
+    $scope.changeLang = function(lang){
+        $translate.use(lang);
+    }
 
     PriceService.getPriceList().then(function (data) {
-        angular.forEach(data.data, function(item){
-            if(item.type == 'priceList'){
+        angular.forEach(data.data, function (item) {
+            if (item.type == 'priceList') {
                 $scope.priceListImg = item.filename;
-            } else if(item.type == 'individualReservation'){
-                $scope.individualReservation = item.filename;
-            } else if(item.type == 'groupReservation'){
-                $scope.groupReservation = item.filename;
+            } else if (item.type == 'individualReservationInfo') {
+                $scope.individualReservationInfo = item.filename;
+            } else if (item.type == 'individualReservationContract') {
+                $scope.individualReservationContract = item.filename;
+            } else if (item.type == 'groupReservationInfo') {
+                $scope.groupReservationInfo = item.filename;
+            } else if (item.type == 'groupReservationContract') {
+                $scope.groupReservationContract = item.filename;
+            } else if (item.type == 'partnersInfo') {
+                $scope.partnersInfo = item.filename;
+            } else if (item.type == 'partnersContract') {
+                $scope.partnersContract = item.filename;
             }
         });
     });
@@ -72,9 +105,9 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
                 var resDate = new Date(reservation.updated_on);
                 if (resDate.getFullYear() == $scope.chartYear) {
                     resSeries[resDate.getMonth()]++;
-                    if(reservation.status== "PAID"){
+                    if (reservation.status == "PAID") {
                         moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
-                    } else if (reservation.status== "CANCELED"){
+                    } else if (reservation.status == "CANCELED") {
                         moneySeries[resDate.getMonth()] += parseFloat(reservation.earned);
                     }
                 }
@@ -119,42 +152,24 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
         }
     }
 
-    $scope.uploadIndividualReservation = function () {
-        if (typeof $scope.individual.flow.files !== 'undefined') {
-            PriceService.uploadIndividualReservation($scope.individual.flow).then(function (data) {
-                Notification.primary({message: 'Individual reservation file uploaded!'});
+    $scope.uploadManagementDocument = function (flowObj, type) {
+        if (typeof flowObj.flow.files !== 'undefined') {
+            PriceService.uploadManagementDocument(flowObj.flow, type).then(function (data) {
+                Notification.primary({message: 'File uploaded!'});
             }).catch(function (err) {
                 Notification.error({message: 'Failed to upload file!'});
             });
         }
     }
-
-    $scope.uploadGroupReservation = function () {
-        if (typeof $scope.group.flow.files !== 'undefined') {
-            PriceService.uploadGroupReservation($scope.group.flow).then(function (data) {
-                Notification.primary({message: 'Group reservation file uploaded!'});
-            }).catch(function (err) {
-                Notification.error({message: 'Failed to upload file!'});
-            });
-        }
-    }
-    $scope.deleteIndividualReservation = function () {
-        PriceService.deleteIndividualReservation().then(function (data) {
-            Notification.primary({message: 'Individual reservation file deleted!'});
-            $scope.individualReservation = null;
+    $scope.deleteManagementDocument = function (filename, type) {
+        PriceService.deleteManagementDocument(type).then(function (data) {
+            Notification.primary({message: 'File deleted!'});
+            filename = null;
         }).catch(function (err) {
             Notification.error({message: 'Failed to delete file!'});
         });
     }
 
-    $scope.deleteGroupReservation = function () {
-        PriceService.deleteGroupReservation().then(function (data) {
-            Notification.primary({message: 'Group reservation file deleted!'});
-            $scope.groupReservation = null;
-        }).catch(function (err) {
-            Notification.error({message: 'Failed to delete file!'});
-        });
-    }
     $scope.changeYear = function (year) {
         $scope.dataTop = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -169,9 +184,9 @@ function dashboardCtrl($scope, $rootScope, ReviewsService, ReservationsService, 
             console.log(resDate.getYear());
             if (resDate.getFullYear() == $scope.chartYear) {
                 resSeries[resDate.getMonth()]++;
-                if(reservation.status== "PAID"){
+                if (reservation.status == "PAID") {
                     moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
-                } else if (reservation.status== "CANCELED"){
+                } else if (reservation.status == "CANCELED") {
                     moneySeries[resDate.getMonth()] += parseFloat(reservation.earned);
                 }
             }

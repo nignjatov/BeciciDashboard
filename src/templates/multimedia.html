@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <button class="btn btn-primary  col-sm-2" ui-sref="editAlbum()"><i class="fa fa-plus"></i> Add album
+    <button class="btn btn-primary  col-sm-2" ui-sref="editAlbum()"><i class="fa fa-plus"></i> {{ 'ADD' | translate}}
     </button>
   </div>
   <div class="col-sm-7">
@@ -16,47 +16,47 @@
   <script type="text/ng-template" id="deleteModal.html">
     <div class="modal-header">
       <button type="button" class="close" ng-click="no()">&times;</button>
-      <h4 class="modal-title">Delete</h4>
+      <h4 class="modal-title">{{ 'DELETE' | translate}}</h4>
     </div>
     <div class="modal-body">
-      <p>Are you sure you want to delete this item?</p>
+      <p>{{ 'DELETE_QUESTION' | translate}}</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary"
-              ng-click="yes()">Yes
+              ng-click="yes()">{{ 'YES' | translate}}
       </button>
-      <button type="button" class="btn btn-primary" ng-click="no()">No
+      <button type="button" class="btn btn-primary" ng-click="no()">{{ 'NO' | translate}}
       </button>
     </div>
   </script>
   <div ng-if="selectedAlbum" class="col-sm-5">
     <div class="col-sm-12 edit-header">
-      <h4>Album</h4>
+      <h4>{{ 'ALBUM' | translate}}</h4>
     </div>
     <div class="col-sm-12 edit-body">
       <div class="edit-body-row col-sm-12">
-        <p class="col-sm-3">Title:</p>
+        <p class="col-sm-3">{{ 'TITLE' | translate}}:</p>
 
         <p class="col-sm-9">{{selectedAlbum.name[defaultLang]}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
-        <p class="col-sm-3">Images:</p>
+        <p class="col-sm-3">{{ 'IMAGES' | translate}}:</p>
 
         <p class="col-sm-9">{{selectedAlbum.images.length}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
-        <p class="col-sm-3">Created:</p>
+        <p class="col-sm-3">{{ 'CREATED_AT' | translate}}:</p>
 
         <p class="col-sm-9">{{selectedAlbum.created_at | date : fullDateTime}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
-        <p class="col-sm-3">Modified:</p>
+        <p class="col-sm-3">{{ 'MODIFIED_AT' | translate}}:</p>
 
         <p class="col-sm-9">{{selectedAlbum.last_modified | date : fullDateTime}}</p>
       </div>
       <div class="edit-body-row col-sm-12">
-        <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteAlbum()">Delete</button>
-        <button class="btn btn-primary col-sm-3" ui-sref="editAlbum({ albumId: selectedAlbum._id})">Update</button>
+        <button class="btn btn-primary col-sm-3 text-right" ng-click="deleteAlbum()">{{ 'DELETE' | translate}}</button>
+        <button class="btn btn-primary col-sm-3" ui-sref="editAlbum({ albumId: selectedAlbum._id})">{{ 'UPDATE' | translate}}</button>
       </div>
     </div>
   </div>

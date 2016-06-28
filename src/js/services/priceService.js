@@ -25,9 +25,9 @@ angular.module('RDash')
                 flowObj.upload();
                 return deferred.promise;
             },
-            uploadIndividualReservation: function (flowObj) {
+            uploadManagementDocument: function (flowObj,type) {
                 var deferred = $q.defer();
-                flowObj.opts.target = $rootScope.serverUrl + servicePrefix + "individual";
+                flowObj.opts.target = $rootScope.serverUrl + servicePrefix + "document/"+type;
                 flowObj.opts.testChunks = false;
                 flowObj.opts.fileParameterName = "image";
                 flowObj.on('fileSuccess', function (event, resp) {
@@ -57,10 +57,10 @@ angular.module('RDash')
                 flowObj.upload();
                 return deferred.promise;
             },
-            deleteIndividualReservation: function () {
+            deleteManagementDocument: function (type) {
                 return $http({
                     method: 'DELETE',
-                    url: servicePrefix + 'individual'
+                    url: servicePrefix + 'document/'+type
                 });
             },
             deleteGroupReservation: function () {

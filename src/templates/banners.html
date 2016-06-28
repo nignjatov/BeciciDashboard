@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-12">
-    <button class="btn btn-primary  col-sm-2" class="cursor" ng-click="addBannerItem()"><i class="fa fa-plus"></i> Add Banner
+    <button class="btn btn-primary  col-sm-2" class="cursor" ng-click="addBannerItem()"><i class="fa fa-plus"></i>{{ 'ADD' | translate}}
     </button>
   </div>
   <div class="col-sm-7">
@@ -15,22 +15,22 @@
   <script type="text/ng-template" id="deleteModal.html">
     <div class="modal-header">
       <button type="button" class="close" ng-click="no()">&times;</button>
-      <h4 class="modal-title">Delete</h4>
+      <h4 class="modal-title">{{ 'DELETE' | translate}}</h4>
     </div>
     <div class="modal-body">
-      <p>Are you sure you want to delete this item?</p>
+      <p>{{ 'DELETE_QUESTION' | translate}}</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-primary"
-              ng-click="yes()">Yes
+              ng-click="yes()">{{ 'YES' | translate}}
       </button>
-      <button type="button" class="btn btn-primary" ng-click="no()">No
+      <button type="button" class="btn btn-primary" ng-click="no()">{{ 'NO' | translate}}
       </button>
     </div>
   </script>
   <div ng-if="editBanner" class="col-sm-5">
     <div class="col-sm-12 edit-header">
-      <h4 class="col-sm-6">Banner item</h4>
+      <h4 class="col-sm-6">{{ 'BANNER_ITEM' | translate}}</h4>
 
       <div class="col-sm-3 col-sm-offset-3 text-right select_join">
         <select ng-model="usedLang" ng-change="changeLang(usedLang)"
@@ -40,17 +40,17 @@
     </div>
     <div class="col-sm-12 edit-body">
       <div class="col-sm-12">
-        <div class="col-sm-3">Title:</div>
+        <div class="col-sm-3">{{ 'TITLE' | translate}}:</div>
         <input type="text" class="form-control col-sm-12 text-left" ng-model="editBanner.title[usedLang]">
         </input>
       </div>
       <div class=" col-sm-12 ">
-        <div class="col-sm-3">Description:</div>
+        <div class="col-sm-3">{{ 'DESCRIPTION' | translate}}:</div>
         <textarea class="form-control col-sm-12 text-left" rows="3" ng-model="editBanner.description[usedLang]">
         </textarea>
       </div>
       <div class="col-sm-12 text-center ">
-        <div class="col-sm-12 text-center">Image:</div>
+        <div class="col-sm-12 text-center">{{ 'IMAGE' | translate}}:</div>
         <div flow-init flow-files-submitted="" flow-name="obj.flow"
              flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()] && $file.size < maxPictureSize"
              class="col-sm-12 img_preview_container " height="250px">
@@ -62,29 +62,29 @@
           </div>
           <div>
           <span class="btn btn-primary" ng-show="!$flow.files.length"
-                flow-btn>Select image<input
+                flow-btn>{{ 'SELECT_IMAGE' | translate}}<input
               type="file"
               style="visibility: hidden; position: absolute;"></span>
           <span class="btn btn-primary ng-hide"
                 ng-show="$flow.files.length"
-                flow-btn>Update image<input type="file"
+                flow-btn>{{ 'UPDATE_IMAGE' | translate}}<input type="file"
                                             style="visibility: hidden; position: absolute;"></span>
             <a class="btn btn-primary" ng-show="$flow.files.length"
                ng-click="$flow.cancel()">
-              Discard
+              {{ 'DISCARD' | translate}}
             </a>
           </div>
         </div>
       </div>
       <div class="col-sm-12">
-        <div class="col-sm-3">Created:</div>
+        <div class="col-sm-3">{{ 'CREATED_AT' | translate}}:</div>
         <p class="col-sm-9">{{editBanner.created_at | date : fullDateTime}}</p>
       </div>
       <div class="col-sm-12">
         <button ng-if="editBanner._id" class="btn btn-primary col-sm-3 text-right" ng-click="deleteBanner()">
-          Delete
+          {{ 'DELETE' | translate}}
         </button>
-        <button class="btn btn-primary col-sm-3" ng-click="saveBannerItem()">Save</button>
+        <button class="btn btn-primary col-sm-3" ng-click="saveBannerItem()">{{ 'SAVE' | translate}}</button>
       </div>
     </div>
 </div>
