@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('timelineCtrl', ['$scope', '$rootScope','$modal', 'BlogService', 'Notification', timelineCtrl]);
+    .controller('timelineCtrl', ['$scope', '$rootScope','$modal','$filter', 'BlogService', 'Notification', timelineCtrl]);
 
-function timelineCtrl($scope, $rootScope,$modal, BlogService, Notification) {
+function timelineCtrl($scope, $rootScope,$modal,$filter, BlogService, Notification) {
 
     $rootScope.currentPage = "Timeline";
 
@@ -44,19 +44,19 @@ function timelineCtrl($scope, $rootScope,$modal, BlogService, Notification) {
             BlogService.createBlogItem($scope.editTimelineEvent).then(function (data) {
                 $scope.timelineEvents.push(data.data);
                 $scope.editTimelineEvent = null;
-                Notification.primary({message: 'Created timeline event!'});
+                Notification.primary({message: $filter('translate')('CREATED_TIMELINE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to create timeline event!'});
+                Notification.error({message: $filter('translate')('NOT_CREATED_TIMELINE_ITEM')});
             });
         } else {
             BlogService.updateBlogItem($scope.editTimelineEvent._id, $scope.editTimelineEvent).then(function (data) {
                 $scope.editTimelineEvent = null;
-                Notification.primary({message: 'Timeline event updated!'});
+                Notification.primary({message: $filter('translate')('UPDATED_TIMELINE_ITEM')});
                 BlogService.getTimelineItems().then(function (data) {
                     $scope.timelineEvents = data.data;
                 });
             }).catch(function (err) {
-                Notification.error({message: 'Failed to update timeline event!'});
+                Notification.error({message: $filter('translate')('NOT_UPDATED_TIMELINE_ITEM')});
             });
         }
     }
@@ -71,9 +71,9 @@ function timelineCtrl($scope, $rootScope,$modal, BlogService, Notification) {
             BlogService.deleteBlogItem($scope.editTimelineEvent._id).then(function (data) {
                 $scope.timelineEvents.splice($scope.timelineEvents.indexOf($scope.editTimelineEvent), 1);
                 $scope.editTimelineEvent = null;
-                Notification.primary({message: 'Timeline event removed!'});
+                Notification.primary({message: $filter('translate')('DELETED_TIMELINE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to remove timeline event!'});
+                Notification.error({message: $filter('translate')('NOT_DELETED_TIMELINE_ITEM')});
             });
         });
     }

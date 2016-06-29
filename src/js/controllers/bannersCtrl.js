@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('bannersCtrl', ['$scope', '$rootScope','$modal', 'BlogService', 'Notification', bannersCtrl]);
+    .controller('bannersCtrl', ['$scope', '$rootScope','$modal','$filter', 'BlogService', 'Notification', bannersCtrl]);
 
-function bannersCtrl($scope, $rootScope,$modal, BlogService, Notification) {
+function bannersCtrl($scope, $rootScope,$modal,$filter, BlogService, Notification) {
 
     $rootScope.currentPage = "Banners";
 
@@ -46,18 +46,18 @@ function bannersCtrl($scope, $rootScope,$modal, BlogService, Notification) {
                 $scope.uploadPicture();
                 $scope.banners.push(data.data);
                 $scope.editBanner = null;
-                Notification.primary({message: 'Created new banner item!'});
+                Notification.primary({message: $filter('translate')('CREATED_BANNER_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to create banner item!'});
+                Notification.error({message: $filter('translate')('NOT_CREATED_BANNER_ITEM')});
             });
         } else {
             console.log($scope.editBanner);
             BlogService.updateBlogItem($scope.editBanner._id, $scope.editBanner).then(function (data) {
                 $scope.uploadPicture();
                 $scope.editBanner = null;
-                Notification.primary({message: 'Banner item updated!'});
+                Notification.primary({message: $filter('translate')('UPDATED_BANNER_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to update banner item!'});
+                Notification.error({message: $filter('translate')('NOT_UPDATED_BANNER_ITEM')});
             });
         }
     }
@@ -73,9 +73,9 @@ function bannersCtrl($scope, $rootScope,$modal, BlogService, Notification) {
             BlogService.deleteBlogItem($scope.editBanner._id).then(function (data) {
                 $scope.banners.splice($scope.banners.indexOf($scope.editBanner), 1);
                 $scope.editBanner = null;
-                Notification.primary({message: 'Banner item removed removed!'});
+                Notification.primary({message: $filter('translate')('DELETED_BANNER_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to remove banner item!'});
+                Notification.error({message: $filter('translate')('NOT_DELETED_BANNER_ITEM')});
             });
         });
     }
@@ -109,7 +109,7 @@ function bannersCtrl($scope, $rootScope,$modal, BlogService, Notification) {
                     }
                 }
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload picture!'});
+                Notification.error({message: $filter('translate')('PICTURE_UPLOADED')});
             });
 
         }

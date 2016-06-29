@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('contactCtrl', ['$scope','$rootScope', 'ContactService','Notification', contactCtrl]);
+  .controller('contactCtrl', ['$scope','$rootScope','$filter', 'ContactService','Notification', contactCtrl]);
 
-function contactCtrl($scope,$rootScope,ContactService,Notification) {
+function contactCtrl($scope,$rootScope,$filter, ContactService,Notification) {
 
   $rootScope.currentPage = "Contact";
 
@@ -38,15 +38,15 @@ function contactCtrl($scope,$rootScope,ContactService,Notification) {
     if((typeof $scope.contact._id  === 'undefined')){
       ContactService.createContactInfo($scope.contact).then(function (data){
         $scope.contact = data.data;
-        Notification.primary({message: 'Contact information saved!'});
+        Notification.primary({message: $filter('translate')('UPDATED_CONTACT_INFO')});
       }).catch(function (err) {
-        Notification.error({message: 'Failed to save contact information!'});
+        Notification.error({message: $filter('translate')('NOT_UPDATED_CONTACT_INFO')});
       });
     } else {
       ContactService.updateContactInfo($scope.contact._id,$scope.contact).then(function (data){
-        Notification.primary({message: 'Contact information saved!'});
+        Notification.primary({message: $filter('translate')('UPDATED_CONTACT_INFO')});
       }).catch(function (err) {
-        Notification.error({message: 'Failed to save contact information!'});
+        Notification.error({message: $filter('translate')('NOT_UPDATED_CONTACT_INFO')});
       });
     }
   }

@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('roomServiceCtrl', ['$scope', '$rootScope', '$modal', 'HotelServicesService', 'Notification', roomServiceCtrl]);
+    .controller('roomServiceCtrl', ['$scope', '$rootScope', '$modal','$filter', 'HotelServicesService', 'Notification', roomServiceCtrl]);
 
-function roomServiceCtrl($scope, $rootScope, $modal, HotelServicesService, Notification) {
+function roomServiceCtrl($scope, $rootScope, $modal,$filter, HotelServicesService, Notification) {
 
     $rootScope.currentPage = "Room Services";
 
@@ -38,16 +38,16 @@ function roomServiceCtrl($scope, $rootScope, $modal, HotelServicesService, Notif
             HotelServicesService.createService($scope.editRoomService).then(function (data) {
                 $scope.roomServices.push(data.data);
                 $scope.editRoomService = null;
-                Notification.primary({message: 'Created new room service!'});
+                Notification.primary({message: $filter('translate')('CREATED_ROOM_SERVICE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to create room service!'});
+                Notification.error({message: $filter('translate')('NOT_CREATED_ROOM_SERVICE_ITEM')});
             });
         } else {
             HotelServicesService.updateService($scope.editRoomService._id, $scope.editRoomService).then(function (data) {
                 $scope.editRoomService = null;
-                Notification.primary({message: 'Room service updated!'});
+                Notification.primary({message: $filter('translate')('UPDATED_ROOM_SERVICE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to update room service!'});
+                Notification.error({message: $filter('translate')('NOT_UPDATED_ROOM_SERVICE_ITEM')});
             });
         }
 
@@ -63,9 +63,9 @@ function roomServiceCtrl($scope, $rootScope, $modal, HotelServicesService, Notif
             HotelServicesService.deleteHotelService($scope.editRoomService._id).then(function (data) {
                 $scope.roomServices.splice($scope.roomServices.indexOf($scope.editRoomService), 1);
                 $scope.editRoomService = null;
-                Notification.primary({message: 'Room service removed!'});
+                Notification.primary({message: $filter('translate')('DELETED_ROOM_SERVICE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to remove room service!'});
+                Notification.error({message: $filter('translate')('NOT_DELETED_ROOM_SERVICE_ITEM')});
             });
         });
     }

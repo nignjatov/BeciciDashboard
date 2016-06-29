@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('freeServicesCtrl', ['$scope', '$rootScope', '$modal', 'HotelServicesService', 'Notification', freeServicesCtrl]);
+    .controller('freeServicesCtrl', ['$scope', '$rootScope', '$modal','$filter', 'HotelServicesService', 'Notification', freeServicesCtrl]);
 
-function freeServicesCtrl($scope, $rootScope, $modal, HotelServicesService, Notification) {
+function freeServicesCtrl($scope, $rootScope, $modal,$filter, HotelServicesService, Notification) {
 
     $rootScope.currentPage = "Free Services";
 
@@ -46,18 +46,18 @@ function freeServicesCtrl($scope, $rootScope, $modal, HotelServicesService, Noti
                 $scope.editFreeService = data.data;
                 $scope.uploadPicture();
                 $scope.editFreeService = null;
-                Notification.primary({message: 'Created new free service!'});
+                Notification.primary({message: $filter('translate')('CREATED_SERVICE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to create new free service!'});
+                Notification.error({message: $filter('translate')('NOT_CREATED_SERVICE_ITEM')});
             });
         } else {
             HotelServicesService.updateService($scope.editFreeService._id, $scope.editFreeService).then(function (data) {
                 $scope.editFreeService = data.data;
                 $scope.uploadPicture();
                 $scope.editFreeService = null;
-                Notification.primary({message: 'Free service updated!'});
+                Notification.primary({message: $filter('translate')('UPDATED_SERVICE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to update free service!'});
+                Notification.error({message: $filter('translate')('NOT_UPDATED_SERVICE_ITEM')});
             });
         }
     }
@@ -73,9 +73,9 @@ function freeServicesCtrl($scope, $rootScope, $modal, HotelServicesService, Noti
             HotelServicesService.deleteHotelService($scope.editFreeService._id).then(function (data) {
                 $scope.freeServices.splice($scope.freeServices.indexOf($scope.editFreeService), 1);
                 $scope.editFreeService = null;
-                Notification.primary({message: 'Free service removed!'});
+                Notification.primary({message: $filter('translate')('DELETED_SERVICE_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to remove free service!'});
+                Notification.error({message: $filter('translate')('NOT_DELETED_SERVICE_ITEM')});
             });
         });
     }
@@ -109,7 +109,7 @@ function freeServicesCtrl($scope, $rootScope, $modal, HotelServicesService, Noti
                     }
                 }
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload picture!'});
+                Notification.error({message: $filter('translate')('PICTURE_NOT_UPLOADED')});
             });
 
         }

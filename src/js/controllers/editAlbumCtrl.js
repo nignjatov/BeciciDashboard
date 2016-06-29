@@ -9,9 +9,9 @@
  */
 
 angular.module('RDash')
-  .controller('editAlbumCtrl', ['$scope','$rootScope','$window','$state','AlbumsService','Notification', editAlbumCtrl]);
+  .controller('editAlbumCtrl', ['$scope','$rootScope','$window','$state','$filter','AlbumsService','Notification', editAlbumCtrl]);
 
-function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notification) {
+function editAlbumCtrl($scope,$rootScope,$window,$state,$filter,AlbumsService,Notification) {
 
   $rootScope.currentPage = "Edit Album";
   $scope.titleLang = $rootScope.defaultLang;
@@ -46,16 +46,16 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
     if (typeof $scope.album._id === 'undefined') {
       AlbumsService.createAlbum($scope.album).then(function (data){
         $scope.album=data.data;
-        Notification.primary({message: 'New album created!'});
+        Notification.primary({message: $filter('translate')('ALBUM_CREATED')});
       }).catch(function (err) {
-        Notification.error({message: 'Failed to create new album!'});
+        Notification.error({message: $filter('translate')('ALBUM_NOT_CREATED')});
       });
     } else {
       AlbumsService.updateAlbum($scope.album._id,$scope.album).then(function (data){
         $scope.album=data.data;
-        Notification.primary({message: 'Album updated!'});
+        Notification.primary({message: $filter('translate')('ALBUM_UPDATED')});
       }).catch(function (err) {
-        Notification.error({message: 'Failed to update album!'});
+        Notification.error({message: $filter('translate')('ALBUM_NOT_UPDATED')});
       });
     }
   }
@@ -67,9 +67,9 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
   $scope.deleteImage = function(image){
     AlbumsService.deleteImage($scope.album._id,image.filename).then(function(data){
       $scope.imageUrls.splice($scope.imageUrls.indexOf(image),1);
-      Notification.primary({message: 'Image removed!'});
+      Notification.primary({message: $filter('translate')('PICTURE_REMOVED')});
     }).catch(function (err) {
-      Notification.error({message: 'Failed to remove image!'});
+      Notification.error({message: $filter('translate')('PICTURE_NOT_REMOVED')});
     });
   }
 
@@ -80,10 +80,10 @@ function editAlbumCtrl($scope,$rootScope,$window,$state,AlbumsService,Notificati
           url : $rootScope.getImageUrl(data.filename),
           filename: data.filename
         });
-        Notification.primary({message: 'Image added!'});
+        Notification.primary({message: $filter('translate')('PICTURE_UPLOADED')});
         $scope.obj.flow.cancel();
       }).catch( function (err){
-        Notification.error({message: 'Failed to add image!'});
+        Notification.error({message: $filter('translate')('PICTURE_NOT_UPLOADED')});
       });
 
     }

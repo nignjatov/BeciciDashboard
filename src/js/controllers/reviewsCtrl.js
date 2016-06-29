@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('reviewsCtrl', ['$scope', '$rootScope', '$modal','ReviewsService', 'Notification', reviewsCtrl]);
+    .controller('reviewsCtrl', ['$scope', '$rootScope', '$modal','$filter','ReviewsService', 'Notification', reviewsCtrl]);
 
-function reviewsCtrl($scope, $rootScope,$modal, ReviewsService, Notification) {
+function reviewsCtrl($scope, $rootScope,$modal,$filter, ReviewsService, Notification) {
 
     $rootScope.currentPage = "Reviews";
 
@@ -39,9 +39,9 @@ function reviewsCtrl($scope, $rootScope,$modal, ReviewsService, Notification) {
                 .then(function () {
                     $scope.reviews.splice($scope.reviews.indexOf($scope.selectedReview), 1);
                     $scope.selectedReview = null;
-                    Notification.primary({message: 'Review removed!'});
+                    Notification.primary({message: $filter('translate')('DELETED_REVIEW_ITEM')});
                 }).catch(function (err) {
-                Notification.error({message: 'Failed to remove review!'});
+                Notification.error({message: $filter('translate')('NOT_DELETED_REVIEW_ITEM')});
             });
         });
     }
@@ -49,19 +49,19 @@ function reviewsCtrl($scope, $rootScope,$modal, ReviewsService, Notification) {
         ReviewsService.changeReviewStatus($scope.selectedReview._id, 'rejected')
             .then(function () {
                 $scope.selectedReview.status = 'rejected';
-                Notification.primary({message: 'Changed review\'s status to: rejected!'});
+                Notification.primary({message: $filter('translate')('REJECTED_REVIEW_ITEM')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to change review\'s status!'});
+                Notification.error({message: $filter('translate')('NOT_REJECTED_REVIEW_ITEM')});
             });
 
     }
     $scope.approveReview = function () {
         ReviewsService.changeReviewStatus($scope.selectedReview._id, 'approved')
             .then(function () {
-                Notification.primary({message: 'Changed review\'s status to: approved!'});
+                Notification.primary({message: $filter('translate')('APPROVED_REVIEW_ITEM')});
                 $scope.selectedReview.status = 'approved';
             }).catch(function (err) {
-                Notification.error({message: 'Failed to change review\'s status!'});
+                Notification.error({message: $filter('translate')('NOT_APPROVED_REVIEW_ITEM')});
             });
 
     }

@@ -1,8 +1,8 @@
 angular.module('RDash')
-    .controller('dashboardCtrl', ['$scope', '$rootScope', '$translate','ReviewsService', 'ReservationsService', 'CoursesService', 'PriceService', 'Notification',
+    .controller('dashboardCtrl', ['$scope', '$rootScope', '$translate', '$filter', 'ReviewsService', 'ReservationsService', 'CoursesService', 'PriceService', 'Notification',
         dashboardCtrl]);
 
-function dashboardCtrl($scope, $rootScope, $translate, ReviewsService, ReservationsService, CoursesService, PriceService, Notification) {
+function dashboardCtrl($scope, $rootScope, $translate,$filter, ReviewsService, ReservationsService, CoursesService, PriceService, Notification) {
 
     $rootScope.currentPage = "Dashboard";
 
@@ -129,9 +129,9 @@ function dashboardCtrl($scope, $rootScope, $translate, ReviewsService, Reservati
 
     $scope.updateCourse = function () {
         CoursesService.updateEuroCurrency($scope.euroCourse).then(function (data) {
-            Notification.primary({message: 'Currency updated!'});
+            Notification.primary({message: $filter('translate')('CURRENCY_UPDATED')});
         }).catch(function () {
-            Notification.error({message: 'Failed to currency update!'});
+            Notification.error({message: $filter('translate')('CURRENCY_NOT_UPDATED')});
         });
     }
     $scope.onClickTop = function (points, evt) {
@@ -144,9 +144,9 @@ function dashboardCtrl($scope, $rootScope, $translate, ReviewsService, Reservati
     $scope.uploadPriceList = function () {
         if (typeof $scope.obj.flow.files !== 'undefined') {
             PriceService.uploadImage($scope.obj.flow).then(function (data) {
-                Notification.primary({message: 'Price list uploaded!'});
+                Notification.primary({message: $filter('translate')('FILE_UPLOADED')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload picture!'});
+                Notification.error({message: $filter('translate')('FILE_NOT_UPLOADED')});
             });
 
         }
@@ -155,18 +155,18 @@ function dashboardCtrl($scope, $rootScope, $translate, ReviewsService, Reservati
     $scope.uploadManagementDocument = function (flowObj, type) {
         if (typeof flowObj.flow.files !== 'undefined') {
             PriceService.uploadManagementDocument(flowObj.flow, type).then(function (data) {
-                Notification.primary({message: 'File uploaded!'});
+                Notification.primary({message: $filter('translate')('FILE_UPLOADED')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload file!'});
+                Notification.error({message: $filter('translate')('FILE_NOT_UPLOADED')});
             });
         }
     }
     $scope.deleteManagementDocument = function (filename, type) {
         PriceService.deleteManagementDocument(type).then(function (data) {
-            Notification.primary({message: 'File deleted!'});
+            Notification.primary({message: $filter('translate')('FILE_DELETED')});
             filename = null;
         }).catch(function (err) {
-            Notification.error({message: 'Failed to delete file!'});
+            Notification.error({message: $filter('translate')('FILE_NOT_DELETED')});
         });
     }
 

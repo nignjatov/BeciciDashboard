@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('roomsCtrl', ['$scope', '$rootScope', '$modal', 'RoomsService', 'Notification', roomsCtrl]);
+    .controller('roomsCtrl', ['$scope', '$rootScope', '$modal','$filter', 'RoomsService', 'Notification', roomsCtrl]);
 
-function roomsCtrl($scope, $rootScope, $modal, RoomsService, Notification) {
+function roomsCtrl($scope, $rootScope, $modal, $filter, RoomsService, Notification) {
 
     $rootScope.currentPage = "Rooms";
 
@@ -31,9 +31,9 @@ function roomsCtrl($scope, $rootScope, $modal, RoomsService, Notification) {
                 RoomsService.deleteRoom($scope.selectedRoom._id).then(function (data) {
                     $scope.rooms.splice($scope.rooms.indexOf($scope.selectedRoom), 1);
                     $scope.selectedRoom = null;
-                    Notification.primary({message: 'Room removed!'});
+                    Notification.primary({message: $filter('translate')('DELETED_ROOM')});
                 }).catch(function (err) {
-                    Notification.error({message: 'Failed to remove room!'});
+                    Notification.error({message: $filter('translate')('NOT_DELETED_ROOM')});
                 });
             }
         });

@@ -41,7 +41,7 @@
       <ul class="sidebar">
         <li class="sidebar-main yo">
           <a ng-click="toggleSidebar()">
-            BackOffice
+            {{ 'BACKOFFICE' | translate}}
             <span class="menu-icon glyphicon glyphicon-transfer"></span>
           </a>
         </li>
@@ -93,12 +93,8 @@
         <div class="row header" ng-controller="dashboardCtrl">
           <div class="col-xs-12">
             <div class="user pull-right">
-              <a ng-click="changeLang('rs')" style="margin-right:15px;">
-                <img src="img/sr.jpg" style="margin-top: 15px;zoom: 1.2;">
-              </a>
-              <a  ng-click="changeLang('en')">
-                <img src="img/uk.jpg" style="margin-top: 15px;zoom: 1.2;">
-              </a>
+                <img src="img/sr.jpg" ng-click="changeLang('rs')" style="margin-right:15px;margin-top: 15px;zoom: 1.2;">
+                <img src="img/uk.jpg" ng-click="changeLang('en')"style="margin-top: 15px;zoom: 1.2;">
               <div class="item dropdown">
                 <a href="#/" class="dropdown-toggle">
                   <img src="img/avatar.jpg">

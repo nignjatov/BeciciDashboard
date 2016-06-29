@@ -1,7 +1,7 @@
 angular.module('RDash')
-    .controller('advertisingCtrl', ['$scope', '$rootScope','$modal', 'BlogService', 'Notification', advertisingCtrl]);
+    .controller('advertisingCtrl', ['$scope', '$rootScope','$modal', '$filter','BlogService', 'Notification', advertisingCtrl]);
 
-function advertisingCtrl($scope, $rootScope,$modal, BlogService, Notification) {
+function advertisingCtrl($scope, $rootScope,$modal,$filter, BlogService, Notification) {
 
     $rootScope.currentPage = "Advertising";
 
@@ -47,18 +47,18 @@ function advertisingCtrl($scope, $rootScope,$modal, BlogService, Notification) {
                 $scope.uploadPicture();
                 $scope.advertising.push(data.data);
                 $scope.editAdvertising = null;
-                Notification.primary({message: 'Created new advertisement!'});
+                Notification.primary({message: $filter('translate')('CREATED_BLOG_ITEM')});
             }).catch(function () {
-                Notification.error({message: 'Failed to create advertisement!'});
+                Notification.error({message: $filter('translate')('NOT_CREATED_BLOG_ITEM')});
             });
         } else {
             console.log($scope.editAdvertising);
             BlogService.updateBlogItem($scope.editAdvertising._id, $scope.editAdvertising).then(function (data) {
                 $scope.uploadPicture();
                 $scope.editAdvertising = null;
-                Notification.primary({message: 'Advertisement updated!'});
+                Notification.primary({message: $filter('translate')('UPDATED_BLOG_ITEM')});
             }).catch(function () {
-                Notification.error({message: 'Failed to update advertisement!'});
+                Notification.error({message: $filter('translate')('NOT_UPDATED_BLOG_ITEM')});
             });
         }
     }
@@ -74,9 +74,9 @@ function advertisingCtrl($scope, $rootScope,$modal, BlogService, Notification) {
             BlogService.deleteBlogItem($scope.editAdvertising._id).then(function (data) {
                 $scope.advertising.splice($scope.advertising.indexOf($scope.editAdvertising), 1);
                 $scope.editAdvertising = null;
-                Notification.primary({message: 'Advertisement removed!'});
+                Notification.primary({message: $filter('translate')('DELETED_BLOG_ITEM')});
             }).catch(function () {
-                Notification.error({message: 'Failed to remove advertisement!'});
+                Notification.error({message: $filter('translate')('NOT_DELETED_BLOG_ITEM')});
             });
         });
     }
@@ -88,9 +88,9 @@ function advertisingCtrl($scope, $rootScope,$modal, BlogService, Notification) {
     $scope.uploadPicture = function () {
         if (typeof $scope.obj.flow.files !== 'undefined') {
             BlogService.uploadImage($scope.editAdvertising._id, $scope.obj.flow).then(function (data) {
-                Notification.primary({message: 'Advert picture uploaded!'});
+                Notification.primary({message: $filter('translate')('PICTURE_UPLOADED')});
             }).catch(function (err) {
-                Notification.error({message: 'Failed to upload advert picture!'});
+                Notification.error({message: $filter('translate')('PICTURE_NOT_UPLOADED')});
             });
 
         }

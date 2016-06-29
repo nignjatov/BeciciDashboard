@@ -1,7 +1,7 @@
 angular.module('RDash')
-  .controller('socialCtrl', ['$scope', '$rootScope','SocialService','Notification', socialCtrl]);
+  .controller('socialCtrl', ['$scope', '$rootScope','$filter','SocialService','Notification', socialCtrl]);
 
-function socialCtrl($scope,$rootScope, SocialService,Notification) {
+function socialCtrl($scope,$rootScope,$filter, SocialService,Notification) {
 
   $rootScope.currentPage = "Social Networks";
 
@@ -34,9 +34,9 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
           filterNetworks();
           console.log($scope.socials);
           $scope.addNetworkName = ""
-          Notification.primary({message: 'Social network added!'});
+          Notification.primary({message: $filter('translate')('CREATED_SOCIAL_ITEM')});
         }).catch(function (err) {
-            Notification.error({message: 'Failed to add social network!'});
+            Notification.error({message: $filter('translate')('NOT_CREATED_SOCIAL_ITEM')});
           });
     }
   }
@@ -47,9 +47,9 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
       link: social.link
     }).then(function (data) {
       console.log(social);
-      Notification.primary({message: 'Social network updated!'});
+      Notification.primary({message: $filter('translate')('UPDATED_SOCIAL_ITEM')});
     }).catch(function (err) {
-      Notification.error({message: 'Failed to update social networks!'});
+      Notification.error({message: $filter('translate')('NOT_UPDATED_SOCIAL_ITEM')});
     });
 
   }
@@ -57,9 +57,9 @@ function socialCtrl($scope,$rootScope, SocialService,Notification) {
     SocialService.deleteNetwork(social._id).then(function (data) {
       $scope.socials.splice($scope.socials.indexOf(social), 1);
       filterNetworks();
-      Notification.primary({message: 'Social network removed!'});
+      Notification.primary({message: $filter('translate')('DELETED_SOCIAL_ITEM')});
     }).catch(function (err) {
-      Notification.error({message: 'Failed to remove social network!'});
+      Notification.error({message: $filter('translate')('NOT_DELETED_SOCIAL_ITEM')});
     });
   }
 

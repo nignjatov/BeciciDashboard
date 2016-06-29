@@ -9,9 +9,9 @@
  */
 
 angular.module('RDash')
-    .controller('editRoomCtrl', ['$scope', '$rootScope', '$window', '$state', 'RoomsService', 'HotelServicesService', 'Notification', editRoomCtrl]);
+    .controller('editRoomCtrl', ['$scope', '$rootScope', '$window', '$state','$filter', 'RoomsService', 'HotelServicesService', 'Notification', editRoomCtrl]);
 
-function editRoomCtrl($scope, $rootScope, $window, $state, RoomsService, HotelServicesService, Notification) {
+function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService, HotelServicesService, Notification) {
 
     $rootScope.currentPage = "Edit Room";
 
