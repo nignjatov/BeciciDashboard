@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function reservationsCtrl($scope, $rootScope, Notification, ReservationsService, RoomsService) {
 
-    $rootScope.currentPage = "Reservations";
+    $rootScope.currentPage = "RESERVATIONS";
 
     $scope.selectedReservation = null;
     $scope.reservations = [];
@@ -14,7 +14,7 @@ function reservationsCtrl($scope, $rootScope, Notification, ReservationsService,
             }
         })
 
-        RoomsService.getRooms().then(function (roomsData) {
+        RoomsService.getRoomsAdmin().then(function (roomsData) {
             angular.forEach($scope.reservations, function (reservation) {
                 if (reservation.order.room) {
                     angular.forEach(roomsData.data, function (room) {

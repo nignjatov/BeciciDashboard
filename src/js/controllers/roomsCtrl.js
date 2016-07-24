@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function roomsCtrl($scope, $rootScope, $modal, $filter, RoomsService, Notification) {
 
-    $rootScope.currentPage = "Rooms";
+    $rootScope.currentPage = "ROOMS";
 
     $scope.usedLang = $rootScope.defaultLang;
     $scope.selectedRoom = null;

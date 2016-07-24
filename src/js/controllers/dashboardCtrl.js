@@ -4,7 +4,7 @@ angular.module('RDash')
 
 function dashboardCtrl($scope, $rootScope, $translate,$filter, ReviewsService, ReservationsService, CoursesService, PriceService, Notification) {
 
-    $rootScope.currentPage = "Dashboard";
+    $rootScope.currentPage = "DASHBOARD";
 
     $scope.individualInfoType = "individualReservationInfo";
     $scope.individualContractType = "individualReservationContract";

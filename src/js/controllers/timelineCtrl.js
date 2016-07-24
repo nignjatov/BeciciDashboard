@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function timelineCtrl($scope, $rootScope,$modal,$filter, BlogService, Notification) {
 
-    $rootScope.currentPage = "Timeline";
+    $rootScope.currentPage = "TIMELINE";
 
     $scope.editTimelineEvent = null;
 

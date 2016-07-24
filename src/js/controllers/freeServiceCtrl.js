@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function freeServicesCtrl($scope, $rootScope, $modal,$filter, HotelServicesService, Notification) {
 
-    $rootScope.currentPage = "Free Services";
+    $rootScope.currentPage = "FREE_SERVICES";
 
     $scope.obj = {
         flow: null

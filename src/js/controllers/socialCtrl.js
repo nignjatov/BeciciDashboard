@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function socialCtrl($scope,$rootScope,$filter, SocialService,Notification) {
 
-  $rootScope.currentPage = "Social Networks";
+  $rootScope.currentPage = "SOCIAL";
 
   $scope.defaultNetworks = [
     "Facebook",

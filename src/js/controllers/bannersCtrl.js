@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function bannersCtrl($scope, $rootScope,$modal,$filter, BlogService, Notification) {
 
-    $rootScope.currentPage = "Banners";
+    $rootScope.currentPage = "BANNERS";
 
     $scope.banners = [];
     $scope.editBanner = null;

@@ -13,7 +13,7 @@ angular.module('RDash')
 
 function editAlbumCtrl($scope,$rootScope,$window,$state,$filter,AlbumsService,Notification) {
 
-  $rootScope.currentPage = "Edit Album";
+  $rootScope.currentPage = "GALLERY";
   $scope.titleLang = $rootScope.defaultLang;
 
   $scope.obj= {

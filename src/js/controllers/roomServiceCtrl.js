@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function roomServiceCtrl($scope, $rootScope, $modal,$filter, HotelServicesService, Notification) {
 
-    $rootScope.currentPage = "Room Services";
+    $rootScope.currentPage = "ROOM_SERVICES";
 
     $scope.editRoomService = null;
 

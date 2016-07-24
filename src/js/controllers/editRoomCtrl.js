@@ -13,7 +13,7 @@ angular.module('RDash')
 
 function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService, HotelServicesService, Notification) {
 
-    $rootScope.currentPage = "Edit Room";
+    $rootScope.currentPage = "ROOMS";
 
     $scope.newTermin = null;
 
@@ -88,12 +88,12 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
                 $scope.room = data.data;
                 $scope.room._id = data.data._id;
                 $scope.uploadPicture();
-                Notification.primary({message: 'New room created!'});
+                Notification.primary({message: $filter('translate')('CREATED_ROOM')});
             });
         } else {
             RoomsService.updateRoom($scope.room._id, $scope.room).then(function (data) {
                 $scope.uploadPicture();
-                Notification.primary({message: 'Room updated!'});
+                Notification.primary({message: $filter('translate')('UPDATED_ROOM')});
             })
         }
     }
@@ -107,6 +107,8 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
 
     $scope.openTermin = function (termin) {
         $scope.newTermin = termin;
+        console.log("OPEN NEW TERMIN");
+        console.log($scope.newTermin);
     }
 
     $scope.closeTermin = function () {
@@ -114,16 +116,17 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
     }
 
     $scope.deleteTermin = function () {
-        $scope.room.available.push($scope.newTermin);
+        $scope.newTermin.active = false;
         $scope.newTermin = null;
     }
     $scope.saveNewTermin = function () {
         var added = false;
+        $scope.newTermin.active = true;
         $scope.newTermin.remained = $scope.newTermin.amount;
         $scope.newTermin.from = new Date(new Date($scope.newTermin.from).getTime()+12*3600*1000);
         $scope.newTermin.to = new Date(new Date($scope.newTermin.to).getTime()+12*3600*1000);
         angular.forEach($scope.room.available, function (termin) {
-            if (added == false) {
+            if ((added == false) && (termin.active)) {
                 var newFrom = new Date($scope.newTermin.from).getTime();
                 var newTo = new Date($scope.newTermin.to).getTime();
                 var terFrom = new Date(termin.from).getTime();
@@ -161,7 +164,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
                 $scope.room.image = data.filename;
                 $scope.imageURL = $rootScope.getImageUrl($scope.room.image);
             }).catch(function (err) {
-                console.log("FAILURE");
+                {message: $filter('translate')('PICTURE_NOT_UPLOADED')}
             });
         }
     }
@@ -218,9 +221,11 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
     }
 
     $scope.$watch('newTermin.from', function () {
-        $scope.toMinDate = $scope.newTermin.from;
-        $scope.toMaxDate = $scope.toMinDate.getTime() + 14 * 24 * 3600 * 1000;
-        $scope.newTermin.to = null;
+        if($scope.newTermin){
+            $scope.toMinDate = $scope.newTermin.from;
+            $scope.toMaxDate = $scope.toMinDate.getTime() + 14 * 24 * 3600 * 1000;
+            //TO DO compare to and null if needed
+        }
     });
 
     $scope.changeYear = function(){
@@ -229,7 +234,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
     }
 
     $scope.showTermin = function(termin){
-        if(new Date(termin.from).getFullYear() == $scope.terminYear){
+        if((new Date(termin.from).getFullYear() == $scope.terminYear) && termin.active){
             return true;
         }
         return false;

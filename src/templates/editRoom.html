@@ -90,7 +90,7 @@
             <div class="col-sm-12 edit-room-wrapper">
                 <p>{{ 'ROOM_AVAILABILITY' | translate}}:</p>
                 <div class="col-sm-12">
-                    <div class="col-sm-3 mt07">{{ 'SELECT)YEAR' | translate}}:</div>
+                    <div class="col-sm-3 mt07">{{ 'SELECT_YEAR' | translate}}:</div>
                     <div class="col-sm-3"><select class="form-control" ng-model="terminYear"
                                                   ng-change="changeYear(terminYear)"
                                                   ng-options="year as year for year in years">
@@ -104,7 +104,7 @@
 
                         <div class="col-md-12">
                             <p class="input-group">
-                                <input ng-disabled="newTermin._id" type="text" class="form-control"
+                                <input ng-disabled="newTermin.active != null" type="text" class="form-control"
                                        uib-datepicker-popup="{{fullDate}}"
                                        min-date="minDate"
                                        ng-model="newTermin.from"
@@ -113,7 +113,7 @@
                                        ng-required="true"
                                        close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-disabled="newTermin._id" ng-click="openFrom($event)"><i
+                <button type="button" class="btn btn-default" ng-disabled="newTermin.active != null" ng-click="openFrom($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
                             </p>
@@ -124,7 +124,7 @@
 
                         <div class="col-md-12">
                             <p class="input-group">
-                                <input ng-disabled="newTermin._id" type="text" class="form-control"
+                                <input ng-disabled="newTermin.active != null" type="text" class="form-control"
                                        uib-datepicker-popup="{{fullDate}}"
                                        min-date="toMinDate"
                                        max-date="toMaxDate"
@@ -133,7 +133,7 @@
                                        ng-required="true"
                                        close-text="Close"/>
               <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-disabled="newTermin._id" ng-click="openTo($event)"><i
+                <button type="button" class="btn btn-default" ng-disabled="newTermin.active != null" ng-click="openTo($event)"><i
                         class="glyphicon glyphicon-calendar"></i></button>
               </span>
                             </p>
@@ -141,31 +141,32 @@
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
                         <div>{{ 'NUMBER_OF_ROOMS' | translate}}:</div>
-                        <input ng-disabled="newTermin._id" type="number" class="form-control"
+                        <input ng-disabled="newTermin.active != null"
+                               type="number" class="form-control"
                                ng-model="newTermin.amount"
                                placeholder="{{newTermin.amount}}">
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
                         <div>{{ 'PRICE' | translate}}({{currencyRSD}}):</div>
-                        <input ng-disabled="newTermin._id" type="number" class="form-control"
+                        <input ng-disabled="newTermin.active != null" type="number" class="form-control"
                                ng-model="newTermin.price[currencyRSD]"
                                placeholder="{{newTermin.price[currencyRSD]}}">
                     </div>
                     <div class="col-sm-4 edit-room-wrapper">
                         <div>{{ 'PRICE' | translate}}({{currencyEUR}}):</div>
-                        <input ng-disabled="newTermin._id" type="number" class="form-control"
+                        <input ng-disabled="newTermin.active != null" type="number" class="form-control"
                                ng-model="newTermin.price[currencyEUR]"
                                placeholder="{{newTermin.price[currencyEUR]}}">
                     </div>
-                    <div ng-if="newTermin._id " class="col-sm-3 edit-room-wrapper">
-                        <button class="btn btn-primary col-sm-12" ng-click="closeTermin()">{{ 'CLOSE' | translate}}</button>
+                    <div class="col-sm-3 edit-room-wrapper">
+                        <button class="btn btn-primary col-sm-12" ng-click="closeTermin()">{{ 'BACK' | translate}}</button>
                     </div>
-                    <div ng-if="!newTermin._id " class="col-sm-3 edit-room-wrapper">
+                    <div class="col-sm-3 edit-room-wrapper">
                         <button class="btn btn-primary col-sm-12" ng-click="saveNewTermin()">{{ 'SAVE' | translate}}</button>
                     </div>
-                    <!--<div ng-if="newTermin._id && (termin.amount == termin.remained)" class="col-sm-3 edit-room-wrapper">-->
-                    <!--<button class="btn btn-primary col-sm-12" ng-click="deleteTermin()">Delete</button>-->
-                    <!--</div>-->
+                    <div ng-if="newTermin.active == true" class="col-sm-3 edit-room-wrapper">
+                        <button class="btn btn-primary col-sm-12" ng-click="deleteTermin()">{{ 'DELETE' | translate}}</button>
+                    </div>
                 </div>
                 <table class="col-sm-12 edit-room-wrapper">
                     <thead>

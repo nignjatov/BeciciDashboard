@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function reviewsCtrl($scope, $rootScope,$modal,$filter, ReviewsService, Notification) {
 
-    $rootScope.currentPage = "Reviews";
+    $rootScope.currentPage = "REVIEWS";
 
     ReviewsService.getAllReviews()
         .then(function (data) {

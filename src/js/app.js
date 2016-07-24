@@ -135,6 +135,8 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-no
             NUMBER_OF_ROOMS: 'Number of rooms',
             DELETED_ROOM: 'Deleted room',
             NOT_DELETED_ROOM: 'Failed to delete room',
+            CREATED_ROOM : 'Created new room',
+            UPDATED_ROOM : 'Updated room',
             //Reservations
             ROOM: 'Room',
             SEARCH_RESERVATIONS: 'Search reservations',
@@ -319,6 +321,8 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-no
             NUMBER_OF_ROOMS: 'Broj soba',
             DELETED_ROOM: 'Soba obrisana',
             NOT_DELETED_ROOM: 'Neuspešno brisanje sobe',
+            CREATED_ROOM : 'Kreirana nova soba',
+            UPDATED_ROOM : 'Podaci o sobi ažurirani',
             //Reservations
             ROOM: 'Soba',
             SEARCH_RESERVATIONS: 'Pretraži rezervacije',
@@ -430,7 +434,7 @@ RDashApp.run(function ($rootScope) {
 
     $rootScope.currencyRSD = "RSD";
     $rootScope.currencyEUR = "EUR";
-    $rootScope.currentPage = "Dashboard";
+    $rootScope.currentPage = "DASHBOARD";
     $rootScope.latitude = 42.28295;
     $rootScope.longitude = 18.87260;
 

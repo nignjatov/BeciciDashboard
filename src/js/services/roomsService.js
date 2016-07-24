@@ -9,6 +9,12 @@ angular.module('RDash')
           url: servicePrefix+'list/all'
         });
       },
+      getRoomsAdmin: function () {
+        return $http({
+          method: 'GET',
+          url: servicePrefix+'admin/list/all'
+        });
+      },
       getRoomById: function (roomId) {
         return $http({
           method: 'GET',

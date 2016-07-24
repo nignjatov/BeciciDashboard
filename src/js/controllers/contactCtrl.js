@@ -3,7 +3,7 @@ angular.module('RDash')
 
 function contactCtrl($scope,$rootScope,$filter, ContactService,Notification) {
 
-  $rootScope.currentPage = "Contact";
+  $rootScope.currentPage = "CONTACT";
 
   $scope.enterEmail = "";
   $scope.contact = {
