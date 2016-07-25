@@ -104,11 +104,15 @@ function dashboardCtrl($scope, $rootScope, $translate,$filter, ReviewsService, R
                 }
                 var resDate = new Date(reservation.updated_on);
                 if (resDate.getFullYear() == $scope.chartYear) {
-                    resSeries[resDate.getMonth()]++;
+
                     if (reservation.status == "PAID") {
                         moneySeries[resDate.getMonth()] += parseFloat(reservation.amount);
+                        resSeries[resDate.getMonth()]++;
                     } else if (reservation.status == "CANCELED") {
                         moneySeries[resDate.getMonth()] += parseFloat(reservation.earned);
+                        resSeries[resDate.getMonth()]++;
+                    } else if (reservation.status == "CAPTURED") {
+                        resSeries[resDate.getMonth()]++;
                     }
                 }
             })

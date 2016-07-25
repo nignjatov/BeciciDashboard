@@ -161,7 +161,7 @@
                     <div class="col-sm-3 edit-room-wrapper">
                         <button class="btn btn-primary col-sm-12" ng-click="closeTermin()">{{ 'BACK' | translate}}</button>
                     </div>
-                    <div class="col-sm-3 edit-room-wrapper">
+                    <div class="col-sm-3 edit-room-wrapper" ng-if="newTermin._id == null && newTermin.added == null">
                         <button class="btn btn-primary col-sm-12" ng-click="saveNewTermin()">{{ 'SAVE' | translate}}</button>
                     </div>
                     <div ng-if="newTermin.active == true" class="col-sm-3 edit-room-wrapper">

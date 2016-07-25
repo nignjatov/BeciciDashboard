@@ -125,6 +125,7 @@ function editRoomCtrl($scope, $rootScope, $window, $state,$filter, RoomsService,
         $scope.newTermin.remained = $scope.newTermin.amount;
         $scope.newTermin.from = new Date(new Date($scope.newTermin.from).getTime()+12*3600*1000);
         $scope.newTermin.to = new Date(new Date($scope.newTermin.to).getTime()+12*3600*1000);
+        $scope.newTermin.added = true;
         angular.forEach($scope.room.available, function (termin) {
             if ((added == false) && (termin.active)) {
                 var newFrom = new Date($scope.newTermin.from).getTime();

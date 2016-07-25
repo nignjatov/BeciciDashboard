@@ -4,7 +4,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                    <input type="text" class="form-control" placeholder="Search reservations" ng-model="searchWord">
+                    <input type="text" class="form-control" placeholder="{{ 'SEARCH_RESERVATIONS' | translate}}" ng-model="searchWord">
                 </div>
             </div>
         </form>
@@ -12,42 +12,42 @@
             <thead>
             <th>
                 <a class="cursor white-text" ng-click="sortType = 'order.email'; sortReverse = !sortReverse">
-                    E-Mail
+                    {{ 'E_MAIL' | translate}}
                     <span ng-show="sortType == 'order.email' && sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'order.email' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
             <th>
                 <a class="cursor white-text" ng-click="sortType = 'room.title'; sortReverse = !sortReverse">
-                    Room
+                    {{ 'ROOM' | translate}}
                     <span ng-show="sortType == 'room.title' && sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'room.title' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
             <th>
                 <a class="cursor white-text" ng-click="sortType = 'termin.from'; sortReverse = !sortReverse">
-                    From
+                    {{ 'FROM' | translate}}
                     <span ng-show="sortType == 'termin.from' && sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'termin.from' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
             <th>
                 <a class="cursor white-text" ng-click="sortType = 'termin.to'; sortReverse = !sortReverse">
-                    To
+                    {{ 'TO' | translate}}
                     <span ng-show="sortType == 'termin.to' && sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'termin.to' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
             <th>
                 <a class="cursor white-text" ng-click="sortType = 'status'; sortReverse = !sortReverse">
-                    Status
+                    {{ 'STATUS' | translate}}
                     <span ng-show="sortType == 'status' && sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'status' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
             </th>
             <th>
                 <a class="cursor white-text" ng-click="sortType = 'created_at'; sortReverse = !sortReverse">
-                    Created at
+                    {{ 'CREATED_AT' | translate}}
                     <span ng-show="sortType == 'created_at' && sortReverse" class="fa fa-caret-down"></span>
                     <span ng-show="sortType == 'created_at' && !sortReverse" class="fa fa-caret-up"></span>
                 </a>
@@ -69,66 +69,93 @@
     </div>
     <div ng-if="selectedReservation" class="col-sm-5">
         <div class="col-sm-12 edit-header">
-            <h4>Reservation</h4>
+            <h4>{{ 'RESERVATION' | translate}}</h4>
         </div>
         <div class="col-sm-12 edit-body">
             <div class="col-sm-12">
-                <p class="col-sm-4">First name:</p>
+                <p class="col-sm-4">{{ 'FIRST_NAME' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.order.name}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Last name:</p>
+                <p class="col-sm-4">{{ 'LAST_NAME' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.order.lastname}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">E-Mail:</p>
+                <p class="col-sm-4">{{ 'E_MAIL' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.order.email}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Room type:</p>
+                <p class="col-sm-4">{{ 'ADDRESS' | translate}}:</p>
+
+                <p class="col-sm-8">{{selectedReservation.order.address}}</p>
+            </div>
+            <div class="col-sm-12">
+                <p class="col-sm-4">{{ 'CITY' | translate}}:</p>
+
+                <p class="col-sm-8">{{selectedReservation.order.city}}</p>
+            </div>
+            <div class="col-sm-12">
+                <p class="col-sm-4">{{ 'PHONE' | translate}}:</p>
+
+                <p class="col-sm-8">{{selectedReservation.order.phone}}</p>
+            </div>
+            <div class="col-sm-12">
+                <p class="col-sm-4">{{ 'PERSONS' | translate}}:</p>
+
+                <div class="col-sm-8">
+                    <p class="col-sm-12 no-padding" ng-repeat="person in selectedReservation.order.persons">{{person.name}} {{person.lastname}}, {{person.date | date : fullDate}}, {{ person.type}}</p>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <p class="col-sm-4">{{ 'ROOM_TYPE' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.room.type[defaultLang]}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Start date:</p>
+                <p class="col-sm-4">{{ 'FROM' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.termin.from| date : fullDate}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">End date:</p>
+                <p class="col-sm-4">{{ 'TO' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.termin.to | date : fullDate}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Created at:</p>
+                <p class="col-sm-4">{{ 'CREATED_AT' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.created_at | date : fullDateTime}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Transaction ID:</p>
+                <p class="col-sm-4">PAYMENT ID:</p>
 
-                <p class="col-sm-8">{{selectedReservation.notification.paymentid}}</p>
+                <p class="col-sm-8">{{selectedReservation.paymentId}}</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Price:</p>
+                <p class="col-sm-4">TRANSACTION ID:</p>
+
+                <p class="col-sm-8">{{selectedReservation.notification.tranid}}</p>
+            </div>
+            <div class="col-sm-12">
+                <p class="col-sm-4">AUTH CODE:</p>
+
+                <p class="col-sm-8">{{selectedReservation.notification.auth}}</p>
+            </div>
+            <div class="col-sm-12">
+                <p class="col-sm-4">{{ 'PRICE' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.amount}} RSD</p>
             </div>
             <div class="col-sm-12">
-                <p class="col-sm-4">Status:</p>
+                <p class="col-sm-4">{{ 'STATUS' | translate}}:</p>
 
                 <p class="col-sm-8">{{selectedReservation.status}}</p>
             </div>
-            <div class="col-sm-12" ng-class="{'red-font' : selectedReservation.termin.remained == 0}">
-                <p class="col-sm-4">Available rooms:</p>
-
-                <p class="col-sm-8">{{selectedReservation.termin.remained}}</p>
-            </div>
-            <div ng-if="selectedReservation.status == 'CAPTURED'" class="col-sm-12">
-                <p class="col-sm-4">Room number:</p>
+            <div ng-if="selectedReservation.status == 'CAPTURED' || selectedReservation.status == 'PAID'" class="col-sm-12">
+                <p class="col-sm-4">{{ 'ROOM_NUMBER' | translate}}:</p>
 
                 <div class="col-sm-8">
                     <input type="text" class="form-control col-sm-12 text-left"
@@ -136,23 +163,18 @@
                     </input>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <!--<button ng-if="selectedReservation.status == 'CAPTURED' || selectedReservation.status == 'VOIDED' "-->
-                <!--class="btn btn-primary col-sm-3 text-right" ng-click="archiveReservation()">Archive-->
-                <!--</button>-->
+            <div class="col-sm-12 mt07">
                 <button ng-if="selectedReservation.status == 'CAPTURED'"
                         class="btn btn-primary col-sm-4"
-                        ng-click="markAsPaid()">Mark as paid
+                        ng-click="markAsPaid()">{{ 'MARK_PAID' | translate}}
                 </button>
                 <button ng-if="selectedReservation.status == 'PAID'"
                         class="btn btn-primary col-sm-3"
-                        ng-click="cancelReservation()">Cancel
+                        ng-click="cancelReservation()">{{ 'CANCEL' | translate}}
                 </button>
-                <button ng-if="selectedReservation.status == 'APPROVED'" class="btn btn-primary col-sm-3"
-                        ng-click="rejectReservation()">Reject
-                </button>
-                <button ng-if="selectedReservation.status == 'CAPTURED' && selectedReservation.roomNumber.length > 0" class="btn btn-primary col-sm-3"
-                        ng-click="saveReservation()">Save
+                <button ng-if="(selectedReservation.status == 'CAPTURED'  || selectedReservation.status == 'PAID')
+                                && selectedReservation.roomNumber.length > 0" class="btn btn-primary col-sm-3"
+                        ng-click="saveReservation()">{{ 'SAVE' | translate}}
                 </button>
             </div>
         </div>
