@@ -97,6 +97,7 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-no
             FILE_NOT_UPLOADED: 'Failed to upload file',
             FILE_DELETED: 'File successfully deleted',
             FILE_NOT_DELETED: 'Failed to delete file',
+            CANCEL : 'Cancel',
             //Dashboard
             CURRENCY: 'Currency',
             CHARTS_YEAR: 'Select year for charts',
@@ -290,6 +291,7 @@ var RDashApp = angular.module('RDash', ['ui.router', 'ngCookies', 'flow', 'ui-no
             FILE_NOT_UPLOADED: 'Neuspešno postavljanje fajla',
             FILE_DELETED: 'Fajl uspešno obrisan',
             FILE_NOT_DELETED: 'Neuspešno postavljanje fajla',
+            CANCEL : 'Otkaži',
             //Dashboard
             CURRENCY: 'Kurs',
             CHARTS_YEAR: 'Odaberite godinu za grafike',
